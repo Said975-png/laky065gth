@@ -10,26 +10,21 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
     },
     {
-      "src": "/health",
-      "dest": "/api/index.js"
-    },
+      "source": "/health",
+      "destination": "/api/index.js"
+    }
+  ],
+  "redirects": [
     {
-      "src": "/assets/(.*)",
-      "dest": "/dist/spa/assets/$1"
-    },
-    {
-      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
-      "dest": "/dist/spa/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/spa/index.html"
+      "source": "/assets/(.*)",
+      "destination": "/dist/spa/assets/$1",
+      "permanent": true
     }
   ],
   "headers": [
@@ -70,5 +65,6 @@
     }
   ],
   "buildCommand": "npm run build",
-  "installCommand": "npm install"
+  "installCommand": "npm install",
+  "outputDirectory": "dist/spa"
 }
