@@ -65,6 +65,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Заполните все обязательные поля",
         error: "Заполните все обязательные поля",
       };
       return res.status(400).json(response);
@@ -75,6 +76,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (!emailRegex.test(bookingData.clientEmail)) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Некорректный email адрес",
         error: "Некорректный email адрес",
       };
       return res.status(400).json(response);
@@ -85,6 +87,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (!phoneRegex.test(bookingData.clientPhone)) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Некорректный номер телефона",
         error: "Некорректный номер телефона",
       };
       return res.status(400).json(response);
@@ -98,6 +101,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (preferredDate < today) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Дата брони не может быть в прошлом",
         error: "Дата брони не может быть в прошлом",
       };
       return res.status(400).json(response);
@@ -141,6 +145,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка создания брони:", error);
     const response: CreateBookingResponse = {
       success: false,
+      message: "Ошибка сервера при создании брони",
       error: "Ошибка сервера при создании брони",
     };
     res.status(500).json(response);
@@ -233,6 +238,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "ID брони не указан",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
@@ -246,6 +252,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Бронь не найдена",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
@@ -276,6 +283,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка обновления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
+      message: "Ошибка сервера при обновлении брони",
       error: "Ошибка сервера при обновлении брони",
     };
     res.status(500).json(response);
@@ -292,6 +300,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "ID брони не указан",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
@@ -305,6 +314,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Бронь не найдена",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
@@ -316,6 +326,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (userId !== "admin" && booking.userId !== userId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Нет прав для удаления этой брони",
         error: "Нет прав для удаления этой брони",
       };
       return res.status(403).json(response);
@@ -337,6 +348,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка удаления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
+      message: "Ошибка сервера при удалении брони",
       error: "Ошибка сервера при удалении брони",
     };
     res.status(500).json(response);

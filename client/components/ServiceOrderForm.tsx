@@ -194,6 +194,9 @@ export default function ServiceOrderForm({
     setFormData({
       projectType: "",
       projectDescription: "",
+      clientLastName: "",
+      clientFirstName: "",
+      clientMiddleName: "",
       clientName: currentUser?.name || "",
       clientEmail: currentUser?.email || "",
       estimatedPrice: 0,
