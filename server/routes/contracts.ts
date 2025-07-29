@@ -4,9 +4,68 @@ import {
   CreateContractResponse,
   ContractData,
 } from "@shared/api";
+import * as fs from "fs";
+import * as path from "path";
+
+// Path to contracts data file
+const contractsPath = path.join(
+  process.cwd(),
+  "data",
+  "contracts",
+  "contracts.json",
+);
 
 // In-memory storage for contracts (for serverless deployment)
 let contractsStore: ContractData[] = [];
+
+// Load contracts from file system
+function loadContracts(): ContractData[] {
+  try {
+    if (fs.existsSync(contractsPath)) {
+      const data = fs.readFileSync(contractsPath, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error("Error loading contracts:", error);
+  }
+  return [];
+}
+
+// Save contracts to file system
+function saveContracts(contracts: ContractData[]): void {
+  try {
+    const dir = path.dirname(contractsPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(contractsPath, JSON.stringify(contracts, null, 2));
+  } catch (error) {
+    console.error("Error saving contracts:", error);
+  }
+}
+
+// Save contract HTML file
+function saveContractHTML(contractData: ContractData): void {
+  try {
+    const contractHTML = generateContractHTML(contractData);
+    const htmlPath = path.join(
+      process.cwd(),
+      "data",
+      "contracts",
+      contractData.fileName,
+    );
+    const dir = path.dirname(htmlPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(htmlPath, contractHTML, "utf-8");
+  } catch (error) {
+    console.error("Error saving contract HTML:", error);
+  }
+}
+
+// Initialize contracts store
+contractsStore = loadContracts();
 
 // Contract template
 const generateContractHTML = (contractData: ContractData): string => {
@@ -110,7 +169,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="section">
-        <div class="section-title">2. ПРЕДМЕТ ДОГОВОРА</div>
+        <div class="section-title">2. ПРЕДМЕТ ДОГОВОР��</div>
         <div class="contract-details">
           <div class="detail-row">
             <div class="detail-label">Тип проекта:</div>
@@ -122,21 +181,21 @@ const generateContractHTML = (contractData: ContractData): string => {
           </div>
           <div class="detail-row">
             <div class="detail-label">Стоимость:</div>
-            <div class="detail-value">${contractData.price.toLocaleString("ru-RU")} рублей</div>
+            <div class="detail-value">Предварительная стоимость: ${contractData.price.toLocaleString("ru-RU")} ₽</div>
           </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-title">3. УСЛОВИЯ ВЫПОЛНЕНИЯ</div>
-        <p>3.1. Исполнитель обязуется выполнить работы согласно техническому заданию.</p>
+        <p>3.1. Исполнитель обязуется выполнить работ�� согласно техническому заданию.</p>
         <p>3.2. Срок выполнения работ: 15-20 рабочих дней с момента подписания договора.</p>
-        <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения работ.</p>
+        <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения рабо��.</p>
       </div>
 
       <div class="section">
         <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
-        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} рублей.</p>
+        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} ₽.</p>
         <p>4.2. Оплата производится в следующем порядке:</p>
         <ul>
           <li>50% предоплата при подписании договора</li>
@@ -174,6 +233,12 @@ const generateContractHTML = (contractData: ContractData): string => {
 };
 
 export const createContract: RequestHandler = async (req, res) => {
+  console.log("📝 [CONTRACT] Создание контракта - запрос получен");
+  console.log("📝 [CONTRACT] Method:", req.method);
+  console.log("📝 [CONTRACT] URL:", req.url);
+  console.log("📝 [CONTRACT] Headers:", req.headers);
+  console.log("📝 [CONTRACT] Body:", req.body);
+
   try {
     const {
       projectType,
@@ -203,8 +268,12 @@ export const createContract: RequestHandler = async (req, res) => {
       fileName: `contract-${contractId}.html`,
     };
 
-    // Store contract in memory
+    // Store contract in memory and file system
     contractsStore.push(contractData);
+    saveContracts(contractsStore);
+
+    // Save contract HTML file
+    saveContractHTML(contractData);
 
     const response: CreateContractResponse = {
       success: true,
@@ -226,6 +295,13 @@ export const createContract: RequestHandler = async (req, res) => {
 };
 
 export const getUserContracts: RequestHandler = async (req, res) => {
+  console.log(
+    "📋 [CONTRACT] Получение контрактов пользователя - запрос получен",
+  );
+  console.log("📋 [CONTRACT] Method:", req.method);
+  console.log("📋 [CONTRACT] URL:", req.url);
+  console.log("📋 [CONTRACT] Headers:", req.headers);
+
   try {
     const userId = req.headers["user-id"] as string;
 
@@ -236,7 +312,10 @@ export const getUserContracts: RequestHandler = async (req, res) => {
       });
     }
 
-    // Filter contracts by user ID from in-memory storage
+    // Reload contracts from file system for latest data
+    contractsStore = loadContracts();
+
+    // Filter contracts by user ID
     const userContracts = contractsStore.filter(
       (contract) => contract.userId === userId,
     );
@@ -255,10 +334,18 @@ export const getUserContracts: RequestHandler = async (req, res) => {
 };
 
 export const getContract: RequestHandler = async (req, res) => {
+  console.log("📄 [CONTRACT] Получение контракта - запрос получен");
+  console.log("📄 [CONTRACT] Method:", req.method);
+  console.log("📄 [CONTRACT] URL:", req.url);
+  console.log("📄 [CONTRACT] Params:", req.params);
+
   try {
     const { contractId } = req.params;
 
-    // Find contract in memory storage
+    // Reload contracts from file system for latest data
+    contractsStore = loadContracts();
+
+    // Find contract
     const contract = contractsStore.find((c) => c.id === contractId);
 
     if (!contract) {
