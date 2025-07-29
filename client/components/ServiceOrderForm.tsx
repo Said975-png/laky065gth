@@ -73,7 +73,7 @@ const serviceTypes = [
       "Безграничные возможности с Джарвисом и инновационными функциями",
     features: [
       "Все из Pro",
-      "Встроенный Джарвис",
+      "��строенный Джарвис",
       "3D элементы",
       "VR/AR интеграция",
       "Персональный менеджер",
@@ -437,7 +437,7 @@ export default function ServiceOrderForm({
                     Предварительная стоимость:
                   </span>
                   <span className="text-blue-400 font-bold text-lg">
-                    {formData.estimatedPrice.toLocaleString("ru-RU")} ₽
+                    {formData.estimatedPrice.toLocaleString("ru-RU")} сум
                   </span>
                 </div>
                 <p className="text-white/60 text-sm mt-1">

@@ -625,7 +625,7 @@ function Profile() {
                 className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Назад на главную</span>
+                <span className="hidden sm:inline">Назад на глав��ую</span>
               </Link>
               <Separator orientation="vertical" className="h-6" />
               <div className="flex items-center space-x-2">
@@ -829,7 +829,7 @@ function Profile() {
                         Общая сумма
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
-                        {stats.totalSpent.toLocaleString("ru-RU")} ₽
+                        {stats.totalSpent.toLocaleString("ru-RU")} сум
                       </p>
                     </div>
                     <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
@@ -970,7 +970,7 @@ function Profile() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Activity className="w-5 h-5" />
-                    <span>Последняя активность</span>
+                    <span>Последняя акти��ность</span>
                   </div>
                   <Button
                     onClick={() => setActiveTab("activity")}
@@ -1436,7 +1436,7 @@ function Profile() {
                               )}
                             </span>
                             <span className="font-semibold text-purple-600">
-                              {contract.price.toLocaleString("ru-RU")} ₽
+                              {contract.price.toLocaleString("ru-RU")} сум
                             </span>
                           </div>
                         </div>
@@ -1537,7 +1537,7 @@ function Profile() {
                               {booking.serviceType === "basic"
                                 ? "BASIC пакет"
                                 : booking.serviceType === "pro"
-                                  ? "PRO пакет"
+                                  ? "PRO па��ет"
                                   : booking.serviceType === "max"
                                     ? "MAX пакет"
                                     : booking.serviceType === "consultation"
@@ -1598,7 +1598,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Создано:{" "}
+                            Созд��но:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
