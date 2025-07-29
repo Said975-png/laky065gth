@@ -39,7 +39,7 @@ const serviceTypes = [
     label: "BASIC - Веб-сайт",
     icon: Globe,
     price: 2500000,
-    description: "Красивый и функциональный сайт с современным дизайном",
+    description: "Красивый и функциональный сайт с современным дизай��ом",
     features: [
       "Уникальный дизайн",
       "Адаптивная верстка",
@@ -437,7 +437,7 @@ export default function ServiceOrderForm({
                     Предварительная стоимость:
                   </span>
                   <span className="text-blue-400 font-bold text-lg">
-                    {formData.estimatedPrice.toLocaleString("ru-RU")} ₽
+                    {formData.estimatedPrice.toLocaleString("ru-RU")} сум
                   </span>
                 </div>
                 <p className="text-white/60 text-sm mt-1">

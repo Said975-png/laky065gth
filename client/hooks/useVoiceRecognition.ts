@@ -63,7 +63,7 @@ export const useVoiceRecognition = ({
     // Дополнительные настройки для мобильных
     if (mobile) {
       recognition.lang = lang;
-      // Для мобильных ус��ройств используем более консервативные настройки
+      // Для мобильных устройств используем более консервативные настройки
       if ("grammars" in recognition) {
         recognition.grammars = new (window as any).SpeechGrammarList();
       }
@@ -151,7 +151,7 @@ export const useVoiceRecognition = ({
         return;
       }
 
-      // Обработка ��етевых ошибок (частые на мобильных)
+      // Обработка сетевых ошибок (частые на мобильных)
       if (event.error === "network" || event.error === "service-not-allowed") {
         console.log("🌐 Сетевая ошибка, попробуем перезапустить");
         restartAttemptsRef.current++;
@@ -210,7 +210,7 @@ export const useVoiceRecognition = ({
               // Если слишком много ошибок, останавливаем
               if (restartAttemptsRef.current > 5) {
                 console.log(
-                  "🛑 Слишком много ошибо�� перезапуска, останавливаем",
+                  "🛑 Слишком много ошибок перезапуска, останавливаем",
                 );
                 setIsListening(false);
                 isProcessingRef.current = false;
@@ -252,7 +252,7 @@ export const useVoiceRecognition = ({
     }
 
     try {
-      // Пересоздаем recognition для мобильных устро��ств
+      // Пересоздаем recognition для мобильных устройств
       if (mobile || !recognitionRef.current) {
         recognitionRef.current = initializeRecognition();
       }

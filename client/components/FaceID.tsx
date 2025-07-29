@@ -59,7 +59,7 @@ export default function FaceID({
     } catch (error) {
       console.error("Camera initialization error:", error);
       onError(
-        "Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камер��.",
+        "Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камере.",
       );
     }
   }, [onError]);
@@ -119,7 +119,7 @@ export default function FaceID({
     let faceShapePixels = 0;
     let totalPixels = 0;
 
-    // Детальный анализ центральной области
+    // Дет��льный анализ центральной области
     for (let y = centerY - checkRadius; y < centerY + checkRadius; y++) {
       for (let x = centerX - checkRadius; x < centerX + checkRadius; x++) {
         if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
@@ -178,7 +178,7 @@ export default function FaceID({
 
     // Строгие критерии для детекции лица
     const hasEnoughSkin = skinRatio > 0.25; // Минимум 25% кожи
-    const hasEyeRegions = eyeRatio > 0.05; // Есть темные области �� верхней части
+    const hasEyeRegions = eyeRatio > 0.05; // Есть темные области в верхней части
     const hasContrast = contrastRatio > 0.15; // Достаточно контраста
     const hasShape = shapeRatio > 0.6; // Правильная форма
     const goodLighting = averageBrightness > 40 && averageBrightness < 200;
@@ -360,7 +360,7 @@ export default function FaceID({
         `Descriptor comparison: correlation=${correlation.toFixed(3)}, euclidean=${euclideanDist.toFixed(3)}, similarity=${similarity.toFixed(3)}`,
       );
 
-      return Math.max(0, similarity); // Убираем отрицательные значения
+      return Math.max(0, similarity); // Убираем отр��цательные значения
     },
     [],
   );
@@ -510,7 +510,7 @@ export default function FaceID({
             setStatus("Обработка данных...");
 
             try {
-              // Генерируем дескрипторы для всех изображений с проверкой качества
+              // Генерируем дескрипторы д��я всех изображений с проверкой качества
               const descriptors: number[][] = [];
               let validImages = 0;
 
@@ -597,7 +597,7 @@ export default function FaceID({
                 } else {
                   setStatus("Лицо не распознано. Доступ запрещен.");
                   onError(
-                    "Лицо не ра��познано. Попробуйте еще ра�� или войдите другим способом.",
+                    "Лицо не распознано. Попробуйте еще раз или войдите другим способом.",
                   );
                 }
               }
@@ -763,7 +763,7 @@ export default function FaceID({
           )}
         </div>
 
-        {/* Инструкции */}
+        {/* Инструкц��и */}
         <div className="text-xs text-white/60 text-center space-y-1">
           {mode === "register" ? (
             <>
@@ -775,7 +775,7 @@ export default function FaceID({
           ) : (
             <>
               <p>• Посмотрите прямо в камеру</p>
-              <p>��� Держите устройство неподвижно</p>
+              <p>• Держите устройство неподвижно</p>
               <p>• Убедитесь, что лицо хорошо освещено</p>
             </>
           )}

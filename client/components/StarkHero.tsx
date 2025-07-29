@@ -316,7 +316,7 @@ export default function StarkHero({
         onClose={() => setShowCommandsPanel(false)}
       />
 
-      {/* Модальное окно ав��оризации */}
+      {/* Модальное окно авторизации */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
@@ -327,7 +327,7 @@ export default function StarkHero({
         }}
       />
 
-      {/* Форма заказа услуг */}
+      {/* Форма зак��за услуг */}
       <ServiceOrderForm
         isOpen={showOrderForm}
         onClose={() => setShowOrderForm(false)}
