@@ -53,7 +53,7 @@ export class JarvisSpeechEngine {
   ): SpeechSynthesisVoice | null {
     if (!this.isInitialized) return null;
 
-    // Приорит��т голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
+    // Приоритет голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
     const russianPriority = [
       "Microsoft Pavel - Russian (Russia)", // Лучший мужской русский
       "Pavel", // Краткое имя Pavel
@@ -63,7 +63,7 @@ export class JarvisSpeechEngine {
       "Google русский", // Общий Google русский
       "Alex (Enhanced)", // Английский fallback с хорошим качеством
       "Daniel (Enhanced)", // Английский мужской enhanced
-      "Microsoft David Desktop - English (United States)", // Качественный английский
+      "Microsoft David Desktop - English (United States)", // Качественный ��нглийский
       "Google UK English Male", // Британский английский
     ];
 
@@ -183,7 +183,7 @@ export class JarvisSpeechEngine {
       const jarvisSettings: JarvisVoiceSettings = {
         rate: 0.75, // Размеренная подача, точные формулировки
         pitch: 0.6, // Средне-низкий тембр для элитного уровня
-        volume: 0.95, // Кристальн�� чистая дикция
+        volume: 0.95, // Кристально чистая дикция
         lang: "ru-RU", // Литературный русский язык
       };
 
@@ -222,7 +222,7 @@ export class JarvisSpeechEngine {
           if (event.error === "interrupted" || event.error === "canceled") {
             console.log("Speech was interrupted, but this is normal behavior");
             options.onEnd?.(); // Вызываем onEnd вместо onError
-            resolve(); // Успешно ��авершаем
+            resolve(); // Успешно завершаем
           } else {
             const errorMessage = `Speech synthesis error: ${event.error}`;
             options.onError?.(errorMessage);
