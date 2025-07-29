@@ -65,7 +65,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
-        error: "Заполните все обязательные поля",
+        error: "Заполните все обязатель��ые поля",
       };
       return res.status(400).json(response);
     }
@@ -143,7 +143,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     const response: CreateBookingResponse = {
       success: false,
       message: "Ошибка сервера",
-      error: "Ошибка сервера при ��оздании брони",
+      error: "О��ибка сервера при создании брони",
     };
     res.status(500).json(response);
   }
@@ -185,7 +185,7 @@ export const getUserBookings: RequestHandler = async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error("❌ Ошибка полу��ения броней:", error);
+    console.error("❌ Ошибка получения броней:", error);
     const response: GetBookingsResponse = {
       success: false,
       error: "Ошибка сервера при получении броней",
@@ -225,7 +225,7 @@ export const getAllBookings: RequestHandler = async (req, res) => {
   }
 };
 
-// Обновление статуса ��рони
+// Обновление статуса брони
 export const updateBooking: RequestHandler = async (req, res) => {
   try {
     console.log("📝 Получен запрос на обновление брони");
@@ -249,6 +249,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Ошибка",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
@@ -279,6 +280,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка обновления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
+      message: "Ошибка сервера",
       error: "Ошибка сервера при обновлении брони",
     };
     res.status(500).json(response);
@@ -340,7 +342,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка удаления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
-      error: "Ошибка сервера при удалении брони",
+      error: "Ошибка сервера при удалении б��они",
     };
     res.status(500).json(response);
   }
