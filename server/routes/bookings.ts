@@ -297,6 +297,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Ошибка валидации",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
@@ -310,6 +311,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Ошибка",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
