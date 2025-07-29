@@ -89,7 +89,7 @@ export default function VoiceMicrophone({
     toggleListening();
   };
 
-  // И��тория моделей для коман��ы "верни модель"
+  // И��тория моделей для коман��ы "верни мод��ль"
   const modelHistoryRef = useRef<string[]>([
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   ]); // Изначальная модель
@@ -407,7 +407,7 @@ export default function VoiceMicrophone({
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
           console.log(
-            "✅ Аудио ответ завершен, скроллим к секции ��реимуществ",
+            "✅ Ау��ио ответ завершен, скроллим к секции ��реимуществ",
           );
           // Прокручиваем к секции преимуществ после аудио
           const advantagesSection = document.querySelector(
@@ -519,7 +519,7 @@ export default function VoiceMicrophone({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не под��ерживается в этом браузере
+        Распознавание речи не поддерживается в этом браузере
       </div>
     );
   }
