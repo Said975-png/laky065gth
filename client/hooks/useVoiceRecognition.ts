@@ -115,7 +115,7 @@ export const useVoiceRecognition = ({
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
 
-        // Фильтруем слишком к��роткие команды (вероятно ложные срабатывания)
+        // Фильтруем слишком короткие команды (вероятно ложные срабатывания)
         if (command.length < 2) {
           isProcessingRef.current = false;
           return;
@@ -151,7 +151,7 @@ export const useVoiceRecognition = ({
         return;
       }
 
-      // Обработка сетевых ошибо�� (частые на мобильных)
+      // Обработка сетевых ошибок (частые на мобильных)
       if (event.error === "network" || event.error === "service-not-allowed") {
         console.log("🌐 Сетевая ошибка, попробуем перезапустить");
         restartAttemptsRef.current++;

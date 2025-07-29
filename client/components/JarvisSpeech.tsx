@@ -184,7 +184,7 @@ export class JarvisSpeechEngine {
         rate: 0.75, // Размеренная подача, точные формулировки
         pitch: 0.6, // Средне-низкий тембр для элитного уровня
         volume: 0.95, // Кристально чистая дикция
-        lang: "ru-RU", // Литера��урный русский язык
+        lang: "ru-RU", // Литературный русский язык
       };
 
       const utterance = this.createJarvisUtterance(
@@ -290,7 +290,7 @@ export class JarvisSpeechEngine {
         this.synth.cancel();
       }
 
-      // Дополнительная очистка
+      // Дополни��ельная очистка
       if (this.currentUtterance) {
         this.currentUtterance.onstart = null;
         this.currentUtterance.onend = null;
