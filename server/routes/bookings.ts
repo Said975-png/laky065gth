@@ -65,7 +65,8 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
-        error: "Заполните все обязатель��ые поля",
+        message: "Ошибка валидации",
+        error: "Заполните все обязательные поля",
       };
       return res.status(400).json(response);
     }
@@ -75,6 +76,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (!emailRegex.test(bookingData.clientEmail)) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Ошибка валидации",
         error: "Некорректный email адрес",
       };
       return res.status(400).json(response);
@@ -124,7 +126,7 @@ export const createBooking: RequestHandler = async (req, res) => {
       updatedAt: now,
     };
 
-    // Загружаем существующие брони и добавляем новую
+    // Загружае�� существующие брони и добавляем новую
     const bookings = loadBookings();
     bookings.push(newBooking);
     saveBookings(bookings);
@@ -158,7 +160,7 @@ export const getUserBookings: RequestHandler = async (req, res) => {
     if (!userId || userId === "anonymous") {
       const response: GetBookingsResponse = {
         success: false,
-        error: "Необходима авторизация",
+        error: "Необходима авторизац��я",
       };
       return res.status(401).json(response);
     }
@@ -201,7 +203,7 @@ export const getAllBookings: RequestHandler = async (req, res) => {
 
     const allBookings = loadBookings();
 
-    // Сортируем по дате создания (новые сначала)
+    // Сортируем п�� дате создания (новые сначала)
     allBookings.sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
