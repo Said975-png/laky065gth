@@ -63,7 +63,7 @@ export const useVoiceRecognition = ({
     // Дополнительные настройки для мобильных
     if (mobile) {
       recognition.lang = lang;
-      // Для мобильных устройств используем более консервативные настройки
+      // Для мобильных ус��ройств используем более консервативные настройки
       if ("grammars" in recognition) {
         recognition.grammars = new (window as any).SpeechGrammarList();
       }
@@ -298,7 +298,6 @@ export const useVoiceRecognition = ({
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
-        recognitionRef.current.abort();
       } catch (error) {
         console.log("ℹ️ Ошибка остановки:", error);
       }
