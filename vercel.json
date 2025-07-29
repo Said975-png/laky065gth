@@ -24,13 +24,6 @@
       "destination": "/index.html"
     }
   ],
-  "redirects": [
-    {
-      "source": "/assets/(.*)",
-      "destination": "/dist/spa/assets/$1",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/api/(.*)",
