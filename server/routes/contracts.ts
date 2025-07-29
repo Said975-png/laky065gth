@@ -169,7 +169,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="section">
-        <div class="section-title">2. ПРЕДМЕТ ДОГОВОР��</div>
+        <div class="section-title">2. ПРЕДМЕТ ДОГОВОРА</div>
         <div class="contract-details">
           <div class="detail-row">
             <div class="detail-label">Тип проекта:</div>
@@ -300,7 +300,7 @@ export const getUserContracts: RequestHandler = async (req, res) => {
   );
   console.log("📋 [CONTRACT] Method:", req.method);
   console.log("📋 [CONTRACT] URL:", req.url);
-  console.log("📋 [CONTRACT] Headers:", req.headers);
+  console.log("�� [CONTRACT] Headers:", req.headers);
 
   try {
     const userId = req.headers["user-id"] as string;

@@ -56,7 +56,7 @@ export const useVoiceRecognition = ({
     const mobile = isMobile();
 
     recognition.continuous = true;
-    recognition.interimResults = !mobile; // На мобильных отключаем промежуточные результаты
+    recognition.interimResults = !mobile; // На мобильных отключаем промежуточ��ые результаты
     recognition.lang = lang;
     recognition.maxAlternatives = 1;
 
@@ -89,7 +89,7 @@ export const useVoiceRecognition = ({
         const transcript = event.results[i][0].transcript;
         const confidence = event.results[i][0].confidence || 1;
 
-        // Для мобильных устройств требуем более высокую уверенность
+        // Для мобильных устройств требуем более ��ысокую уверенность
         const mobile = isMobile();
         const minConfidence = mobile ? 0.6 : 0.3;
 
@@ -123,7 +123,7 @@ export const useVoiceRecognition = ({
 
         console.log("✅ Обрабатываем команду:", command);
 
-        // Сразу очищаем транскрипт для готовности к следующей команде
+        // Сразу очищаем транскрипт для готовнос��и к следующей команде
         setTranscript("");
 
         // На мобильных используем больший timeout для стабильности
@@ -210,7 +210,7 @@ export const useVoiceRecognition = ({
               // Если слишком много ошибок, останавливаем
               if (restartAttemptsRef.current > 5) {
                 console.log(
-                  "🛑 Слишком много ошибо�� перезапуска, останавливаем",
+                  "🛑 Слишком много ошибок перезапуска, останавливаем",
                 );
                 setIsListening(false);
                 isProcessingRef.current = false;
