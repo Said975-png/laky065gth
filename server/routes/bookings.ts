@@ -142,6 +142,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка создания брони:", error);
     const response: CreateBookingResponse = {
       success: false,
+      message: "Ошибка сервера",
       error: "Ошибка сервера при создании брони",
     };
     res.status(500).json(response);
