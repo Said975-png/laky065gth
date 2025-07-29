@@ -2,28 +2,33 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/server/node-build.mjs",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/spa/**", "data/**"]
-      }
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/spa/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/dist/server/node-build.mjs"
+      "dest": "/api/index.js"
     },
     {
       "src": "/health",
-      "dest": "/dist/server/node-build.mjs"
+      "dest": "/api/index.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/assets/(.*)",
+      "dest": "/dist/spa/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
       "dest": "/dist/spa/$1"
     },
     {
-      "src": "/.*",
+      "src": "/(.*)",
       "dest": "/dist/spa/index.html"
     }
   ],
@@ -64,8 +69,6 @@
       ]
     }
   ],
-  "outputDirectory": "dist",
   "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "framework": null
+  "installCommand": "npm install"
 }
