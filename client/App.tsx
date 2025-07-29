@@ -46,13 +46,4 @@ const App = () => (
   </QueryClientProvider>
 );
 
-const container = document.getElementById("root")!;
-
-// Предотвращаем повторное создание root при горячей перезагрузке
-if (!(container as any)._reactRoot) {
-  const root = createRoot(container);
-  (container as any)._reactRoot = root;
-  root.render(<App />);
-} else {
-  (container as any)._reactRoot.render(<App />);
-}
+export default App;
