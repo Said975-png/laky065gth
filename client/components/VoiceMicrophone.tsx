@@ -406,7 +406,9 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
-          console.log("✅ Аудио ответ завершен, скроллим к секции ��реимуществ");
+          console.log(
+            "✅ Аудио ответ завершен, скроллим к секции ��реимуществ",
+          );
           // Прокручиваем к секции преимуществ после аудио
           const advantagesSection = document.querySelector(
             '[data-section="advantages"]',
