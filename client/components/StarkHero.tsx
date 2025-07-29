@@ -64,15 +64,18 @@ export default function StarkHero({
       )}
     >
       {/* Background image layer */}
-      <div className="absolute inset-0 opacity-[0.08]">
+      <div className="absolute inset-0 opacity-[0.25]">
         <div
           className="w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://cdn.builder.io/o/assets%2F6bf6ad6150624f18b75acb975ba1d10c%2Fdfbd14c4ed504a60bfaacb60866e9018?alt=media&token=14faf6ea-461c-4899-9bc4-0408a750a903&apiKey=6bf6ad6150624f18b75acb975ba1d10c')`,
-            filter: 'blur(1px) contrast(0.8) brightness(0.3)',
+            filter: 'brightness(0.6) contrast(1.1)',
           }}
         />
       </div>
+
+      {/* Dark overlay to maintain text readability */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
       {/* Refined minimal background patterns overlay */}
       <div className="absolute inset-0 opacity-[0.02]">
