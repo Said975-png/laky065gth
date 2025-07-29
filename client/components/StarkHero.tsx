@@ -72,7 +72,7 @@ export default function StarkHero({
           playsInline
           className="w-full h-full object-cover"
           style={{
-            filter: 'brightness(0.4) contrast(1.2)',
+            filter: "brightness(0.4) contrast(1.2)",
           }}
         >
           <source
