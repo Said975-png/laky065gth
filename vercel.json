@@ -18,6 +18,10 @@
     {
       "source": "/health",
       "destination": "/api/index.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "redirects": [
