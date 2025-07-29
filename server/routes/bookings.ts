@@ -82,7 +82,7 @@ export const createBooking: RequestHandler = async (req, res) => {
       return res.status(400).json(response);
     }
 
-    // Валида��ия телефона
+    // Валидация телефона
     const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
     if (!phoneRegex.test(bookingData.clientPhone)) {
       const response: CreateBookingResponse = {
@@ -155,7 +155,7 @@ export const createBooking: RequestHandler = async (req, res) => {
 // Получение броней пользователя
 export const getUserBookings: RequestHandler = async (req, res) => {
   try {
-    console.log("📋 Получен запро�� на получение броней пользователя");
+    console.log("📋 Получен запрос на получение броней пользователя");
     const userId = req.headers["user-id"] as string;
 
     if (!userId || userId === "anonymous") {
@@ -238,6 +238,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "ID брони не указан",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
@@ -251,6 +252,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Бронь не найдена",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
@@ -281,6 +283,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка обновления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
+      message: "Ошибка сервера при обновлении брони",
       error: "Ошибка сервера при обновлении брони",
     };
     res.status(500).json(response);
@@ -297,6 +300,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "ID брони не указан",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
@@ -310,6 +314,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Бронь не найдена",
         error: "Бронь не найдена",
       };
       return res.status(404).json(response);
@@ -321,6 +326,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (userId !== "admin" && booking.userId !== userId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Нет прав для удаления этой брони",
         error: "Нет прав для удаления этой брони",
       };
       return res.status(403).json(response);
@@ -342,6 +348,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка удаления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
+      message: "Ошибка сервера при удалении брони",
       error: "Ошибка сервера при удалении брони",
     };
     res.status(500).json(response);
