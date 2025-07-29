@@ -39,6 +39,21 @@ function saveContracts(contracts: ContractData[]): void {
   }
 }
 
+// Save contract HTML file
+function saveContractHTML(contractData: ContractData): void {
+  try {
+    const contractHTML = generateContractHTML(contractData);
+    const htmlPath = path.join(process.cwd(), "data", "contracts", contractData.fileName);
+    const dir = path.dirname(htmlPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(htmlPath, contractHTML, "utf-8");
+  } catch (error) {
+    console.error("Error saving contract HTML:", error);
+  }
+}
+
 // Initialize contracts store
 contractsStore = loadContracts();
 
@@ -163,7 +178,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="section">
         <div class="section-title">3. УСЛОВИЯ ВЫПОЛНЕНИЯ</div>
-        <p>3.1. Исполнитель обязуется выполнить работы согла��но техническому заданию.</p>
+        <p>3.1. Исполнитель обязуется выполнить работы согласно техническому заданию.</p>
         <p>3.2. Срок выполнения работ: 15-20 рабочих дней с момента подписания договора.</p>
         <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения работ.</p>
       </div>
@@ -180,7 +195,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="section">
         <div class="section-title">5. ОТВЕТСТВЕННОСТЬ СТОРОН</div>
-        <p>5.1. За невыполнение или ненадлежащее выполнение обязательств стороны несут ответственность в соответствии с действующим зак��нодательством.</p>
+        <p>5.1. За невыполнение или ненадлежащее выполнение обязательств стороны несут ответственность в соответствии с действующим законодательством.</p>
         <p>5.2. Исполнитель гарантирует качество выполненных работ в течение 6 месяцев.</p>
       </div>
 
@@ -199,7 +214,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="footer">
-        <p><em>Договор сгенерирован автоматически системой Jarvis AI</em></p>
+        <p><em>Договор сгенерирован авто��атически системой Jarvis AI</em></p>
         <p><em>Дата создания: ${new Date(contractData.createdAt).toLocaleString("ru-RU", { timeZone: "Asia/Tashkent" })}</em></p>
       </div>
     </body>
@@ -240,6 +255,9 @@ export const createContract: RequestHandler = async (req, res) => {
     // Store contract in memory and file system
     contractsStore.push(contractData);
     saveContracts(contractsStore);
+
+    // Save contract HTML file
+    saveContractHTML(contractData);
 
     const response: CreateContractResponse = {
       success: true,
