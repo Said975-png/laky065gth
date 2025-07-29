@@ -506,7 +506,14 @@ export default async function handler(req, res) {
       } = req.body;
 
       // Валидация данны��
-      if (!serviceType || !clientName || !clientEmail || !clientPhone || !preferredDate || !preferredTime) {
+      if (
+        !serviceType ||
+        !clientName ||
+        !clientEmail ||
+        !clientPhone ||
+        !preferredDate ||
+        !preferredTime
+      ) {
         return res.status(400).json({
           success: false,
           message: "Заполните все обязательные поля",
