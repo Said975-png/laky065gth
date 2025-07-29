@@ -53,7 +53,7 @@ export default function VoiceMicrophone({
     const mobile = isMobile();
     setIsMobileDevice(mobile);
     console.log("📱 Тип устройства:", mobile ? "Мобильное" : "Десктоп");
-    console.log("🎤 Поддержка распознавания речи:", isSupported);
+    console.log("🎤 Поддержка распознаван��я речи:", isSupported);
   }, [isSupported]);
 
   // Функция умного возобновления микрофона с учетом мобильных устройств
@@ -93,20 +93,6 @@ export default function VoiceMicrophone({
   const modelHistoryRef = useRef<string[]>([
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   ]); // Изначальная модель
-
-  const { isListening, transcript, isSupported, toggleListening } =
-    useVoiceRecognition({
-      onTranscript: (text) => {
-        console.log("📝 Получен транскрипт:", text);
-        onTranscript?.(text);
-      },
-      onCommand: (command) => {
-        console.log("🎯 Получена команда для обработки:", command);
-        console.log("🎯 Длина команды:", command.length, "символов");
-        handleCommand(command);
-        onCommand?.(command);
-      },
-    });
 
   // Функция смены модели через CustomEvent
   const changeModel = (newModelUrl: string) => {
@@ -156,7 +142,7 @@ export default function VoiceMicrophone({
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослушивание на время воспроизведения аудио
+    // Останавливаем прослуш��вание на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
       toggleListening(); // Останавливаем микрофон
@@ -357,7 +343,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
-          console.log("✅ Аудио ответ 'спасибо' завершен");
+          console.log("✅ Аудио ответ 'спаси��о' завершен");
         },
       );
       return;
