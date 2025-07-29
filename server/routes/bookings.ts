@@ -65,6 +65,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Заполните все обязательные поля",
         error: "Заполните все обязательные поля",
       };
       return res.status(400).json(response);
@@ -75,6 +76,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (!emailRegex.test(bookingData.clientEmail)) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Некорректный email адрес",
         error: "Некорректный email адрес",
       };
       return res.status(400).json(response);
@@ -141,7 +143,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка создания брони:", error);
     const response: CreateBookingResponse = {
       success: false,
-      error: "Ошибка сервера при создании брони",
+      error: "Ошибка серв��ра при создании брони",
     };
     res.status(500).json(response);
   }
