@@ -98,6 +98,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (preferredDate < today) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Ошибка валидации",
         error: "Дата брони не может быть в прошлом",
       };
       return res.status(400).json(response);
