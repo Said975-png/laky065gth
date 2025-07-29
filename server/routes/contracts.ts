@@ -214,7 +214,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="footer">
-        <p><em>Договор сгенерирован авто��атически системой Jarvis AI</em></p>
+        <p><em>��оговор сгенерирован автоматически системой Jarvis AI</em></p>
         <p><em>Дата создания: ${new Date(contractData.createdAt).toLocaleString("ru-RU", { timeZone: "Asia/Tashkent" })}</em></p>
       </div>
     </body>
@@ -223,6 +223,12 @@ const generateContractHTML = (contractData: ContractData): string => {
 };
 
 export const createContract: RequestHandler = async (req, res) => {
+  console.log("📝 [CONTRACT] Создание контракта - запрос получен");
+  console.log("📝 [CONTRACT] Method:", req.method);
+  console.log("📝 [CONTRACT] URL:", req.url);
+  console.log("📝 [CONTRACT] Headers:", req.headers);
+  console.log("📝 [CONTRACT] Body:", req.body);
+
   try {
     const {
       projectType,
@@ -279,6 +285,11 @@ export const createContract: RequestHandler = async (req, res) => {
 };
 
 export const getUserContracts: RequestHandler = async (req, res) => {
+  console.log("📋 [CONTRACT] Получение контрактов пользователя - запрос получен");
+  console.log("📋 [CONTRACT] Method:", req.method);
+  console.log("📋 [CONTRACT] URL:", req.url);
+  console.log("📋 [CONTRACT] Headers:", req.headers);
+
   try {
     const userId = req.headers["user-id"] as string;
 
@@ -311,6 +322,11 @@ export const getUserContracts: RequestHandler = async (req, res) => {
 };
 
 export const getContract: RequestHandler = async (req, res) => {
+  console.log("📄 [CONTRACT] Получение контракта - запрос получен");
+  console.log("📄 [CONTRACT] Method:", req.method);
+  console.log("📄 [CONTRACT] URL:", req.url);
+  console.log("📄 [CONTRACT] Params:", req.params);
+
   try {
     const { contractId } = req.params;
 
