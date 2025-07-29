@@ -255,7 +255,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
       return res.status(404).json(response);
     }
 
-    // Обновляем бронь
+    // ��бновляем бронь
     const booking = bookings[bookingIndex];
     if (updateData.status) booking.status = updateData.status;
     if (updateData.preferredDate)
@@ -323,6 +323,7 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     if (userId !== "admin" && booking.userId !== userId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Ошибка доступа",
         error: "Нет прав для удаления этой брони",
       };
       return res.status(403).json(response);
