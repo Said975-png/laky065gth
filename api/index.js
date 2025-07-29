@@ -25,6 +25,239 @@ export default async function handler(req, res) {
       return res.json({ message: "Hello from Vercel serverless function!" });
     }
 
+    // Contracts endpoints
+    if (url === "/api/contracts" && method === "POST") {
+      console.log("📝 [CONTRACT] Создание контракта - запрос получен");
+      console.log("📝 [CONTRACT] Body:", req.body);
+
+      const {
+        projectType,
+        projectDescription,
+        clientName,
+        clientEmail,
+        estimatedPrice,
+      } = req.body;
+
+      // Generate contract ID
+      const contractId = `JAR-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+      // Get current user from request
+      const userId = req.headers["user-id"] || "anonymous";
+
+      // Create contract data
+      const contractData = {
+        id: contractId,
+        userId,
+        clientName,
+        clientEmail,
+        projectType,
+        projectDescription,
+        price: estimatedPrice,
+        createdAt: new Date().toISOString(),
+        status: "draft",
+        fileName: `contract-${contractId}.html`,
+      };
+
+      console.log("✅ [CONTRACT] Контракт создан:", contractId);
+
+      return res.json({
+        success: true,
+        message: "Договор успешно создан",
+        contractId,
+        contractUrl: `/api/contracts/${contractId}`,
+      });
+    }
+
+    if (url === "/api/contracts" && method === "GET") {
+      console.log("📋 [CONTRACT] Получение контрактов пользователя");
+      const userId = req.headers["user-id"];
+
+      if (!userId) {
+        return res.status(401).json({
+          success: false,
+          message: "Пользователь не авторизован",
+        });
+      }
+
+      // Возвращаем пустой массив для демо (в реальности здесь была бы база данных)
+      return res.json({
+        success: true,
+        contracts: [],
+      });
+    }
+
+    // Contract by ID endpoint
+    if (url.startsWith("/api/contracts/") && method === "GET") {
+      const contractId = url.split("/api/contracts/")[1];
+      console.log("📄 [CONTRACT] Получение контракта:", contractId);
+
+      // Generate contract HTML
+      const currentDate = new Date().toLocaleDateString("ru-RU");
+
+      const contractHTML = `
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Договор ${contractId}</title>
+          <style>
+            body {
+              font-family: 'Times New Roman', serif;
+              line-height: 1.6;
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 40px;
+              color: #333;
+            }
+            .header {
+              text-align: center;
+              margin-bottom: 40px;
+              border-bottom: 2px solid #333;
+              padding-bottom: 20px;
+            }
+            .contract-title {
+              font-size: 24px;
+              font-weight: bold;
+              margin-bottom: 10px;
+            }
+            .contract-number {
+              font-size: 16px;
+              color: #666;
+            }
+            .section {
+              margin-bottom: 30px;
+            }
+            .section-title {
+              font-size: 18px;
+              font-weight: bold;
+              margin-bottom: 15px;
+              color: #2563eb;
+            }
+            .contract-details {
+              background: #f8fafc;
+              padding: 20px;
+              border-radius: 8px;
+              border-left: 4px solid #2563eb;
+            }
+            .detail-row {
+              display: flex;
+              margin-bottom: 10px;
+            }
+            .detail-label {
+              font-weight: bold;
+              width: 200px;
+              flex-shrink: 0;
+            }
+            .detail-value {
+              flex: 1;
+            }
+            .footer {
+              margin-top: 40px;
+              border-top: 2px solid #333;
+              padding-top: 20px;
+              text-align: center;
+            }
+            .signature-section {
+              display: flex;
+              justify-content: space-between;
+              margin-top: 40px;
+            }
+            .signature-block {
+              text-align: center;
+              width: 300px;
+            }
+            .signature-line {
+              border-bottom: 1px solid #333;
+              height: 50px;
+              margin-bottom: 10px;
+            }
+            @media print {
+              body { margin: 0; padding: 20px; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div class="contract-title">ДОГОВОР НА РАЗРАБОТКУ</div>
+            <div class="contract-number">№ ${contractId}</div>
+            <div>от ${currentDate}</div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">1. СТОРОНЫ ДОГОВОРА</div>
+            <p><strong>Исполнитель:</strong> JARVIS INTERCOMA</p>
+            <p><strong>Заказчик:</strong> [Имя клиента]</p>
+            <p><strong>Email:</strong> [Email клиента]</p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">2. ПРЕДМЕТ ДОГОВОРА</div>
+            <div class="contract-details">
+              <div class="detail-row">
+                <div class="detail-label">Тип проекта:</div>
+                <div class="detail-value">[Тип проекта]</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Описание:</div>
+                <div class="detail-value">[Описание проекта]</div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-label">Стоимость:</div>
+                <div class="detail-value">[Стоимость] рублей</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">3. УСЛОВИЯ ВЫПОЛНЕНИЯ</div>
+            <p>3.1. Исполнитель обязуется выполнить работы согласно техническому заданию.</p>
+            <p>3.2. Срок выполнения работ: 15-20 рабочих дней с момента подписания договора.</p>
+            <p>3.3. Заказчик обязуется предоставить вс�� необходимую информацию для выполнения работ.</p>
+          </div>
+
+          <div class="section">
+            <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
+            <p>4.1. Общая стоимость работ составляет [Стоимость] рублей.</p>
+            <p>4.2. Оплата производится в следующем порядке:</p>
+            <ul>
+              <li>50% предоплата при подписании договора</li>
+              <li>50% после завершения работ и передачи результата</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <div class="section-title">5. ОТВЕТСТВЕННОСТЬ СТОРОН</div>
+            <p>5.1. За невыполнение или ненадлежащее выполнение обязательств стороны несут ответственность в соответствии с действующим законодательством.</p>
+            <p>5.2. Исполнитель гарантирует качество выполненных работ в течение 6 месяцев.</p>
+          </div>
+
+          <div class="signature-section">
+            <div class="signature-block">
+              <div><strong>ИСПОЛНИТЕЛЬ</strong></div>
+              <div class="signature-line"></div>
+              <div>JARVIS INTERCOMA</div>
+              <div>Создатель: Хусаинов Саид</div>
+            </div>
+            <div class="signature-block">
+              <div><strong>ЗАКАЗЧИК</strong></div>
+              <div class="signature-line"></div>
+              <div>[Имя клиента]</div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p><em>Договор сгенерирован автоматически системой Jarvis AI</em></p>
+            <p><em>Дата создания: ${currentDate}</em></p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.send(contractHTML);
+    }
+
     // Groq chat endpoint
     if (url === "/api/groq-chat" && method === "POST") {
       console.log("📧 Получен запрос к groq-chat");
@@ -79,7 +312,7 @@ export default async function handler(req, res) {
         lastMessage.includes("разработка")
       ) {
         intelligentResponse =
-          "🌐 Отличный вопрос о веб-разработке! Мы в Stark Industries создаем современные сайты с:\n\n✨ Адаптивным дизайном\n⚡ Высокой производительностью\n🎨 Уникальными решениями\n🔒 Надежной безопасностью\n\nРасскажите подробнее о вашем проекте!";
+          "🌐 Отличный вопрос о веб-разработке! Мы в Stark Industries создаем современные сайты с:\n\n✨ Адаптивным дизайном\n⚡ Высокой производительностью\n🎨 Ун��кальными решениями\n🔒 Надежной безопасностью\n\nРасскажите подробнее о вашем проекте!";
       } else if (
         lastMessage.includes("цена") ||
         lastMessage.includes("стоимость") ||
@@ -129,7 +362,7 @@ export default async function handler(req, res) {
           lastMessage.includes("help")
         ) {
           intelligentResponse =
-            "💡 Конечно, помогу! Я могу:\n\n🔹 Консультировать по веб-разработке\n🔹 Обсуждать технические решения\n🔹 Рассказать о наших услугах\n🔹 Ответить на общие вопросы\n🔹 Просто поболтать\n\nОпишите подробнее, с чем нужна помощь!";
+            "💡 Конечно, помогу! Я могу:\n\n🔹 Консультировать по веб-разработке\n🔹 Обсуждать технические решения\n🔹 Рассказать о наших услугах\n🔹 Отве��ить на общие вопросы\n🔹 Просто поболтать\n\nОпишите подробнее, с чем нужна помощь!";
         } else if (
           lastMessage.includes("почему") ||
           lastMessage.includes("зачем") ||
@@ -257,9 +490,12 @@ export default async function handler(req, res) {
     }
 
     // 404 для несуществующих маршрутов
+    console.log(`❌ [API] Неизвестный маршрут: ${method} ${url}`);
     return res.status(404).json({
       success: false,
       error: "Endpoint не найден",
+      path: url,
+      method: method,
     });
   } catch (error) {
     console.error("❌ Ошибка в API:", error);
