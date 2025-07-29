@@ -169,7 +169,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="section">
-        <div class="section-title">2. ПРЕДМЕТ ДОГОВОРА</div>
+        <div class="section-title">2. ПРЕДМЕТ ДОГОВОР��</div>
         <div class="contract-details">
           <div class="detail-row">
             <div class="detail-label">Тип проекта:</div>
@@ -181,21 +181,21 @@ const generateContractHTML = (contractData: ContractData): string => {
           </div>
           <div class="detail-row">
             <div class="detail-label">Стоимость:</div>
-            <div class="detail-value">По запросу</div>
+            <div class="detail-value">Предварительная стоимость: ${contractData.price.toLocaleString("ru-RU")} ₽</div>
           </div>
         </div>
       </div>
 
       <div class="section">
         <div class="section-title">3. УСЛОВИЯ ВЫПОЛНЕНИЯ</div>
-        <p>3.1. Исполнитель обязуется выполнить работы согласно техническому заданию.</p>
+        <p>3.1. Исполнитель обязуется выполнить работ�� согласно техническому заданию.</p>
         <p>3.2. Срок выполнения работ: 15-20 рабочих дней с момента подписания договора.</p>
-        <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения работ.</p>
+        <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения рабо��.</p>
       </div>
 
       <div class="section">
         <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
-        <p>4.1. Общая стоимость работ составляет по запросу.</p>
+        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} ₽.</p>
         <p>4.2. Оплата производится в следующем порядке:</p>
         <ul>
           <li>50% предоплата при подписании договора</li>
