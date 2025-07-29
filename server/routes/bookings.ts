@@ -143,7 +143,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     const response: CreateBookingResponse = {
       success: false,
       message: "Ошибка сервера",
-      error: "Ошибка сервера при создании брони",
+      error: "Ошибка сервера при ��оздании брони",
     };
     res.status(500).json(response);
   }
@@ -185,7 +185,7 @@ export const getUserBookings: RequestHandler = async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error("❌ Ошибка получения броней:", error);
+    console.error("❌ Ошибка полу��ения броней:", error);
     const response: GetBookingsResponse = {
       success: false,
       error: "Ошибка сервера при получении броней",
@@ -225,7 +225,7 @@ export const getAllBookings: RequestHandler = async (req, res) => {
   }
 };
 
-// Обновление статуса брони
+// Обновление статуса ��рони
 export const updateBooking: RequestHandler = async (req, res) => {
   try {
     console.log("📝 Получен запрос на обновление брони");
@@ -235,6 +235,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
     if (!bookingId) {
       const response: UpdateBookingResponse = {
         success: false,
+        message: "Ошибка валидации",
         error: "ID брони не указан",
       };
       return res.status(400).json(response);
