@@ -1,6 +1,6 @@
-const { createServer } = require('../dist/server/production.mjs');
-const serverless = require('serverless-http');
+import { createServer } from '../server/index.js';
+import serverlessHttp from 'serverless-http';
 
 const app = createServer();
 
-module.exports = serverless(app);
+export default serverlessHttp(app);
