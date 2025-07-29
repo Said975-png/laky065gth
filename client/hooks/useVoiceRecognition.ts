@@ -56,7 +56,7 @@ export const useVoiceRecognition = ({
     const mobile = isMobile();
 
     recognition.continuous = true;
-    recognition.interimResults = !mobile; // На мобильных отключаем промежуточ��ые результаты
+    recognition.interimResults = !mobile; // На мобильных отключаем промежуточные результаты
     recognition.lang = lang;
     recognition.maxAlternatives = 1;
 
@@ -89,7 +89,7 @@ export const useVoiceRecognition = ({
         const transcript = event.results[i][0].transcript;
         const confidence = event.results[i][0].confidence || 1;
 
-        // Для мобильных устройств требуем более ��ысокую уверенность
+        // Для мобильных устройств требуем более высокую уверенность
         const mobile = isMobile();
         const minConfidence = mobile ? 0.6 : 0.3;
 
@@ -115,7 +115,7 @@ export const useVoiceRecognition = ({
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
 
-        // Фильтруем слишком короткие команды (вероятно ложные срабатывания)
+        // Фильтруем слишком к��роткие команды (вероятно ложные срабатывания)
         if (command.length < 2) {
           isProcessingRef.current = false;
           return;
@@ -123,7 +123,7 @@ export const useVoiceRecognition = ({
 
         console.log("✅ Обрабатываем команду:", command);
 
-        // Сразу очищаем транскрипт для готовнос��и к следующей команде
+        // Сразу очищаем транскрипт для готовности к следующей команде
         setTranscript("");
 
         // На мобильных используем больший timeout для стабильности
@@ -151,7 +151,7 @@ export const useVoiceRecognition = ({
         return;
       }
 
-      // Обработка ��етевых ошибок (частые на мобильных)
+      // Обработка сетевых ошибо�� (частые на мобильных)
       if (event.error === "network" || event.error === "service-not-allowed") {
         console.log("🌐 Сетевая ошибка, попробуем перезапустить");
         restartAttemptsRef.current++;
