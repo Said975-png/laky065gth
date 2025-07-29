@@ -181,7 +181,7 @@ const generateContractHTML = (contractData: ContractData): string => {
           </div>
           <div class="detail-row">
             <div class="detail-label">Стоимость:</div>
-            <div class="detail-value">Предварительная стоимость: ${contractData.price.toLocaleString("ru-RU")} ₽</div>
+            <div class="detail-value">Предварительная стоимость: ${contractData.price.toLocaleString("ru-RU")} сум</div>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="section">
         <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
-        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} ₽.</p>
+        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} сум.</p>
         <p>4.2. Оплата производится в следующем порядке:</p>
         <ul>
           <li>50% предоплата при подписании договора</li>
