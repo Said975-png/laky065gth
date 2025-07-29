@@ -1,0 +1,11 @@
+node_modules/
+.git/
+dist/server/
+netlify/
+*.log
+.env
+.env.local
+.DS_Store
+*.md
+docs/
+data/
