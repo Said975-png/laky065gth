@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import express from "express";
 import cors from "cors";
 
@@ -104,10 +104,10 @@ const app = createVercelApp();
 // Export handler for Vercel
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // Remove /api prefix from the URL for internal routing
-  const originalUrl = req.url || '';
-  if (originalUrl.startsWith('/api')) {
-    req.url = originalUrl.replace('/api', '') || '/';
+  const originalUrl = req.url || "";
+  if (originalUrl.startsWith("/api")) {
+    req.url = originalUrl.replace("/api", "") || "/";
   }
-  
+
   return app(req, res);
 }

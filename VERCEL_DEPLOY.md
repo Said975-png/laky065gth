@@ -20,6 +20,7 @@ npx vercel --prod
 ## 🔧 Что деплоится
 
 **Статический React SPA:**
+
 - Конфигурация: Static-only (без серверных функций)
 - Build: `npm run build:client` → `dist/spa/`
 - Routing: SPA fallback к `/index.html`
