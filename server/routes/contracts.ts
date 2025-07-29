@@ -8,7 +8,12 @@ import * as fs from "fs";
 import * as path from "path";
 
 // Path to contracts data file
-const contractsPath = path.join(process.cwd(), "data", "contracts", "contracts.json");
+const contractsPath = path.join(
+  process.cwd(),
+  "data",
+  "contracts",
+  "contracts.json",
+);
 
 // In-memory storage for contracts (for serverless deployment)
 let contractsStore: ContractData[] = [];
@@ -43,7 +48,12 @@ function saveContracts(contracts: ContractData[]): void {
 function saveContractHTML(contractData: ContractData): void {
   try {
     const contractHTML = generateContractHTML(contractData);
-    const htmlPath = path.join(process.cwd(), "data", "contracts", contractData.fileName);
+    const htmlPath = path.join(
+      process.cwd(),
+      "data",
+      "contracts",
+      contractData.fileName,
+    );
     const dir = path.dirname(htmlPath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -285,7 +295,9 @@ export const createContract: RequestHandler = async (req, res) => {
 };
 
 export const getUserContracts: RequestHandler = async (req, res) => {
-  console.log("📋 [CONTRACT] Получение контрактов пользователя - запрос получен");
+  console.log(
+    "📋 [CONTRACT] Получение контрактов пользователя - запрос получен",
+  );
   console.log("📋 [CONTRACT] Method:", req.method);
   console.log("📋 [CONTRACT] URL:", req.url);
   console.log("📋 [CONTRACT] Headers:", req.headers);
