@@ -345,7 +345,8 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка удаления брони:", error);
     const response: UpdateBookingResponse = {
       success: false,
-      error: "Ошибка сервера при удалении б��они",
+      message: "Ошибка сервера",
+      error: "Ошибка сервера при удалении брони",
     };
     res.status(500).json(response);
   }
