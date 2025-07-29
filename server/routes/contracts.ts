@@ -224,7 +224,7 @@ const generateContractHTML = (contractData: ContractData): string => {
       </div>
 
       <div class="footer">
-        <p><em>��оговор сгенерирован автоматически системой Jarvis AI</em></p>
+        <p><em>Договор сгенерирован автоматически системой Jarvis AI</em></p>
         <p><em>Дата создания: ${new Date(contractData.createdAt).toLocaleString("ru-RU", { timeZone: "Asia/Tashkent" })}</em></p>
       </div>
     </body>
