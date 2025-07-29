@@ -53,7 +53,7 @@ export class JarvisSpeechEngine {
   ): SpeechSynthesisVoice | null {
     if (!this.isInitialized) return null;
 
-    // Приоритет голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
+    // Приоритет голосов для русского Джарвиса (мужс��ой 40-45 лет, средне-низкий тембр)
     const russianPriority = [
       "Microsoft Pavel - Russian (Russia)", // Лучший мужской русский
       "Pavel", // Краткое имя Pavel
@@ -63,7 +63,7 @@ export class JarvisSpeechEngine {
       "Google русский", // Общий Google русский
       "Alex (Enhanced)", // Английский fallback с хорошим качеством
       "Daniel (Enhanced)", // Английский мужской enhanced
-      "Microsoft David Desktop - English (United States)", // Качественный ��нглийский
+      "Microsoft David Desktop - English (United States)", // Качественный английский
       "Google UK English Male", // Британский английский
     ];
 
@@ -151,7 +151,7 @@ export class JarvisSpeechEngine {
   ): SpeechSynthesisUtterance {
     const utterance = new SpeechSynthesisUtterance(text);
 
-    // Настройки голоса для Джа��виса
+    // Настройки голоса для Джарвиса
     utterance.rate = settings.rate;
     utterance.pitch = settings.pitch;
     utterance.volume = settings.volume;
@@ -184,7 +184,7 @@ export class JarvisSpeechEngine {
         rate: 0.75, // Размеренная подача, точные формулировки
         pitch: 0.6, // Средне-низкий тембр для элитного уровня
         volume: 0.95, // Кристально чистая дикция
-        lang: "ru-RU", // Литературный русский язык
+        lang: "ru-RU", // Литера��урный русский язык
       };
 
       const utterance = this.createJarvisUtterance(
