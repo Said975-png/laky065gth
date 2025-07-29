@@ -34,6 +34,20 @@ export default function VoiceMicrophone({
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const { isListening, transcript, isSupported, toggleListening } =
+    useVoiceRecognition({
+      onTranscript: (text) => {
+        console.log("📝 Получен транскрипт:", text);
+        onTranscript?.(text);
+      },
+      onCommand: (command) => {
+        console.log("🎯 Получена команда для обработки:", command);
+        console.log("🎯 Длина команды:", command.length, "символов");
+        handleCommand(command);
+        onCommand?.(command);
+      },
+    });
+
   // Определяем мобильное устройство при монтировании
   useEffect(() => {
     const mobile = isMobile();
@@ -304,7 +318,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
-          // После окончания аудио меняем модель
+          // После окончания ��удио меняем модель
           console.log("🔄 Смена модели после аудио ответа");
           changeModel(
             "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
@@ -406,7 +420,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
-          console.log("✅ Аудио ответ завершен, скроллим к секции преимуществ");
+          console.log("✅ Аудио ответ завершен, скроллим к секции ��реимуществ");
           // Прокручиваем к секции преимуществ после аудио
           const advantagesSection = document.querySelector(
             '[data-section="advantages"]',
