@@ -82,11 +82,12 @@ export const createBooking: RequestHandler = async (req, res) => {
       return res.status(400).json(response);
     }
 
-    // Валидация телефона
+    // Валида��ия телефона
     const phoneRegex = /^[\+]?[0-9\s\-\(\)]{10,}$/;
     if (!phoneRegex.test(bookingData.clientPhone)) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Некорректный номер телефона",
         error: "Некорректный номер телефона",
       };
       return res.status(400).json(response);
@@ -100,6 +101,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     if (preferredDate < today) {
       const response: CreateBookingResponse = {
         success: false,
+        message: "Дата брони не может быть в прошлом",
         error: "Дата брони не может быть в прошлом",
       };
       return res.status(400).json(response);
@@ -143,7 +145,8 @@ export const createBooking: RequestHandler = async (req, res) => {
     console.error("❌ Ошибка создания брони:", error);
     const response: CreateBookingResponse = {
       success: false,
-      error: "Ошибка серв��ра при создании брони",
+      message: "Ошибка сервера при создании брони",
+      error: "Ошибка сервера при создании брони",
     };
     res.status(500).json(response);
   }
@@ -152,7 +155,7 @@ export const createBooking: RequestHandler = async (req, res) => {
 // Получение броней пользователя
 export const getUserBookings: RequestHandler = async (req, res) => {
   try {
-    console.log("📋 Получен запрос на получение броней пользователя");
+    console.log("📋 Получен запро�� на получение броней пользователя");
     const userId = req.headers["user-id"] as string;
 
     if (!userId || userId === "anonymous") {
