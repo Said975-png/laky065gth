@@ -8,7 +8,7 @@
   NPM_FLAGS = "--production=false"
 
 [functions]
-  external_node_modules = ["express", "cors", "sqlite3", "bcryptjs", "jsonwebtoken", "nodemailer", "zod", "serverless-http"]
+  external_node_modules = ["express", "cors", "sqlite3", "bcryptjs", "jsonwebtoken", "nodemailer", "zod", "serverless-http", "fs", "path"]
   node_bundler = "esbuild"
   included_files = ["data/**/*", "server/**/*", "shared/**/*"]
 
