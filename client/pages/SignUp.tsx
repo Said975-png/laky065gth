@@ -46,28 +46,42 @@ export default function SignUp() {
     }
 
     try {
-      // Получаем существующих пользователей из localStorage
-      const existingUsers = JSON.parse(
-        localStorage.getItem("users") || "[]",
-      ) as User[];
+      // Отправляем данные в API
+      const response = await fetch("/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-      // Проверяем, существует ли пользователь с таким email
-      if (existingUsers.find((user) => user.email === formData.email)) {
-        setError("Пользователь с таким email уже существует");
+      const result = await response.json();
+
+      if (!result.success) {
+        setError(result.error || "Ошибка регистрации");
         setLoading(false);
         return;
       }
 
+      // Также сохраняем в localStorage для совместимости
+      const existingUsers = JSON.parse(
+        localStorage.getItem("users") || "[]",
+      ) as User[];
+
       // Создаём нового пользователя
       const newUser: User = {
-        id: Date.now().toString(),
+        id: result.userId || Date.now().toString(),
         name: formData.name,
         email: formData.email,
-        password: formData.password, // В реальном приложении пароль нужно хешировать
+        password: formData.password,
         createdAt: new Date().toISOString(),
       };
 
-      // Добавляем пользователя в список
+      // Добавляем пользователя в localStorage
       existingUsers.push(newUser);
       localStorage.setItem("users", JSON.stringify(existingUsers));
 

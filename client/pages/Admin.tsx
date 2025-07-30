@@ -50,8 +50,13 @@ interface AdminStats {
 }
 
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
   const [bookings, setBookings] = useState<BookingData[]>([]);
   const [filteredBookings, setFilteredBookings] = useState<BookingData[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [registrations, setRegistrations] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -187,10 +192,69 @@ export default function Admin() {
     setFilteredBookings(filtered);
   };
 
+  // Проверка сохраненной аутентификации
+  useEffect(() => {
+    const savedAuth = localStorage.getItem("admin_authenticated");
+    if (savedAuth === "true") {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  // Аутентификация админа
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "Laky06451") {
+      setIsAuthenticated(true);
+      setAuthError("");
+      localStorage.setItem("admin_authenticated", "true");
+    } else {
+      setAuthError("Неверный пароль");
+    }
+  };
+
+  // Выход из админки
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("admin_authenticated");
+    setPassword("");
+  };
+
+  // Загрузка всех данных для админа
+  const loadAllData = async () => {
+    if (!isAuthenticated) return;
+
+    try {
+      // Загружаем заказы
+      const ordersResponse = await fetch("/api/orders/all");
+      if (ordersResponse.ok) {
+        const ordersData = await ordersResponse.json();
+        if (ordersData.success) {
+          setOrders(ordersData.orders || []);
+        }
+      }
+
+      // Загружаем регистрации
+      const usersResponse = await fetch("/api/users/all");
+      if (usersResponse.ok) {
+        const usersData = await usersResponse.json();
+        if (usersData.success) {
+          setRegistrations(usersData.users || []);
+        }
+      }
+
+      // Загружаем брони
+      await loadAllBookings();
+    } catch (error) {
+      console.error("Error loading admin data:", error);
+    }
+  };
+
   // Загрузка данных при монтировании
   useEffect(() => {
-    loadAllBookings();
-  }, []);
+    if (isAuthenticated) {
+      loadAllData();
+    }
+  }, [isAuthenticated]);
 
   // Применение фильтров при изменении параметров
   useEffect(() => {
@@ -250,6 +314,44 @@ export default function Admin() {
     }
   };
 
+  // Если не аутентифицирован, показываем форму входа
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl">Админ панель</CardTitle>
+            <p className="text-gray-600">Введите пароль для доступа</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              <div>
+                <Input
+                  type="password"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              {authError && (
+                <div className="text-red-600 text-sm text-center">
+                  {authError}
+                </div>
+              )}
+              <Button type="submit" className="w-full">
+                Войти
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -280,6 +382,14 @@ export default function Admin() {
                 <Shield className="w-3 h-3 mr-1" />
                 Администратор
               </Badge>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                Выйти
+              </Button>
             </div>
           </div>
         </div>
@@ -306,7 +416,7 @@ export default function Admin() {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-none lg:inline-flex">
+          <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:grid-cols-none lg:inline-flex">
             <TabsTrigger
               value="overview"
               className="flex items-center space-x-2"
@@ -319,7 +429,15 @@ export default function Admin() {
               className="flex items-center space-x-2"
             >
               <Calendar className="w-4 h-4" />
-              <span>Все брони</span>
+              <span>Брони</span>
+            </TabsTrigger>
+            <TabsTrigger value="orders" className="flex items-center space-x-2">
+              <FileText className="w-4 h-4" />
+              <span>Заказы</span>
+            </TabsTrigger>
+            <TabsTrigger value="users" className="flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>Регистрации</span>
             </TabsTrigger>
           </TabsList>
 
@@ -697,6 +815,243 @@ export default function Admin() {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Orders Tab */}
+          <TabsContent value="orders" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <FileText className="w-5 h-5" />
+                    <span>Заказы ({orders.length})</span>
+                  </div>
+                  <Button onClick={loadAllData} variant="outline" size="sm">
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Обновить
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {orders.length === 0 ? (
+                  <div className="text-center py-12">
+                    <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                      Заказов пока нет
+                    </h5>
+                    <p className="text-gray-600">
+                      Здесь появятся все оформленные заказы
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {orders.map((order: any) => (
+                      <Card key={order.id} className="bg-white border">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-3">
+                                <h5 className="text-lg font-medium text-gray-900">
+                                  Заказ #{order.id}
+                                </h5>
+                                <Badge
+                                  variant="outline"
+                                  className="border-blue-500 text-blue-700 bg-blue-50"
+                                >
+                                  {order.status === "pending"
+                                    ? "Новый"
+                                    : order.status}
+                                </Badge>
+                              </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Клиент
+                                  </h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4 text-gray-500" />
+                                      <span>
+                                        {order.formData?.fullName ||
+                                          "Не указано"}
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Phone className="w-4 h-4 text-gray-500" />
+                                      <span>
+                                        {order.formData?.phone || "Не указано"}
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Детали заказа
+                                  </h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div>
+                                      Сумма:{" "}
+                                      <strong>{order.total || 0}₽</strong>
+                                    </div>
+                                    <div>
+                                      Товаров: {order.items?.length || 0}
+                                    </div>
+                                    <div>
+                                      Дата:{" "}
+                                      {new Date(
+                                        order.createdAt,
+                                      ).toLocaleDateString("ru-RU")}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {order.formData?.description && (
+                                <div className="mb-4">
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Описание
+                                  </h6>
+                                  <p className="text-sm text-gray-700">
+                                    {order.formData.description}
+                                  </p>
+                                </div>
+                              )}
+
+                              {order.formData?.referenceUrl && (
+                                <div className="mb-4">
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Референс
+                                  </h6>
+                                  <a
+                                    href={order.formData.referenceUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:text-blue-800 text-sm"
+                                  >
+                                    {order.formData.referenceUrl}
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Users/Registrations Tab */}
+          <TabsContent value="users" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <Users className="w-5 h-5" />
+                    <span>
+                      Регистрации пользователей ({registrations.length})
+                    </span>
+                  </div>
+                  <Button onClick={loadAllData} variant="outline" size="sm">
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Обновить
+                  </Button>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {registrations.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                      Регистраций пока нет
+                    </h5>
+                    <p className="text-gray-600">
+                      Здесь появятся данные всех зарегистрированных
+                      пользователей
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {registrations.map((user: any) => (
+                      <Card key={user.id} className="bg-white border">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-3">
+                                <h5 className="text-lg font-medium text-gray-900">
+                                  {user.name || "Без имени"}
+                                </h5>
+                                <Badge
+                                  variant="outline"
+                                  className="border-green-500 text-green-700 bg-green-50"
+                                >
+                                  Активен
+                                </Badge>
+                              </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Контактные данные
+                                  </h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div className="flex items-center gap-2">
+                                      <Mail className="w-4 h-4 text-gray-500" />
+                                      <span>{user.email}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4 text-gray-500" />
+                                      <span>ID: {user.id}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Регистрация
+                                  </h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div>
+                                      Дата:{" "}
+                                      {new Date(
+                                        user.createdAt,
+                                      ).toLocaleDateString("ru-RU")}
+                                    </div>
+                                    <div>
+                                      Время:{" "}
+                                      {new Date(
+                                        user.createdAt,
+                                      ).toLocaleTimeString("ru-RU")}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                                <h6 className="font-medium text-gray-900 mb-1">
+                                  Пароль
+                                </h6>
+                                <p className="text-sm text-gray-700 font-mono">
+                                  {user.password}
+                                </p>
+                                <p className="text-xs text-gray-500 mt-1">
+                                  ⚠️ Пароль сохранен в незашифрованном виде для
+                                  демо-целей
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
