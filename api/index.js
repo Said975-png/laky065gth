@@ -84,7 +84,9 @@ export default async function handler(req, res) {
               });
             }
           } else {
+            const errorText = await response.text();
             console.log("GROQ API response not ok:", response.status, response.statusText);
+            console.log("GROQ API error details:", errorText);
           }
         } catch (error) {
           console.log("GROQ API Error:", error.message);
