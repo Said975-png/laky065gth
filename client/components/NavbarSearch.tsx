@@ -23,44 +23,15 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Данные для поиска
+  // Данные для поиска - все страницы и функции сайта
   const searchData: SearchResult[] = [
+    // Основные страницы
     {
       id: "home",
       title: "Главная страница",
-      description: "Домашняя страница с информацией о ДЖАРВИС AI",
+      description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
-    },
-    {
-      id: "voice-commands",
-      title: "Голосовые команды",
-      description: "Управление сайтом с помощью голоса",
-      type: "feature",
-    },
-    {
-      id: "jarvis-interface",
-      title: "Интерфейс ДЖАРВИС",
-      description: "AI-помощник с голосовым управлением",
-      type: "component",
-    },
-    {
-      id: "plans-basic",
-      title: "Базовый план",
-      description: "Начальный тарифный план с основными функциями",
-      type: "plan",
-    },
-    {
-      id: "plans-pro",
-      title: "PRO план",
-      description: "Профессиональный план с расширенными возможностями",
-      type: "plan",
-    },
-    {
-      id: "plans-max",
-      title: "MAX план",
-      description: "Максимальный план с полным набором функций",
-      type: "plan",
     },
     {
       id: "login",
@@ -84,28 +55,294 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       url: "/profile",
     },
     {
-      id: "cart",
-      title: "Корзина",
-      description: "Выбранные тарифные планы",
-      type: "feature",
+      id: "order",
+      title: "Форма заказа",
+      description: "Оформление заказа услуг",
+      type: "page",
+      url: "/order",
     },
     {
-      id: "ai-features",
-      title: "AI возможности",
-      description: "Искусственный интеллект и автоматизация",
+      id: "chat",
+      title: "Чат с Пятницей",
+      description: "AI чат-ассистент Пятница",
+      type: "page",
+      url: "/chat",
+    },
+    {
+      id: "admin",
+      title: "Панель администратора",
+      description: "Административная панель управления",
+      type: "page",
+      url: "/admin",
+    },
+    {
+      id: "debug",
+      title: "Отладка",
+      description: "Страница отладки системы",
+      type: "page",
+      url: "/debug",
+    },
+
+    // Секции главной страницы
+    {
+      id: "hero-section",
+      title: "Hero секция",
+      description: "Главная секция с ДЖАРВИС и 3D моделью",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "advantages",
+      title: "Преимущества",
+      description: "Секция с преимуществами ДЖАРВИС AI",
+      type: "component",
+      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+    {
+      id: "pricing",
+      title: "Тарифы и цены",
+      description: "Секция с тарифными планами",
+      type: "component",
+      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+    {
+      id: "jarvis-demo",
+      title: "Демо ДЖАРВИС",
+      description: "Демонстрация возможностей AI-ассистента",
+      type: "component",
+      action: () => {
+        const demoElement = document.querySelector('#jarvis-demo, [data-section="demo"]');
+        if (demoElement) {
+          demoElement.scrollIntoView({ behavior: "smooth" });
+        } else {
+          // Если элемент не найден, скроллим вниз
+          window.scrollTo({ top: document.body.scrollHeight * 0.6, behavior: "smooth" });
+        }
+      },
+    },
+
+    // Тарифные планы
+    {
+      id: "plan-beginner",
+      title: "Beginner Plan",
+      description: "Базовый тарифный план - 199 сум",
+      type: "plan",
+      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+    {
+      id: "plan-intermediate",
+      title: "Intermediate Plan",
+      description: "Средний тарифный план - 349 сум",
+      type: "plan",
+      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+    {
+      id: "plan-advanced",
+      title: "Advanced Plan",
+      description: "Продвинутый тарифный план - 495 сум",
+      type: "plan",
+      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+
+    // Функции и возможности
+    {
+      id: "voice-control",
+      title: "Голосовое управление",
+      description: "Управление сайтом с помощью голосовых команд",
       type: "feature",
+      action: () => {
+        const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
+        if (voiceButton) {
+          voiceButton.click();
+        }
+      },
+    },
+    {
+      id: "jarvis-commands",
+      title: "Команды ДЖАРВИС",
+      description: "Панель команд AI-ассистента",
+      type: "feature",
+      action: () => {
+        const commandsButton = document.querySelector('button:has([data-icon="bot"])') as HTMLElement;
+        if (commandsButton) {
+          commandsButton.click();
+        }
+      },
+    },
+    {
+      id: "cart",
+      title: "Корзина покупок",
+      description: "Управление выбранными тарифными планами",
+      type: "feature",
+      action: () => {
+        const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+        if (cartButton) {
+          cartButton.click();
+        }
+      },
+    },
+    {
+      id: "theme-toggle",
+      title: "Смена темы",
+      description: "Переключение между светлой и темной темой",
+      type: "feature",
+      action: () => {
+        const themeButton = document.querySelector('button:has([data-lucide="sun"]), button:has([data-lucide="moon"])') as HTMLElement;
+        if (themeButton) {
+          themeButton.click();
+        }
+      },
+    },
+    {
+      id: "3d-model",
+      title: "3D модель",
+      description: "Инт��рактивная 3D модель ДЖАРВИС",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "stark-hud",
+      title: "Stark HUD",
+      description: "Интерфейс в стиле Stark Industries",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "stark-mode",
+      title: "Stark Mode",
+      description: "Специальный режим Stark Industries",
+      type: "feature",
+      action: () => {
+        const starkButton = document.querySelector('[data-testid="stark-mode"]') as HTMLElement;
+        if (starkButton) {
+          starkButton.click();
+        }
+      },
+    },
+
+    // AI и технологии
+    {
+      id: "ai-assistant",
+      title: "AI Ассистент",
+      description: "Искусственный интеллект помощник",
+      type: "feature",
+      url: "/chat",
+    },
+    {
+      id: "neural-network",
+      title: "Нейронные сети",
+      description: "Технологии машинного обучения",
+      type: "feature",
+      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "blockchain",
-      title: "Blockchain интеграция",
-      description: "Технологии блок��ейн и криптографии",
+      title: "Blockchain",
+      description: "Технологии блокчейн и криптографии",
       type: "feature",
+      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
     },
     {
-      id: "stark-tech",
-      title: "Stark Industries Technology",
-      description: "Продвинутые технологии Stark Industries",
+      id: "face-recognition",
+      title: "Распознавание лиц",
+      description: "Биометрическая идентификация",
       type: "feature",
+      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+    },
+
+    // Сервисы и формы
+    {
+      id: "service-order",
+      title: "Заказ услуг",
+      description: "Форма заказа индивидуальных услуг",
+      type: "feature",
+      action: () => {
+        const orderButton = document.querySelector('button:contains("Заказать услугу")') as HTMLElement;
+        if (orderButton) {
+          orderButton.click();
+        } else {
+          window.location.href = "/order";
+        }
+      },
+    },
+    {
+      id: "booking-form",
+      title: "Форма бронирования",
+      description: "Бронирование встреч и консультаций",
+      type: "feature",
+      url: "/order",
+    },
+    {
+      id: "auth-modal",
+      title: "Модальное окно авторизации",
+      description: "Быстрая авторизация без перехода на страницу",
+      type: "feature",
+      action: () => {
+        const authButton = document.querySelector('button:contains("Login"), button:contains("Sign Up")') as HTMLElement;
+        if (authButton) {
+          authButton.click();
+        }
+      },
+    },
+
+    // Дополнительные компоненты
+    {
+      id: "typewriter-effect",
+      title: "Эффект печатной машинки",
+      description: "Анимация набора текста",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "stark-effects",
+      title: "Stark эффекты",
+      description: "Визуальные эффекты в стиле Iron Man",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "glitch-text",
+      title: "Glitch текст",
+      description: "Эффект глитча для текста",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+    {
+      id: "arc-reactor",
+      title: "Arc Reactor",
+      description: "Анимированный реактор дугового типа",
+      type: "component",
+      action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
+    },
+
+    // Статистика и показатели
+    {
+      id: "stats",
+      title: "Статистика",
+      description: "Показатели эффективности: 99.9% точность, 24/7 доступность",
+      type: "component",
+      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+    },
+    {
+      id: "accuracy",
+      title: "Точность ответов",
+      description: "99.9% точность ответов AI-ассистента",
+      type: "feature",
+      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+    },
+    {
+      id: "availability",
+      title: "Доступность 24/7",
+      description: "Круглосуточная работа системы",
+      type: "feature",
+      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+    },
+    {
+      id: "response-time",
+      title: "Время отклика",
+      description: "Менее 1 секунды время отклика",
+      type: "feature",
+      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
     },
   ];
 
@@ -233,7 +470,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     }
   };
 
-  // Закры��ие при клике вне области
+  // Закрытие при клике вне области
   useEffect(() => {
     if (!isOpen) return;
 
