@@ -14,11 +14,14 @@ npx vercel --prod --force
 
 ### 3. Возможные проблемы и решения:
 
-**"DEBUG: GROQ API Error 401"** 
+**"DEBUG: GROQ API Error 400: unsupported property"**
+✅ **ИСПРАВЛЕНО** - API теперь очищает сообщения от лишних полей
+
+**"DEBUG: GROQ API Error 401"**
 → Неверный API ключ, проверьте в Vercel Dashboard
 
 **"DEBUG: GROQ API Error 429"**
-→ Превы��ен лимит запросов, подождите или обновите план
+→ Превышен лимит запросов, подождите или обновите план
 
 **"DEBUG: Exception при запросе к GROQ"**
 → Проблема с fetch, возможно версия Node.js
