@@ -13,6 +13,7 @@ import {
   X,
   Sun,
   Moon,
+  Search,
 } from "lucide-react";
 import { NavbarSearch } from "@/components/NavbarSearch";
 import { useAuth } from "@/hooks/useAuth";
