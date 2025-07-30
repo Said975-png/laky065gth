@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
-import { SiteSearch } from "@/components/SiteSearch";
 import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import AuthModal from "@/components/AuthModal";
@@ -157,7 +156,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Буду��ее взаимодействия с технологиями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
