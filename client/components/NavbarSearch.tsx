@@ -15,6 +15,8 @@ interface SearchResult {
 
 interface NavbarSearchProps {
   className?: string;
+  isSearchMode?: boolean;
+  onExitSearch?: () => void;
 }
 
 export function NavbarSearch({ className }: NavbarSearchProps) {
@@ -248,7 +250,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "face-recognition",
-      title: "Распознавание лиц",
+      title: "Распознавани�� лиц",
       description: "Биометрическая идентификация",
       type: "feature",
       action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
