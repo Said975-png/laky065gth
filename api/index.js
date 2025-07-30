@@ -255,23 +255,97 @@ export default async function handler(req, res) {
       console.log("📧 Получен заказ:", req.body);
       return res.json({
         success: true,
-        message: "Заказ успешно отправлен!",
+        message: "З��каз успешно отправлен!",
       });
     }
 
     // Bookings endpoints
     if (url === "/api/bookings" && method === "POST") {
+      const {
+        serviceType,
+        serviceDescription,
+        clientName,
+        clientEmail,
+        clientPhone,
+        preferredDate,
+        preferredTime,
+        notes
+      } = req.body;
+
+      const bookingId = `BOOK-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+      const userId = req.headers["user-id"] || "anonymous";
+
+      // Простое сохранение в памяти для демо (в продакшн можно добавить базу данных)
+      const booking = {
+        id: bookingId,
+        userId,
+        serviceType,
+        serviceDescription,
+        clientName,
+        clientEmail,
+        clientPhone,
+        preferredDate,
+        preferredTime,
+        notes: notes || "",
+        status: "pending",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      console.log("📅 Новая бронь создана:", bookingId);
+
       return res.json({
         success: true,
-        message: "Бронирование создано",
-        bookingId: `BOOK-${Date.now()}`,
+        message: "Бронирование успешно создано",
+        bookingId,
+        booking
       });
     }
 
     if (url === "/api/bookings" && method === "GET") {
+      const userId = req.headers["user-id"];
+
+      // Возвращаем пустой массив для demo
       return res.json({
         success: true,
         bookings: [],
+      });
+    }
+
+    if (url === "/api/bookings/all" && method === "GET") {
+      // Endpoint для получения всех броней (для админа)
+      return res.json({
+        success: true,
+        bookings: [
+          {
+            id: "BOOK-DEMO-001",
+            userId: "demo-user",
+            serviceType: "pro",
+            serviceDescription: "Создание корпоративного сайта",
+            clientName: "Иван Петров",
+            clientEmail: "ivan@example.com",
+            clientPhone: "+7 900 123 45 67",
+            preferredDate: "2024-02-15",
+            preferredTime: "14:00",
+            notes: "Требуется интеграция с CRM",
+            status: "pending",
+            createdAt: "2024-01-20T10:30:00Z",
+            updatedAt: "2024-01-20T10:30:00Z"
+          }
+        ],
+      });
+    }
+
+    // Update booking status
+    if (url.startsWith("/api/bookings/") && method === "PUT") {
+      const bookingId = url.split("/api/bookings/")[1];
+      const { status } = req.body;
+
+      console.log(`📝 Обновление статуса брони ${bookingId} на ${status}`);
+
+      return res.json({
+        success: true,
+        message: "Статус брони обновлен"
       });
     }
 
