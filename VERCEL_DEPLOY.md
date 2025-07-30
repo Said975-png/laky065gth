@@ -24,7 +24,7 @@ npm run test:api
 
 3. Скопируйте ваши API ключи в `.env`:
 ```bash
-# Отредактируйте .env файл и добавьте реальные значения:
+# Отредактируйте .env фай�� и добавьте реальные значения:
 GROQ_API_KEY=gsk_your_actual_groq_api_key_here
 JWT_SECRET=your_random_jwt_secret_here
 ```
@@ -35,6 +35,16 @@ npx vercel --prod
 ```
 
 5. Vercel автоматически спросит про переменные окружения - выберите копировать из .env
+
+### ⚠️ Важно: После добавления переменных в Vercel Dashboard
+
+Если вы добавляли переменные через Vercel Dashboard после первого деплоя, **обязательно перезадеплойте**:
+
+```bash
+npx vercel --prod --force
+```
+
+Или создайте новый деплой через Git push.
 
 ### Вариант 2: Через GitHub
 
