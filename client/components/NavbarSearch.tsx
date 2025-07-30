@@ -250,7 +250,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     },
     {
       id: "face-recognition",
-      title: "Ра��познавание лиц",
+      title: "Распознавание лиц",
       description: "Биометрическая идентификация",
       type: "feature",
       action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
@@ -280,7 +280,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     },
     {
       id: "auth-modal",
-      title: "Модальное окно авторизации",
+      title: "Модальное окн�� авторизации",
       description: "Быстрая авторизация без перехода на страницу",
       type: "feature",
       action: () => {
@@ -321,7 +321,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и показате��и
+    // Статистика и показатели
     {
       id: "stats",
       title: "Статистика",
@@ -552,6 +552,89 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  if (isSearchMode) {
+    // Встроенный режим поиска в навбаре
+    return (
+      <div className={cn("relative flex-1 mx-4", className)} data-search-container>
+        {/* Поисковая строка во встроенном режиме */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cyan-400" />
+          <input
+            ref={inputRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Поиск по сайту..."
+            className="w-full pl-10 pr-10 py-2 text-sm bg-white/10 border border-white/20 rounded-full text-white placeholder-white/60 focus:border-cyan-400 focus:outline-none backdrop-blur-sm transition-all duration-300 focus:bg-white/15"
+          />
+          <Button
+            onClick={() => {
+              if (onExitSearch) onExitSearch();
+              setQuery("");
+            }}
+            variant="ghost"
+            size="sm"
+            className="absolute right-1 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white hover:bg-white/10 rounded-full w-8 h-8 p-0"
+          >
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* Результаты поиска во встроенном режиме */}
+        {(results.length > 0 || (query.trim() && results.length === 0)) && (
+          <div className="absolute top-full left-0 right-0 mt-2 bg-black/95 border border-cyan-400/30 rounded-xl backdrop-blur-sm overflow-hidden shadow-2xl z-[70]">
+            {results.length > 0 ? (
+              results.map((result, index) => (
+                <button
+                  key={result.id}
+                  onClick={() => handleSelectResult(result)}
+                  className={cn(
+                    "w-full text-left px-4 py-3 border-b border-cyan-400/10 last:border-b-0 transition-all duration-200",
+                    index === selectedIndex
+                      ? "bg-cyan-400/20"
+                      : "hover:bg-cyan-400/10",
+                  )}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="font-medium text-white mb-1 text-sm">
+                        {result.title}
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {result.description}
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 ml-4">
+                      <span
+                        className={cn(
+                          "text-xs font-mono px-2 py-1 rounded-md bg-black/40",
+                          getTypeColor(result.type),
+                        )}
+                      >
+                        {getTypeLabel(result.type)}
+                      </span>
+                      {result.url && (
+                        <ExternalLink className="w-3 h-3 text-gray-400" />
+                      )}
+                    </div>
+                  </div>
+                </button>
+              ))
+            ) : (
+              <div className="p-4 text-center">
+                <div className="text-gray-400 mb-2">
+                  <Search className="w-6 h-6 mx-auto opacity-50" />
+                </div>
+                <p className="text-white/60 text-sm">Ничего не найдено</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Обычный режим с кнопкой поиска
   return (
     <div className={cn("relative", className)} data-search-container>
       {/* Кнопка поиска */}
