@@ -282,6 +282,44 @@ export default function Admin() {
     }
   };
 
+  // Если не аутентифицирован, показываем форму входа
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl">Админ панель</CardTitle>
+            <p className="text-gray-600">Введите пароль для доступа</p>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleAdminLogin} className="space-y-4">
+              <div>
+                <Input
+                  type="password"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              {authError && (
+                <div className="text-red-600 text-sm text-center">
+                  {authError}
+                </div>
+              )}
+              <Button type="submit" className="w-full">
+                Войти
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -523,7 +561,7 @@ export default function Admin() {
 
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="w-full lg:w-48">
-                      <SelectValue placeholder="Стату��" />
+                      <SelectValue placeholder="Статус" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Все статусы</SelectItem>
