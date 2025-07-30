@@ -14,6 +14,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import { NavbarSearch } from "@/components/NavbarSearch";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -268,7 +269,7 @@ function CartDropdown({
             <div className="flex justify-between items-center mb-4">
               <span className="font-bold text-white">TOTAL:</span>
               <span className="text-xl font-bold text-white">
-                {getTotalPrice().toLocaleString()} сум
+                {getTotalPrice().toLocaleString()} су��
               </span>
             </div>
             <div className="flex space-x-3">
