@@ -106,7 +106,7 @@ export default async function handler(req, res) {
                   {
                     role: "system",
                     content:
-                      "Ты Пятница - русскоязычный AI-помощник от Stark Industries. ВАЖНО: ВСЕ твои ответы должны быть ТОЛЬКО на русском языке, без исключений. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Проверяй грамматику и орфографию перед ответом. Будь краткой, но информативной. Используй правильные падежи и согласования в русском языке.",
+                      "Ты Пятница - русскоязычный AI-помощник от Stark Industries. ВАЖНО: ВСЕ твои ответы должны быть ТОЛ��КО на русском языке, без исключений. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Проверяй грамматику и орфографию перед ответом. Будь краткой, но информативной. Используй правильные падежи и согласования в русском языке.",
                   },
                   ...cleanedMessages,
                 ],
@@ -250,13 +250,92 @@ export default async function handler(req, res) {
       return res.send(contractHTML);
     }
 
-    // Orders endpoint
+    // Orders endpoints
     if (url === "/api/orders" && method === "POST") {
-      console.log("📧 Получен заказ:", req.body);
+      const { items, formData, total } = req.body;
+
+      const orderId = `ORDER-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+
+      const order = {
+        id: orderId,
+        items: items || [],
+        formData: {
+          fullName: formData?.fullName || "",
+          phone: formData?.phone || "",
+          description: formData?.description || "",
+          referenceUrl: formData?.referenceUrl || ""
+        },
+        total: total || 0,
+        status: "pending",
+        createdAt: new Date().toISOString()
+      };
+
+      // Сохраняем заказ в файл
+      try {
+        const fs = require('fs');
+        const path = require('path');
+
+        const dataDir = path.join(process.cwd(), "data");
+        const ordersFile = path.join(dataDir, "orders.json");
+
+        // Создаем директорию если её нет
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true });
+        }
+
+        // Загружаем существующие заказы
+        let orders = [];
+        if (fs.existsSync(ordersFile)) {
+          const data = fs.readFileSync(ordersFile, "utf-8");
+          orders = JSON.parse(data);
+        }
+
+        // Добавляем новый заказ
+        orders.push(order);
+        fs.writeFileSync(ordersFile, JSON.stringify(orders, null, 2));
+
+        console.log("🛒 Новый заказ сохранен в файл:", orderId);
+      } catch (error) {
+        console.error("Ошибка сохранения заказа:", error);
+      }
+
       return res.json({
         success: true,
         message: "Заказ успешно отправлен!",
+        orderId: orderId
       });
+    }
+
+    // Get all orders (for admin)
+    if (url === "/api/orders/all" && method === "GET") {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const ordersFile = path.join(process.cwd(), "data", "orders.json");
+
+        let orders = [];
+        if (fs.existsSync(ordersFile)) {
+          const data = fs.readFileSync(ordersFile, "utf-8");
+          orders = JSON.parse(data);
+        }
+
+        // Сортируем по дате создания (новые сначала)
+        orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        console.log(`📋 Загружено ${orders.length} заказов для админа`);
+
+        return res.json({
+          success: true,
+          orders: orders,
+        });
+      } catch (error) {
+        console.error("Ошибка загрузки заказов:", error);
+        return res.json({
+          success: false,
+          error: "Ошибка загрузки заказов",
+          orders: [],
+        });
+      }
     }
 
     // Bookings endpoints
