@@ -45,6 +45,7 @@ export default function ModernNavbar({
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
   // Track scroll position for navbar styling
   useEffect(() => {
