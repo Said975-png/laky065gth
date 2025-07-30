@@ -10,7 +10,7 @@ interface SearchResult {
   type: "page" | "feature" | "plan" | "component";
   url?: string;
   action?: () => void;
-  keywords?: string[]; // Дополнительные ключевые слова для поиска
+  keywords?: string[]; // Дополнительные ключев��е слова для поиска
 }
 
 interface NavbarSearchProps {
@@ -52,7 +52,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "profile",
       title: "Профиль пользователя",
-      description: "Настройки и информа��ия о пользователе",
+      description: "Настройки и информация о пользователе",
       type: "page",
       url: "/profile",
     },
@@ -412,13 +412,49 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       return;
     }
 
-    const filtered = searchData.filter(
-      (item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase()),
-    );
+    const searchQuery = query.toLowerCase();
 
-    setResults(filtered.slice(0, 6)); // Ограничиваем до 6 результатов
+    const filtered = searchData.filter((item) => {
+      // Поиск по названию
+      if (item.title.toLowerCase().includes(searchQuery)) {
+        return true;
+      }
+
+      // Поиск по описанию
+      if (item.description.toLowerCase().includes(searchQuery)) {
+        return true;
+      }
+
+      // Поиск по ключевым словам
+      if (item.keywords) {
+        return item.keywords.some(keyword =>
+          keyword.toLowerCase().includes(searchQuery)
+        );
+      }
+
+      return false;
+    });
+
+    // Сортируем результаты по релевантности
+    const sortedResults = filtered.sort((a, b) => {
+      // Точное совпадение в названии - наивысший приоритет
+      if (a.title.toLowerCase() === searchQuery) return -1;
+      if (b.title.toLowerCase() === searchQuery) return 1;
+
+      // Совпадение в начале названия
+      if (a.title.toLowerCase().startsWith(searchQuery)) return -1;
+      if (b.title.toLowerCase().startsWith(searchQuery)) return 1;
+
+      // Совпадение в ключевых словах
+      const aKeywordMatch = a.keywords?.some(k => k.toLowerCase() === searchQuery);
+      const bKeywordMatch = b.keywords?.some(k => k.toLowerCase() === searchQuery);
+      if (aKeywordMatch && !bKeywordMatch) return -1;
+      if (!aKeywordMatch && bKeywordMatch) return 1;
+
+      return 0;
+    });
+
+    setResults(sortedResults.slice(0, 8)); // Увеличиваем до 8 результатов
     setSelectedIndex(0);
   }, [query]);
 
@@ -539,7 +575,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Поиск по сайт��..."
+                placeholder="Поиск по сайту..."
                 className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-base sm:text-lg bg-black/95 border-2 border-cyan-400/30 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm min-h-[48px] transition-all duration-200"
               />
               <Button
