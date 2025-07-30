@@ -19,6 +19,7 @@
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
     "test:api": "node test-api.js",
+    "test:bookings": "node test-bookings.js",
     "format.fix": "prettier --write .",
     "typecheck": "tsc"
   },
