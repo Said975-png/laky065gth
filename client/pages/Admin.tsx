@@ -152,7 +152,7 @@ export default function Admin() {
       }
     } catch (error) {
       console.error("Error updating booking status:", error);
-      setError("Ошибка с��ти при обновлении статуса");
+      setError("Ошибка сети при обновлении статуса");
     }
   };
 
@@ -190,10 +190,39 @@ export default function Admin() {
     setFilteredBookings(filtered);
   };
 
+  // Проверка сохраненной аутентификации
+  useEffect(() => {
+    const savedAuth = localStorage.getItem('admin_authenticated');
+    if (savedAuth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  // Аутентификация админа
+  const handleAdminLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "Laky06451") {
+      setIsAuthenticated(true);
+      setAuthError("");
+      localStorage.setItem('admin_authenticated', 'true');
+    } else {
+      setAuthError("Неверный пароль");
+    }
+  };
+
+  // Выход из админки
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem('admin_authenticated');
+    setPassword("");
+  };
+
   // Загрузка данных при монтировании
   useEffect(() => {
-    loadAllBookings();
-  }, []);
+    if (isAuthenticated) {
+      loadAllBookings();
+    }
+  }, [isAuthenticated]);
 
   // Применение фильтров при изменении параметров
   useEffect(() => {
@@ -494,7 +523,7 @@ export default function Admin() {
 
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="w-full lg:w-48">
-                      <SelectValue placeholder="Статус" />
+                      <SelectValue placeholder="Стату��" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">Все статусы</SelectItem>
@@ -518,7 +547,7 @@ export default function Admin() {
                       <SelectItem value="pro">PRO</SelectItem>
                       <SelectItem value="max">MAX</SelectItem>
                       <SelectItem value="consultation">Консультация</SelectItem>
-                      <SelectItem value="custom">Индивиду��льный</SelectItem>
+                      <SelectItem value="custom">Индивидуальный</SelectItem>
                     </SelectContent>
                   </Select>
 
