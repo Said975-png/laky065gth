@@ -85,7 +85,11 @@ export default async function handler(req, res) {
                   role: "system",
                   content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
                 },
-                ...messages.slice(-5) // Last 5 messages for context
+                // Clean messages to only include role and content
+                ...messages.slice(-5).map(msg => ({
+                  role: msg.role,
+                  content: msg.content
+                }))
               ],
               max_tokens: 1000,
               temperature: 0.7,
