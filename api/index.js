@@ -70,7 +70,14 @@ export default async function handler(req, res) {
       // If GROQ API key is available, try to use the actual API
       if (groqApiKey && groqApiKey !== 'your_groq_api_key_here' && groqApiKey.trim() !== '') {
         try {
+          // Clean messages to only include role and content
+          const cleanedMessages = messages.slice(-5).map(msg => ({
+            role: msg.role,
+            content: msg.content
+          }));
+
           console.log("🚀 Attempting GROQ API call...");
+          console.log("📝 Cleaned messages:", JSON.stringify(cleanedMessages, null, 2));
 
           const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
@@ -85,11 +92,7 @@ export default async function handler(req, res) {
                   role: "system",
                   content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
                 },
-                // Clean messages to only include role and content
-                ...messages.slice(-5).map(msg => ({
-                  role: msg.role,
-                  content: msg.content
-                }))
+                ...cleanedMessages
               ],
               max_tokens: 1000,
               temperature: 0.7,
@@ -141,7 +144,7 @@ export default async function handler(req, res) {
       let response = "Привет! Я ваш AI-помощник. Как дела?";
 
       if (lastMessage.includes("привет")) {
-        response = "👋 Привет! Как дела? Чем могу помочь?";
+        response = "👋 Привет! Как де��а? Чем могу помочь?";
       } else if (lastMessage.includes("как дела")) {
         response = "🤖 Отлично! Готов к работе. Что вас интересует?";
       } else if (lastMessage.includes("помощь")) {
