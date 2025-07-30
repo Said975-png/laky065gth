@@ -177,7 +177,7 @@ export default function Admin() {
       );
     }
 
-    // Фильтр по статусу
+    // Фильтр по ста��усу
     if (statusFilter !== "all") {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
@@ -219,10 +219,40 @@ export default function Admin() {
     setPassword("");
   };
 
+  // Загрузка всех данных для админа
+  const loadAllData = async () => {
+    if (!isAuthenticated) return;
+
+    try {
+      // Загружаем заказы
+      const ordersResponse = await fetch("/api/orders/all");
+      if (ordersResponse.ok) {
+        const ordersData = await ordersResponse.json();
+        if (ordersData.success) {
+          setOrders(ordersData.orders || []);
+        }
+      }
+
+      // Загружаем регистрации
+      const usersResponse = await fetch("/api/users/all");
+      if (usersResponse.ok) {
+        const usersData = await usersResponse.json();
+        if (usersData.success) {
+          setRegistrations(usersData.users || []);
+        }
+      }
+
+      // Загружаем брони
+      await loadAllBookings();
+    } catch (error) {
+      console.error("Error loading admin data:", error);
+    }
+  };
+
   // Загрузка данных при монтировании
   useEffect(() => {
     if (isAuthenticated) {
-      loadAllBookings();
+      loadAllData();
     }
   }, [isAuthenticated]);
 
@@ -413,7 +443,7 @@ export default function Admin() {
               className="flex items-center space-x-2"
             >
               <Users className="w-4 h-4" />
-              <span>Регистрации</span>
+              <span>Реги��трации</span>
             </TabsTrigger>
           </TabsList>
 
@@ -515,7 +545,7 @@ export default function Admin() {
                     variant="outline"
                     size="sm"
                   >
-                    Показать ��се
+                    Показать все
                   </Button>
                 </CardTitle>
               </CardHeader>
