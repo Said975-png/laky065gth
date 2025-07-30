@@ -51,8 +51,7 @@ export default async function handler(req, res) {
       // If GROQ API key is available, try to use the actual API
       if (groqApiKey && groqApiKey !== 'your_groq_api_key_here') {
         try {
-          // Use dynamic import for fetch in Node.js environment
-          const fetch = (await import('node-fetch')).default;
+          // Use built-in fetch (available in Node.js 18+)
 
           const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
