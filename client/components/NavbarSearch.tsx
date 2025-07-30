@@ -31,7 +31,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     // Основные страницы
     {
       id: "home",
-      title: "Главная страница",
+      title: "��лавная страница",
       description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
@@ -71,7 +71,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
-      keywords: ["пятница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
+      keywords: ["п��тница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
     },
     {
       id: "admin",
@@ -106,7 +106,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     {
       id: "pricing",
       title: "Тарифы и цены",
-      description: "Секция с тарифными планами",
+      description: "Секция с тарифными планам��",
       type: "component",
       action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
     },
@@ -321,7 +321,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и пока��атели
+    // Статистика и показатели
     {
       id: "stats",
       title: "Статистика",
@@ -495,12 +495,12 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, results, selectedIndex, handleSelectResult]);
 
-  // Фокус на input при открытии
+  // Фокус на input при открытии или активации режима поиска
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if ((isOpen || isSearchMode) && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+  }, [isOpen, isSearchMode]);
 
   const getTypeColor = (type: string) => {
     switch (type) {
