@@ -540,7 +540,7 @@
     }
   }
 
-  /* Голографический эффект для навбара */
+  /* Голографический эффект для на��бара */
   .holographic-navbar {
     position: relative;
     background: linear-gradient(
@@ -1383,7 +1383,7 @@
     animation: stark-typing 2s steps(40) forwards;
   }
 
-  /* Улучшенны�� градиенты для Stark стиля */
+  /* Улучшенны�� гра��иенты для Stark стиля */
   .stark-gradient {
     background: linear-gradient(
       135deg,
@@ -1559,7 +1559,7 @@
     --popover: 195 80% 8%;
     --popover-foreground: 195 100% 93%;
 
-    --primary: 180 100% 50%; /* #00f7ff неоновый голубой */
+    --primary: 180 100% 50%; /* #00f7ff неоновый го��убой */
     --primary-foreground: 195 100% 6%;
 
     --secondary: 195 60% 15%;
@@ -2120,7 +2120,7 @@
     }
   }
 
-  /* УБ��АНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
+  /* УБ��АНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕ��ИЕ */
   .neon-center-glow {
     display: none !important;
   }
@@ -2318,5 +2318,102 @@
 
   .animate-spin-slow {
     animation: spin-slow 8s linear infinite;
+  }
+
+  /* PageLoader Animations */
+  @keyframes gridMove {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(50px) translateY(50px); }
+  }
+
+  .grid-move-animation {
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes chipAssembly {
+    0% {
+      opacity: 0;
+      transform: scale(0.5) rotate(180deg);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1) rotate(90deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .chip-assembly-animation {
+    animation: chipAssembly 2s ease-out forwards;
+  }
+
+  @keyframes particleFormation {
+    0% {
+      transform: scale(0) rotate(0deg);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2) rotate(180deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(1) rotate(360deg);
+      opacity: 1;
+    }
+  }
+
+  .particle-formation {
+    animation: particleFormation 1.5s ease-out forwards;
+  }
+
+  @keyframes sphereFly {
+    0% {
+      transform: translateX(-100px) translateY(-100px) scale(0.5);
+      opacity: 0;
+    }
+    25% {
+      opacity: 1;
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100px) translateY(100px) scale(1);
+      opacity: 0;
+    }
+  }
+
+  .sphere-fly {
+    animation: sphereFly 4s ease-in-out infinite;
+  }
+
+  @keyframes progressPulse {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(6, 182, 212, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(6, 182, 212, 1), 0 0 30px rgba(59, 130, 246, 0.8);
+    }
+  }
+
+  .progress-pulse {
+    animation: progressPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes circuitGlow {
+    0%, 100% {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    }
+    50% {
+      border-color: rgba(6, 182, 212, 0.8);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.6), inset 0 0 15px rgba(6, 182, 212, 0.3);
+    }
+  }
+
+  .circuit-glow {
+    animation: circuitGlow 3s ease-in-out infinite;
   }
 }
