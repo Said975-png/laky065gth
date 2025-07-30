@@ -68,7 +68,7 @@ export default async function handler(req, res) {
       });
 
       // If GROQ API key is available, try to use the actual API
-      if (groqApiKey && groqApiKey !== 'your_groq_api_key_here') {
+      if (groqApiKey && groqApiKey !== 'your_groq_api_key_here' && groqApiKey.trim() !== '') {
         try {
           // Use built-in fetch (available in Node.js 18+)
 
@@ -83,7 +83,7 @@ export default async function handler(req, res) {
               messages: [
                 {
                   role: "system",
-                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная �� веб-разработке. Отвечай на русском языке, будь краткой но информативной."
+                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
                 },
                 ...messages.slice(-5) // Last 5 messages for context
               ],
@@ -123,7 +123,7 @@ export default async function handler(req, res) {
       } else if (lastMessage.includes("помощь")) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
       } else if (lastMessage.includes("сайт") || lastMessage.includes("разработка")) {
-        response = "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем проекте.";
+        response = "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем прое��те.";
       }
 
       return res.json({
