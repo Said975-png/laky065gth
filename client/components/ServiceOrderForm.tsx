@@ -7,10 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  Settings,
-  X,
-} from "lucide-react";
+import { Settings, X } from "lucide-react";
 
 interface ServiceOrderFormProps {
   isOpen: boolean;
@@ -43,7 +40,8 @@ export default function ServiceOrderForm({
               Создание договоров временно недоступно
             </h3>
             <p className="text-white/70 text-sm">
-              Мы работаем над улучшением этой функции. Пожалуйста, свяжитесь с нами напрямую для оформления заказа.
+              Мы работаем над улучшением этой функции. Пожалуйста, свяжитесь с
+              нами напрямую для оформления заказа.
             </p>
           </div>
 
