@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
 import Chat from "./pages/Chat";
 import Admin from "./pages/Admin";
+import Debug from "./pages/Debug";
 
 import NotFound from "./pages/NotFound";
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/order" element={<OrderForm />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/admin" element={<Admin />} />
+              <Route path="/debug" element={<Debug />} />
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
