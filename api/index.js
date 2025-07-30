@@ -255,7 +255,7 @@ export default async function handler(req, res) {
       console.log("📧 Получен заказ:", req.body);
       return res.json({
         success: true,
-        message: "З��каз успешно отправлен!",
+        message: "Заказ успешно отправлен!",
       });
     }
 
@@ -275,7 +275,7 @@ export default async function handler(req, res) {
       const bookingId = `BOOK-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
       const userId = req.headers["user-id"] || "anonymous";
 
-      // Простое сохранение в памяти для демо (в продакшн можно добавить базу данных)
+      // Сохраняем бронь в файл
       const booking = {
         id: bookingId,
         userId,
@@ -292,7 +292,34 @@ export default async function handler(req, res) {
         updatedAt: new Date().toISOString(),
       };
 
-      console.log("📅 Новая бронь создана:", bookingId);
+      // Сохраняем в файловую систему
+      try {
+        const fs = require('fs');
+        const path = require('path');
+
+        const dataDir = path.join(process.cwd(), "data", "bookings");
+        const bookingsFile = path.join(dataDir, "bookings.json");
+
+        // Соз��аем директорию если её нет
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true });
+        }
+
+        // Загружаем существующие брони
+        let bookings = [];
+        if (fs.existsSync(bookingsFile)) {
+          const data = fs.readFileSync(bookingsFile, "utf-8");
+          bookings = JSON.parse(data);
+        }
+
+        // Добавляем новую бронь
+        bookings.push(booking);
+        fs.writeFileSync(bookingsFile, JSON.stringify(bookings, null, 2));
+
+        console.log("📅 Новая бронь сохранена в файл:", bookingId);
+      } catch (error) {
+        console.error("Ошибка сохранения брони:", error);
+      }
 
       return res.json({
         success: true,
@@ -305,35 +332,62 @@ export default async function handler(req, res) {
     if (url === "/api/bookings" && method === "GET") {
       const userId = req.headers["user-id"];
 
-      // Возвращаем пустой массив для demo
-      return res.json({
-        success: true,
-        bookings: [],
-      });
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
+
+        let bookings = [];
+        if (fs.existsSync(bookingsFile)) {
+          const data = fs.readFileSync(bookingsFile, "utf-8");
+          bookings = JSON.parse(data);
+        }
+
+        // Фильтруем по пользователю
+        const userBookings = bookings.filter(booking => booking.userId === userId);
+
+        return res.json({
+          success: true,
+          bookings: userBookings,
+        });
+      } catch (error) {
+        console.error("Ошибка загрузки броней пользователя:", error);
+        return res.json({
+          success: true,
+          bookings: [],
+        });
+      }
     }
 
     if (url === "/api/bookings/all" && method === "GET") {
-      // Endpoint для получения всех броней (для админа)
-      return res.json({
-        success: true,
-        bookings: [
-          {
-            id: "BOOK-DEMO-001",
-            userId: "demo-user",
-            serviceType: "pro",
-            serviceDescription: "Создание корпоративного сайта",
-            clientName: "Иван Петров",
-            clientEmail: "ivan@example.com",
-            clientPhone: "+7 900 123 45 67",
-            preferredDate: "2024-02-15",
-            preferredTime: "14:00",
-            notes: "Требуется интеграция с CRM",
-            status: "pending",
-            createdAt: "2024-01-20T10:30:00Z",
-            updatedAt: "2024-01-20T10:30:00Z"
-          }
-        ],
-      });
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
+
+        let bookings = [];
+        if (fs.existsSync(bookingsFile)) {
+          const data = fs.readFileSync(bookingsFile, "utf-8");
+          bookings = JSON.parse(data);
+        }
+
+        // Сортируем по дате создания (новые сначала)
+        bookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        console.log(`📋 Загружено ${bookings.length} броней для админа`);
+
+        return res.json({
+          success: true,
+          bookings: bookings,
+        });
+      } catch (error) {
+        console.error("Ошибка загрузки всех броней:", error);
+        return res.json({
+          success: false,
+          error: "Ошибка загрузки броней",
+          bookings: [],
+        });
+      }
     }
 
     // Update booking status
@@ -341,12 +395,44 @@ export default async function handler(req, res) {
       const bookingId = url.split("/api/bookings/")[1];
       const { status } = req.body;
 
-      console.log(`📝 Обновление статуса брони ${bookingId} на ${status}`);
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
 
-      return res.json({
-        success: true,
-        message: "Статус брони обновлен"
-      });
+        let bookings = [];
+        if (fs.existsSync(bookingsFile)) {
+          const data = fs.readFileSync(bookingsFile, "utf-8");
+          bookings = JSON.parse(data);
+        }
+
+        // Находим и обновляем бронь
+        const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+        if (bookingIndex !== -1) {
+          bookings[bookingIndex].status = status;
+          bookings[bookingIndex].updatedAt = new Date().toISOString();
+
+          fs.writeFileSync(bookingsFile, JSON.stringify(bookings, null, 2));
+
+          console.log(`📝 Статус брони ${bookingId} обновлен на ${status}`);
+
+          return res.json({
+            success: true,
+            message: "Статус брони обновлен"
+          });
+        } else {
+          return res.json({
+            success: false,
+            error: "Бронь не найдена"
+          });
+        }
+      } catch (error) {
+        console.error("Ошибка обновления статуса брони:", error);
+        return res.json({
+          success: false,
+          error: "Ошибка обновления статуса"
+        });
+      }
     }
 
     // 404 for unknown routes
