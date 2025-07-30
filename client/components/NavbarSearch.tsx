@@ -10,6 +10,7 @@ interface SearchResult {
   type: "page" | "feature" | "plan" | "component";
   url?: string;
   action?: () => void;
+  keywords?: string[]; // Дополнительные ключевые слова для поиска
 }
 
 interface NavbarSearchProps {
@@ -64,7 +65,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "chat",
       title: "Чат с Пятницей",
-      description: "AI чат-ассистент Пятница",
+      description: "AI ча��-ассистент Пятница",
       type: "page",
       url: "/chat",
     },
@@ -171,7 +172,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "cart",
-      title: "Корзина покупок",
+      title: "Корзина покупо��",
       description: "Управление выбранными тарифными планами",
       type: "feature",
       action: () => {
@@ -310,15 +311,15 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "arc-reactor",
       title: "Arc Reactor",
-      description: "Аним��рованный реактор дугового типа",
+      description: "Анимированный реактор дугового типа",
       type: "component",
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и по��азатели
+    // Статистика и показатели
     {
       id: "stats",
-      title: "Статистика",
+      title: "Статис��ика",
       description: "Показатели эффективности: 99.9% точность, 24/7 доступность",
       type: "component",
       action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
@@ -351,7 +352,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     setIsOpen(false);
     setQuery("");
 
-    // Выполняем действие
+    // Выполняе�� действие
     if (result.url) {
       // Переход на страницу
       window.location.href = result.url;
