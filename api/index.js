@@ -1,9 +1,14 @@
 // Import storage helpers
 import {
-  addUser, getUsers, findUserByEmail,
-  addOrder, getOrders,
-  addBooking, getBookings, updateBooking
-} from './storage.js';
+  addUser,
+  getUsers,
+  findUserByEmail,
+  addOrder,
+  getOrders,
+  addBooking,
+  getBookings,
+  updateBooking,
+} from "./storage.js";
 
 // Import all route handlers directly for serverless compatibility
 export default async function handler(req, res) {
@@ -270,11 +275,11 @@ export default async function handler(req, res) {
           fullName: formData?.fullName || "",
           phone: formData?.phone || "",
           description: formData?.description || "",
-          referenceUrl: formData?.referenceUrl || ""
+          referenceUrl: formData?.referenceUrl || "",
         },
         total: total || 0,
         status: "pending",
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
 
       // Добавляем заказ
@@ -283,7 +288,7 @@ export default async function handler(req, res) {
       return res.json({
         success: true,
         message: "Заказ успешно отправлен!",
-        orderId: orderId
+        orderId: orderId,
       });
     }
 
@@ -293,7 +298,10 @@ export default async function handler(req, res) {
         const orders = getOrders();
 
         // Сортируем по дате создания (новые сначала)
-        orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        orders.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
 
         console.log(`📋 Загружено ${orders.length} заказов для админа`);
 
@@ -317,7 +325,10 @@ export default async function handler(req, res) {
         const users = getUsers();
 
         // Сортируем по дате создания (новые сначала)
-        users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        users.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
 
         console.log(`📋 Загружено ${users.length} пользователей для админа`);
 
@@ -345,7 +356,7 @@ export default async function handler(req, res) {
         if (existingUser) {
           return res.json({
             success: false,
-            error: "Пользователь с таким email уже существует"
+            error: "Пользователь с таким email уже существует",
           });
         }
 
@@ -356,7 +367,7 @@ export default async function handler(req, res) {
           name: name || "",
           email: email || "",
           password: password || "", // В продакшне нужно хешировать
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         };
 
         // Добавляем пользователя
@@ -365,13 +376,13 @@ export default async function handler(req, res) {
         return res.json({
           success: true,
           message: "Регистрация успешна!",
-          userId: userId
+          userId: userId,
         });
       } catch (error) {
         console.error("Ошибка регистрации пользователя:", error);
         return res.json({
           success: false,
-          error: "Ошибка регистрации"
+          error: "Ошибка регистрации",
         });
       }
     }
@@ -386,7 +397,7 @@ export default async function handler(req, res) {
         clientPhone,
         preferredDate,
         preferredTime,
-        notes
+        notes,
       } = req.body;
 
       const bookingId = `BOOK-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
@@ -411,8 +422,8 @@ export default async function handler(req, res) {
 
       // Сохраняем в файловую систему
       try {
-        const fs = await import('fs');
-        const path = await import('path');
+        const fs = await import("fs");
+        const path = await import("path");
 
         const dataDir = path.join(process.cwd(), "data", "bookings");
         const bookingsFile = path.join(dataDir, "bookings.json");
@@ -442,7 +453,7 @@ export default async function handler(req, res) {
         success: true,
         message: "Бронирование успешно создано",
         bookingId,
-        booking
+        booking,
       });
     }
 
@@ -453,7 +464,9 @@ export default async function handler(req, res) {
         const bookings = getBookings();
 
         // Фильтруем по пользователю
-        const userBookings = bookings.filter(booking => booking.userId === userId);
+        const userBookings = bookings.filter(
+          (booking) => booking.userId === userId,
+        );
 
         return res.json({
           success: true,
@@ -473,7 +486,10 @@ export default async function handler(req, res) {
         const bookings = getBookings();
 
         // Сортируем по дате создания (новые сначала)
-        bookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        bookings.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        );
 
         console.log(`📋 Загружено ${bookings.length} броней для админа`);
 
@@ -502,19 +518,19 @@ export default async function handler(req, res) {
         if (updated) {
           return res.json({
             success: true,
-            message: "Статус брони обновлен"
+            message: "Статус брони обновлен",
           });
         } else {
           return res.json({
             success: false,
-            error: "Бронь не найдена"
+            error: "Бронь не найдена",
           });
         }
       } catch (error) {
         console.error("Ошибка обновления статуса брони:", error);
         return res.json({
           success: false,
-          error: "Ошибка обновления статуса"
+          error: "Ошибка обновления статуса",
         });
       }
     }

@@ -142,15 +142,22 @@ export const addBooking = (booking: StoredBooking): void => {
   console.log("📅 Новая бронь сохранена:", booking.id);
 };
 
-export const updateBooking = (bookingId: string, updates: Partial<StoredBooking>): boolean => {
+export const updateBooking = (
+  bookingId: string,
+  updates: Partial<StoredBooking>,
+): boolean => {
   const bookings = loadBookings();
-  const index = bookings.findIndex(b => b.id === bookingId);
-  
+  const index = bookings.findIndex((b) => b.id === bookingId);
+
   if (index === -1) {
     return false;
   }
-  
-  bookings[index] = { ...bookings[index], ...updates, updatedAt: new Date().toISOString() };
+
+  bookings[index] = {
+    ...bookings[index],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
   saveBookings(bookings);
   console.log("📝 Бронь обновлена:", bookingId);
   return true;

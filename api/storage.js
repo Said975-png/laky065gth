@@ -3,8 +3,8 @@
 
 let inMemoryStorage = {
   users: [],
-  orders: [], 
-  bookings: []
+  orders: [],
+  bookings: [],
 };
 
 // Users
@@ -19,7 +19,7 @@ export function getUsers() {
 }
 
 export function findUserByEmail(email) {
-  return inMemoryStorage.users.find(u => u.email === email);
+  return inMemoryStorage.users.find((u) => u.email === email);
 }
 
 // Orders
@@ -45,12 +45,12 @@ export function getBookings() {
 }
 
 export function updateBooking(bookingId, updates) {
-  const index = inMemoryStorage.bookings.findIndex(b => b.id === bookingId);
+  const index = inMemoryStorage.bookings.findIndex((b) => b.id === bookingId);
   if (index !== -1) {
-    inMemoryStorage.bookings[index] = { 
-      ...inMemoryStorage.bookings[index], 
-      ...updates, 
-      updatedAt: new Date().toISOString() 
+    inMemoryStorage.bookings[index] = {
+      ...inMemoryStorage.bookings[index],
+      ...updates,
+      updatedAt: new Date().toISOString(),
     };
     console.log("📝 Бронь обновлена:", bookingId);
     return true;
@@ -64,7 +64,7 @@ export function getAllData() {
     users: inMemoryStorage.users.length,
     orders: inMemoryStorage.orders.length,
     bookings: inMemoryStorage.bookings.length,
-    data: inMemoryStorage
+    data: inMemoryStorage,
   };
 }
 
@@ -74,7 +74,7 @@ inMemoryStorage.users.push({
   name: "Демо Пользователь",
   email: "demo@example.com",
   password: "demo123",
-  createdAt: "2024-01-15T10:00:00Z"
+  createdAt: "2024-01-15T10:00:00Z",
 });
 
 inMemoryStorage.orders.push({
@@ -84,11 +84,11 @@ inMemoryStorage.orders.push({
     fullName: "Демо Клиент",
     phone: "+7 900 123 45 67",
     description: "Тестовый заказ для демонстрации",
-    referenceUrl: ""
+    referenceUrl: "",
   },
   total: 50000,
   status: "pending",
-  createdAt: "2024-01-16T14:30:00Z"
+  createdAt: "2024-01-16T14:30:00Z",
 });
 
 inMemoryStorage.bookings.push({
@@ -97,12 +97,12 @@ inMemoryStorage.bookings.push({
   serviceType: "pro",
   serviceDescription: "Создание корпоративного сайта",
   clientName: "Иван Петров",
-  clientEmail: "ivan@example.com", 
+  clientEmail: "ivan@example.com",
   clientPhone: "+7 900 123 45 67",
   preferredDate: "2024-02-15",
   preferredTime: "14:00",
   notes: "Требуется интеграция с CRM",
   status: "pending",
   createdAt: "2024-01-20T10:30:00Z",
-  updatedAt: "2024-01-20T10:30:00Z"
+  updatedAt: "2024-01-20T10:30:00Z",
 });

@@ -194,8 +194,8 @@ export default function Admin() {
 
   // Проверка сохраненной аутентификации
   useEffect(() => {
-    const savedAuth = localStorage.getItem('admin_authenticated');
-    if (savedAuth === 'true') {
+    const savedAuth = localStorage.getItem("admin_authenticated");
+    if (savedAuth === "true") {
       setIsAuthenticated(true);
     }
   }, []);
@@ -206,7 +206,7 @@ export default function Admin() {
     if (password === "Laky06451") {
       setIsAuthenticated(true);
       setAuthError("");
-      localStorage.setItem('admin_authenticated', 'true');
+      localStorage.setItem("admin_authenticated", "true");
     } else {
       setAuthError("Неверный пароль");
     }
@@ -215,7 +215,7 @@ export default function Admin() {
   // Выход из админки
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('admin_authenticated');
+    localStorage.removeItem("admin_authenticated");
     setPassword("");
   };
 
@@ -431,17 +431,11 @@ export default function Admin() {
               <Calendar className="w-4 h-4" />
               <span>Брони</span>
             </TabsTrigger>
-            <TabsTrigger
-              value="orders"
-              className="flex items-center space-x-2"
-            >
+            <TabsTrigger value="orders" className="flex items-center space-x-2">
               <FileText className="w-4 h-4" />
               <span>Заказы</span>
             </TabsTrigger>
-            <TabsTrigger
-              value="users"
-              className="flex items-center space-x-2"
-            >
+            <TabsTrigger value="users" className="flex items-center space-x-2">
               <Users className="w-4 h-4" />
               <span>Регистрации</span>
             </TabsTrigger>
@@ -860,46 +854,76 @@ export default function Admin() {
                                 <h5 className="text-lg font-medium text-gray-900">
                                   Заказ #{order.id}
                                 </h5>
-                                <Badge variant="outline" className="border-blue-500 text-blue-700 bg-blue-50">
-                                  {order.status === "pending" ? "Новый" : order.status}
+                                <Badge
+                                  variant="outline"
+                                  className="border-blue-500 text-blue-700 bg-blue-50"
+                                >
+                                  {order.status === "pending"
+                                    ? "Новый"
+                                    : order.status}
                                 </Badge>
                               </div>
 
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <div>
-                                  <h6 className="font-medium text-gray-900 mb-2">Клиент</h6>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Клиент
+                                  </h6>
                                   <div className="space-y-1 text-sm text-gray-700">
                                     <div className="flex items-center gap-2">
                                       <User className="w-4 h-4 text-gray-500" />
-                                      <span>{order.formData?.fullName || "Не указано"}</span>
+                                      <span>
+                                        {order.formData?.fullName ||
+                                          "Не указано"}
+                                      </span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                       <Phone className="w-4 h-4 text-gray-500" />
-                                      <span>{order.formData?.phone || "Не указано"}</span>
+                                      <span>
+                                        {order.formData?.phone || "Не указано"}
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
 
                                 <div>
-                                  <h6 className="font-medium text-gray-900 mb-2">Детали заказа</h6>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Детали заказа
+                                  </h6>
                                   <div className="space-y-1 text-sm text-gray-700">
-                                    <div>Сумма: <strong>{order.total || 0}₽</strong></div>
-                                    <div>Товаров: {order.items?.length || 0}</div>
-                                    <div>Дата: {new Date(order.createdAt).toLocaleDateString("ru-RU")}</div>
+                                    <div>
+                                      Сумма:{" "}
+                                      <strong>{order.total || 0}₽</strong>
+                                    </div>
+                                    <div>
+                                      Товаров: {order.items?.length || 0}
+                                    </div>
+                                    <div>
+                                      Дата:{" "}
+                                      {new Date(
+                                        order.createdAt,
+                                      ).toLocaleDateString("ru-RU")}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
 
                               {order.formData?.description && (
                                 <div className="mb-4">
-                                  <h6 className="font-medium text-gray-900 mb-2">Описание</h6>
-                                  <p className="text-sm text-gray-700">{order.formData.description}</p>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Описание
+                                  </h6>
+                                  <p className="text-sm text-gray-700">
+                                    {order.formData.description}
+                                  </p>
                                 </div>
                               )}
 
                               {order.formData?.referenceUrl && (
                                 <div className="mb-4">
-                                  <h6 className="font-medium text-gray-900 mb-2">Референс</h6>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Референс
+                                  </h6>
                                   <a
                                     href={order.formData.referenceUrl}
                                     target="_blank"
@@ -928,7 +952,9 @@ export default function Admin() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Users className="w-5 h-5" />
-                    <span>Регистрации пользователей ({registrations.length})</span>
+                    <span>
+                      Регистрации пользователей ({registrations.length})
+                    </span>
                   </div>
                   <Button onClick={loadAllData} variant="outline" size="sm">
                     <RefreshCw className="w-4 h-4 mr-2" />
@@ -944,7 +970,8 @@ export default function Admin() {
                       Регистраций пока нет
                     </h5>
                     <p className="text-gray-600">
-                      Здесь появятся данные всех зарегистрированных пользователей
+                      Здесь появятся данные всех зарегистрированных
+                      пользователей
                     </p>
                   </div>
                 ) : (
@@ -958,14 +985,19 @@ export default function Admin() {
                                 <h5 className="text-lg font-medium text-gray-900">
                                   {user.name || "Без имени"}
                                 </h5>
-                                <Badge variant="outline" className="border-green-500 text-green-700 bg-green-50">
+                                <Badge
+                                  variant="outline"
+                                  className="border-green-500 text-green-700 bg-green-50"
+                                >
                                   Активен
                                 </Badge>
                               </div>
 
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                  <h6 className="font-medium text-gray-900 mb-2">Контактные данные</h6>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Контактные данные
+                                  </h6>
                                   <div className="space-y-1 text-sm text-gray-700">
                                     <div className="flex items-center gap-2">
                                       <Mail className="w-4 h-4 text-gray-500" />
@@ -979,19 +1011,36 @@ export default function Admin() {
                                 </div>
 
                                 <div>
-                                  <h6 className="font-medium text-gray-900 mb-2">Регистрация</h6>
+                                  <h6 className="font-medium text-gray-900 mb-2">
+                                    Регистрация
+                                  </h6>
                                   <div className="space-y-1 text-sm text-gray-700">
-                                    <div>Дата: {new Date(user.createdAt).toLocaleDateString("ru-RU")}</div>
-                                    <div>Время: {new Date(user.createdAt).toLocaleTimeString("ru-RU")}</div>
+                                    <div>
+                                      Дата:{" "}
+                                      {new Date(
+                                        user.createdAt,
+                                      ).toLocaleDateString("ru-RU")}
+                                    </div>
+                                    <div>
+                                      Время:{" "}
+                                      {new Date(
+                                        user.createdAt,
+                                      ).toLocaleTimeString("ru-RU")}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
 
                               <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-                                <h6 className="font-medium text-gray-900 mb-1">Пароль</h6>
-                                <p className="text-sm text-gray-700 font-mono">{user.password}</p>
+                                <h6 className="font-medium text-gray-900 mb-1">
+                                  Пароль
+                                </h6>
+                                <p className="text-sm text-gray-700 font-mono">
+                                  {user.password}
+                                </p>
                                 <p className="text-xs text-gray-500 mt-1">
-                                  ⚠️ Пароль сохранен в незашифрованном виде для демо-целей
+                                  ⚠️ Пароль сохранен в незашифрованном виде для
+                                  демо-целей
                                 </p>
                               </div>
                             </div>
