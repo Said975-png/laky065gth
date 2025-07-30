@@ -33,6 +33,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
+      keywords: ["главная", "домой", "home", "index", "начало"],
     },
     {
       id: "login",
@@ -65,7 +66,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "chat",
       title: "Чат с Пятницей",
-      description: "AI ча��-ассистент Пятница",
+      description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
     },
@@ -172,7 +173,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "cart",
-      title: "Корзина покупо��",
+      title: "Корзина покупок",
       description: "Управление выбранными тарифными планами",
       type: "feature",
       action: () => {
@@ -319,7 +320,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     // Статистика и показатели
     {
       id: "stats",
-      title: "Статис��ика",
+      title: "Статистика",
       description: "Показатели эффективности: 99.9% точность, 24/7 доступность",
       type: "component",
       action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
@@ -352,7 +353,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     setIsOpen(false);
     setQuery("");
 
-    // Выполняе�� действие
+    // Выполняем действие
     if (result.url) {
       // Переход на страницу
       window.location.href = result.url;
