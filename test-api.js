@@ -59,11 +59,28 @@ async function testAPI() {
   
   console.log('\n' + '='.repeat(50) + '\n');
   
-  // Test chat endpoint
-  console.log('2. Testing /api/groq-chat');
+  // Test chat endpoint with realistic message format (with extra fields)
+  console.log('2. Testing /api/groq-chat with realistic message format');
   const chatReq = createMockReq('POST', '/api/groq-chat', {
     messages: [
-      { role: 'user', content: 'Привет!' }
+      {
+        role: 'user',
+        content: 'Привет!',
+        timestamp: Date.now(),
+        id: 'msg_123'
+      },
+      {
+        role: 'assistant',
+        content: 'Привет! Как дела?',
+        timestamp: Date.now() + 1000,
+        id: 'msg_124'
+      },
+      {
+        role: 'user',
+        content: 'Расскажи про веб-разработку',
+        timestamp: Date.now() + 2000,
+        id: 'msg_125'
+      }
     ]
   });
   const chatRes = createMockRes();
