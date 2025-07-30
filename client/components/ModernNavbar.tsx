@@ -523,7 +523,6 @@ function MobileMenu({
                 <span className="text-white">Чат с Пятницей 🤖</span>
               </Link>
 
-
               <button
                 onClick={() => {
                   onLogout();
@@ -558,7 +557,6 @@ function MobileMenu({
               >
                 Пятница
               </Link>
-
             </>
           )}
         </div>
