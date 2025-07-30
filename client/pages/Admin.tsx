@@ -177,7 +177,7 @@ export default function Admin() {
       );
     }
 
-    // Фильтр по ста��усу
+    // Фильтр по статусу
     if (statusFilter !== "all") {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
@@ -443,7 +443,7 @@ export default function Admin() {
               className="flex items-center space-x-2"
             >
               <Users className="w-4 h-4" />
-              <span>Реги��трации</span>
+              <span>Регистрации</span>
             </TabsTrigger>
           </TabsList>
 
@@ -827,21 +827,96 @@ export default function Admin() {
           <TabsContent value="orders" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <FileText className="w-5 h-5" />
-                  <span>Заказы</span>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <FileText className="w-5 h-5" />
+                    <span>Заказы ({orders.length})</span>
+                  </div>
+                  <Button onClick={loadAllData} variant="outline" size="sm">
+                    <RefreshCw className="w-4 h-4 mr-2" />
+                    Обновить
+                  </Button>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    Заказы скоро появятся
-                  </h5>
-                  <p className="text-gray-600">
-                    Здесь будут отображаться все оформленные заказы
-                  </p>
-                </div>
+                {orders.length === 0 ? (
+                  <div className="text-center py-12">
+                    <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                    <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                      Заказов пока нет
+                    </h5>
+                    <p className="text-gray-600">
+                      Здесь появятся все оформленные заказы
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {orders.map((order: any) => (
+                      <Card key={order.id} className="bg-white border">
+                        <CardContent className="p-6">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-3">
+                                <h5 className="text-lg font-medium text-gray-900">
+                                  Заказ #{order.id}
+                                </h5>
+                                <Badge variant="outline" className="border-blue-500 text-blue-700 bg-blue-50">
+                                  {order.status === "pending" ? "Новый" : order.status}
+                                </Badge>
+                              </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">Клиент</h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div className="flex items-center gap-2">
+                                      <User className="w-4 h-4 text-gray-500" />
+                                      <span>{order.formData?.fullName || "Не указано"}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <Phone className="w-4 h-4 text-gray-500" />
+                                      <span>{order.formData?.phone || "Не указано"}</span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <h6 className="font-medium text-gray-900 mb-2">Детали заказа</h6>
+                                  <div className="space-y-1 text-sm text-gray-700">
+                                    <div>Сумма: <strong>{order.total || 0}₽</strong></div>
+                                    <div>Товаров: {order.items?.length || 0}</div>
+                                    <div>Дата: {new Date(order.createdAt).toLocaleDateString("ru-RU")}</div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {order.formData?.description && (
+                                <div className="mb-4">
+                                  <h6 className="font-medium text-gray-900 mb-2">Описание</h6>
+                                  <p className="text-sm text-gray-700">{order.formData.description}</p>
+                                </div>
+                              )}
+
+                              {order.formData?.referenceUrl && (
+                                <div className="mb-4">
+                                  <h6 className="font-medium text-gray-900 mb-2">Референс</h6>
+                                  <a
+                                    href={order.formData.referenceUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:text-blue-800 text-sm"
+                                  >
+                                    {order.formData.referenceUrl}
+                                  </a>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
