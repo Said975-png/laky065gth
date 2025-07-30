@@ -30,6 +30,17 @@ export default async function handler(req, res) {
       });
     }
 
+    // Environment debug endpoint
+    if (url === "/api/debug" && method === "GET") {
+      return res.json({
+        env: process.env.NODE_ENV || "development",
+        hasGroqKey: !!process.env.GROQ_API_KEY,
+        groqKeyLength: process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.length : 0,
+        groqKeyStart: process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.substring(0, 8) + "..." : "none",
+        allEnvKeys: Object.keys(process.env).filter(key => !key.includes('PATH')).sort()
+      });
+    }
+
     // Demo endpoint
     if (url === "/api/demo" && method === "GET") {
       return res.json({ message: "Demo endpoint working on Vercel!" });
@@ -72,7 +83,7 @@ export default async function handler(req, res) {
               messages: [
                 {
                   role: "system",
-                  content: "Ты Пятница - AI-помощн��к от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
+                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная �� веб-разработке. Отвечай на русском языке, будь краткой но информативной."
                 },
                 ...messages.slice(-5) // Last 5 messages for context
               ],
