@@ -70,7 +70,7 @@ export default async function handler(req, res) {
       // If GROQ API key is available, try to use the actual API
       if (groqApiKey && groqApiKey !== 'your_groq_api_key_here' && groqApiKey.trim() !== '') {
         try {
-          // Use built-in fetch (available in Node.js 18+)
+          console.log("🚀 Attempting GROQ API call...");
 
           const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
@@ -92,23 +92,43 @@ export default async function handler(req, res) {
             }),
           });
 
+          console.log("📡 GROQ API response status:", response.status);
+
           if (response.ok) {
             const data = await response.json();
+            console.log("✅ GROQ API success, parsing response...");
             const aiMessage = data.choices?.[0]?.message?.content;
 
             if (aiMessage) {
+              console.log("🎉 Returning GROQ AI message");
               return res.json({
                 success: true,
                 message: aiMessage
               });
+            } else {
+              console.log("❌ No AI message in response:", JSON.stringify(data));
+              return res.json({
+                success: true,
+                message: `DEBUG: GROQ ответил, но нет сообщения в choices[0]. Response: ${JSON.stringify(data)}`
+              });
             }
           } else {
             const errorText = await response.text();
-            console.log("GROQ API response not ok:", response.status, response.statusText);
-            console.log("GROQ API error details:", errorText);
+            console.log("❌ GROQ API response not ok:", response.status, response.statusText);
+            console.log("❌ GROQ API error details:", errorText);
+
+            return res.json({
+              success: true,
+              message: `DEBUG: GROQ API Error ${response.status}: ${errorText}`
+            });
           }
         } catch (error) {
-          console.log("GROQ API Error:", error.message);
+          console.log("💥 GROQ API Exception:", error.message, error.stack);
+
+          return res.json({
+            success: true,
+            message: `DEBUG: Exception при запросе к GROQ: ${error.message}`
+          });
         }
       }
 
