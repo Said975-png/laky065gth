@@ -1,3 +1,10 @@
+// Import storage helpers
+import {
+  addUser, getUsers, findUserByEmail,
+  addOrder, getOrders,
+  addBooking, getBookings, updateBooking
+} from './storage.js';
+
 // Import all route handlers directly for serverless compatibility
 export default async function handler(req, res) {
   // Set CORS headers
@@ -86,7 +93,7 @@ export default async function handler(req, res) {
             content: msg.content,
           }));
 
-          console.log("🚀 Attempting GROQ API call...");
+          console.log("���� Attempting GROQ API call...");
           console.log(
             "📝 Cleaned messages:",
             JSON.stringify(cleanedMessages, null, 2),
@@ -176,7 +183,7 @@ export default async function handler(req, res) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
       } else if (
         lastMessage.includes("сайт") ||
-        lastMessage.includes("разработка")
+        lastMessage.includes("ра��работка")
       ) {
         response =
           "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем прое��те.";
@@ -341,17 +348,9 @@ export default async function handler(req, res) {
     // Users endpoints (for admin)
     if (url === "/api/users/all" && method === "GET") {
       try {
-        const fs = require('fs');
-        const path = require('path');
-        const usersFile = path.join(process.cwd(), "data", "users.json");
+        const users = getUsers();
 
-        let users = [];
-        if (fs.existsSync(usersFile)) {
-          const data = fs.readFileSync(usersFile, "utf-8");
-          users = JSON.parse(data);
-        }
-
-        // Сортируем по дате создания (новые сначала)
+        // Сортируем по ��ате создания (новые сначала)
         users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
         console.log(`📋 Загружено ${users.length} пользователей для админа`);
@@ -374,38 +373,9 @@ export default async function handler(req, res) {
     if (url === "/api/users/register" && method === "POST") {
       const { name, email, password } = req.body;
 
-      const userId = Date.now().toString();
-
-      const user = {
-        id: userId,
-        name: name || "",
-        email: email || "",
-        password: password || "", // В продакшне нужно хешировать
-        createdAt: new Date().toISOString()
-      };
-
-      // Сохраняем пользователя в файл
       try {
-        const fs = require('fs');
-        const path = require('path');
-
-        const dataDir = path.join(process.cwd(), "data");
-        const usersFile = path.join(dataDir, "users.json");
-
-        // Создаем директорию если её нет
-        if (!fs.existsSync(dataDir)) {
-          fs.mkdirSync(dataDir, { recursive: true });
-        }
-
-        // Загружаем существующих пользователей
-        let users = [];
-        if (fs.existsSync(usersFile)) {
-          const data = fs.readFileSync(usersFile, "utf-8");
-          users = JSON.parse(data);
-        }
-
         // Проверяем, существует ли пользователь
-        const existingUser = users.find(u => u.email === email);
+        const existingUser = findUserByEmail(email);
         if (existingUser) {
           return res.json({
             success: false,
@@ -413,20 +383,31 @@ export default async function handler(req, res) {
           });
         }
 
-        // Добавляем нового пользователя
-        users.push(user);
-        fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+        const userId = Date.now().toString();
 
-        console.log("👤 Новый пользователь сохранен в файл:", email);
+        const user = {
+          id: userId,
+          name: name || "",
+          email: email || "",
+          password: password || "", // В продакшне нужно хешировать
+          createdAt: new Date().toISOString()
+        };
+
+        // Добавляем пользователя
+        addUser(user);
+
+        return res.json({
+          success: true,
+          message: "Регистрация успешна!",
+          userId: userId
+        });
       } catch (error) {
-        console.error("Ошибка сохранения пользователя:", error);
+        console.error("Ошибка регистрации пользователя:", error);
+        return res.json({
+          success: false,
+          error: "Ошибка регистрации"
+        });
       }
-
-      return res.json({
-        success: true,
-        message: "Регистрация успешна!",
-        userId: userId
-      });
     }
 
     // Bookings endpoints
@@ -493,7 +474,7 @@ export default async function handler(req, res) {
 
       return res.json({
         success: true,
-        message: "��ронирование успешно создано",
+        message: "Бронирование успешно создано",
         bookingId,
         booking
       });
