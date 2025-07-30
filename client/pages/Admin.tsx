@@ -177,7 +177,7 @@ export default function Admin() {
       );
     }
 
-    // Ф��льтр по статусу
+    // Фильтр по статусу
     if (statusFilter !== "all") {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
@@ -515,7 +515,7 @@ export default function Admin() {
                     variant="outline"
                     size="sm"
                   >
-                    Показать все
+                    Показать ��се
                   </Button>
                 </CardTitle>
               </CardHeader>
@@ -791,6 +791,52 @@ export default function Admin() {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Orders Tab */}
+          <TabsContent value="orders" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <FileText className="w-5 h-5" />
+                  <span>Заказы</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                    Заказы скоро появятся
+                  </h5>
+                  <p className="text-gray-600">
+                    Здесь будут отображаться все оформленные заказы
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Users/Registrations Tab */}
+          <TabsContent value="users" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Users className="w-5 h-5" />
+                  <span>Регистрации пользователей</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12">
+                  <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                    Регистрации скоро появятся
+                  </h5>
+                  <p className="text-gray-600">
+                    Здесь будут отображаться данные всех зарегистрированных пользователей, включая их email и пароли
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>
