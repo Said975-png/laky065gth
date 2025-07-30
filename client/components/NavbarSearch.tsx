@@ -19,7 +19,7 @@ interface NavbarSearchProps {
   onExitSearch?: () => void;
 }
 
-export function NavbarSearch({ className }: NavbarSearchProps) {
+export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: NavbarSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -61,7 +61,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "order",
       title: "Форма заказа",
-      description: "Оформление заказа услуг",
+      description: "Оф��рмление заказа услуг",
       type: "page",
       url: "/order",
     },
@@ -250,7 +250,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "face-recognition",
-      title: "Распознавани�� лиц",
+      title: "Распознавание лиц",
       description: "Биометрическая идентификация",
       type: "feature",
       action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
