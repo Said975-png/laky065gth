@@ -55,6 +55,8 @@ export default function Admin() {
   const [authError, setAuthError] = useState("");
   const [bookings, setBookings] = useState<BookingData[]>([]);
   const [filteredBookings, setFilteredBookings] = useState<BookingData[]>([]);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [registrations, setRegistrations] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -175,7 +177,7 @@ export default function Admin() {
       );
     }
 
-    // Фильтр по статусу
+    // Ф��льтр по статусу
     if (statusFilter !== "all") {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
@@ -282,7 +284,7 @@ export default function Admin() {
     }
   };
 
-  // Если не аутентифицирован, показы��аем форму входа
+  // Если не аутентифицирован, показываем форму входа
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -384,7 +386,7 @@ export default function Admin() {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-none lg:inline-flex">
+          <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:grid-cols-none lg:inline-flex">
             <TabsTrigger
               value="overview"
               className="flex items-center space-x-2"
@@ -397,7 +399,21 @@ export default function Admin() {
               className="flex items-center space-x-2"
             >
               <Calendar className="w-4 h-4" />
-              <span>Все брони</span>
+              <span>Брони</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="orders"
+              className="flex items-center space-x-2"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Заказы</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="users"
+              className="flex items-center space-x-2"
+            >
+              <Users className="w-4 h-4" />
+              <span>Регистрации</span>
             </TabsTrigger>
           </TabsList>
 
