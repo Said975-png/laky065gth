@@ -63,7 +63,24 @@ export default function StarkHero({
         className,
       )}
     >
-
+      {/* Background video layer */}
+      <div className="absolute inset-0 opacity-[0.6]">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{
+            filter: "brightness(0.4) contrast(1.2)",
+          }}
+        >
+          <source
+            src="https://cdn.builder.io/o/assets%2F5cb90041952f42eebb0e86de6720775b%2F7592cc3aafaa4ace91d941f8a5eea2b8?alt=media&token=e31c8c9e-9f0e-48f0-b3f9-ff44971e0507&apiKey=5cb90041952f42eebb0e86de6720775b"
+            type="video/mp4"
+          />
+        </video>
+      </div>
 
       {/* Dark overlay to maintain text readability */}
       <div className="absolute inset-0 bg-black/30"></div>
