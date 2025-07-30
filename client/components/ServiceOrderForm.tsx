@@ -1,31 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CreateContractRequest, CreateContractResponse } from "@shared/api";
-import { useAuth } from "@/hooks/useAuth";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
-  FileText,
-  Send,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
-  Download,
-  Globe,
-  Smartphone,
-  ShoppingCart,
-  Users,
-  Zap,
-  Brain,
+  Settings,
+  X,
 } from "lucide-react";
 
 interface ServiceOrderFormProps {
