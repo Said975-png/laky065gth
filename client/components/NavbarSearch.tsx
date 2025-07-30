@@ -19,7 +19,11 @@ interface NavbarSearchProps {
   onExitSearch?: () => void;
 }
 
-export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: NavbarSearchProps) {
+export function NavbarSearch({
+  className,
+  isSearchMode = false,
+  onExitSearch,
+}: NavbarSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -71,7 +75,16 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
-      keywords: ["пятница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
+      keywords: [
+        "пятница",
+        "friday",
+        "чат",
+        "chat",
+        "ai",
+        "ассистент",
+        "помощник",
+        "бот",
+      ],
     },
     {
       id: "admin",
@@ -101,14 +114,20 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       title: "Преимущества",
       description: "Секция с преимуществами ДЖАРВИС AI",
       type: "component",
-      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="advantages"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "pricing",
       title: "Тарифы и цены",
       description: "Секция с тарифными планами",
       type: "component",
-      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="pricing"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "jarvis-demo",
@@ -116,12 +135,17 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Демонстрация возможностей AI-ассистента",
       type: "component",
       action: () => {
-        const demoElement = document.querySelector('#jarvis-demo, [data-section="demo"]');
+        const demoElement = document.querySelector(
+          '#jarvis-demo, [data-section="demo"]',
+        );
         if (demoElement) {
           demoElement.scrollIntoView({ behavior: "smooth" });
         } else {
           // Если элемент не найден, скроллим вниз
-          window.scrollTo({ top: document.body.scrollHeight * 0.6, behavior: "smooth" });
+          window.scrollTo({
+            top: document.body.scrollHeight * 0.6,
+            behavior: "smooth",
+          });
         }
       },
     },
@@ -132,21 +156,30 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       title: "Beginner Plan",
       description: "Базовый тарифный план - 199 сум",
       type: "plan",
-      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="pricing"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "plan-intermediate",
       title: "Intermediate Plan",
       description: "Средний тарифный план - 349 сум",
       type: "plan",
-      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="pricing"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "plan-advanced",
       title: "Advanced Plan",
       description: "Продвинутый тарифный план - 495 сум",
       type: "plan",
-      action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="pricing"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
 
     // Функции и возможности
@@ -157,7 +190,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       type: "feature",
       keywords: ["голос", "voice", "микрофон", "команды", "говорить", "звук"],
       action: () => {
-        const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
+        const voiceButton = document.querySelector(
+          '[data-testid="voice-control"]',
+        ) as HTMLElement;
         if (voiceButton) {
           voiceButton.click();
         }
@@ -169,7 +204,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Панель команд AI-ассистента",
       type: "feature",
       action: () => {
-        const commandsButton = document.querySelector('button:has([data-icon="bot"])') as HTMLElement;
+        const commandsButton = document.querySelector(
+          'button:has([data-icon="bot"])',
+        ) as HTMLElement;
         if (commandsButton) {
           commandsButton.click();
         }
@@ -181,7 +218,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Управление выбранными тарифными планами",
       type: "feature",
       action: () => {
-        const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+        const cartButton = document.querySelector(
+          '[data-testid="cart-button"]',
+        ) as HTMLElement;
         if (cartButton) {
           cartButton.click();
         }
@@ -193,7 +232,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Переключение между светлой и темной темой",
       type: "feature",
       action: () => {
-        const themeButton = document.querySelector('button:has([data-lucide="sun"]), button:has([data-lucide="moon"])') as HTMLElement;
+        const themeButton = document.querySelector(
+          'button:has([data-lucide="sun"]), button:has([data-lucide="moon"])',
+        ) as HTMLElement;
         if (themeButton) {
           themeButton.click();
         }
@@ -219,7 +260,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Специальный режим Stark Industries",
       type: "feature",
       action: () => {
-        const starkButton = document.querySelector('[data-testid="stark-mode"]') as HTMLElement;
+        const starkButton = document.querySelector(
+          '[data-testid="stark-mode"]',
+        ) as HTMLElement;
         if (starkButton) {
           starkButton.click();
         }
@@ -239,21 +282,30 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       title: "Нейронные сети",
       description: "Технологии машинного обучения",
       type: "feature",
-      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="advantages"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "blockchain",
       title: "Blockchain",
       description: "Технологии блокчейн и криптографии",
       type: "feature",
-      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="advantages"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
     {
       id: "face-recognition",
       title: "Распознавание лиц",
       description: "Биометрическая идентификация",
       type: "feature",
-      action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
+      action: () =>
+        document
+          .querySelector('[data-section="advantages"]')
+          ?.scrollIntoView({ behavior: "smooth" }),
     },
 
     // Сервисы и формы
@@ -263,7 +315,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Форма заказа индивидуальных услуг",
       type: "feature",
       action: () => {
-        const orderButton = document.querySelector('button:contains("Заказать услугу")') as HTMLElement;
+        const orderButton = document.querySelector(
+          'button:contains("Заказать услугу")',
+        ) as HTMLElement;
         if (orderButton) {
           orderButton.click();
         } else {
@@ -284,7 +338,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "Быстрая авторизация без перехода на страницу",
       type: "feature",
       action: () => {
-        const authButton = document.querySelector('button:contains("Login"), button:contains("Sign Up")') as HTMLElement;
+        const authButton = document.querySelector(
+          'button:contains("Login"), button:contains("Sign Up")',
+        ) as HTMLElement;
         if (authButton) {
           authButton.click();
         }
@@ -327,28 +383,44 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       title: "Статистика",
       description: "Показатели эффективности: 99.9% точность, 24/7 доступность",
       type: "component",
-      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+      action: () =>
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        }),
     },
     {
       id: "accuracy",
       title: "Точность ответов",
       description: "99.9% точность ответов AI-ассистента",
       type: "feature",
-      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+      action: () =>
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        }),
     },
     {
       id: "availability",
       title: "Доступность 24/7",
       description: "Круглосуточная работа системы",
       type: "feature",
-      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+      action: () =>
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        }),
     },
     {
       id: "response-time",
       title: "Время отклика",
       description: "Менее 1 секунды время отклика",
       type: "feature",
-      action: () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }),
+      action: () =>
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        }),
     },
   ];
 
@@ -379,7 +451,9 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       switch (result.id) {
         case "voice-commands":
         case "voice-control":
-          const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
+          const voiceButton = document.querySelector(
+            '[data-testid="voice-control"]',
+          ) as HTMLElement;
           if (voiceButton) {
             voiceButton.click();
           }
@@ -390,19 +464,27 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
         case "plan-beginner":
         case "plan-intermediate":
         case "plan-advanced":
-          document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" });
+          document
+            .querySelector('[data-section="pricing"]')
+            ?.scrollIntoView({ behavior: "smooth" });
           break;
         case "cart":
-          const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+          const cartButton = document.querySelector(
+            '[data-testid="cart-button"]',
+          ) as HTMLElement;
           if (cartButton) {
             cartButton.click();
           }
           break;
         case "advantages":
-          document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" });
+          document
+            .querySelector('[data-section="advantages"]')
+            ?.scrollIntoView({ behavior: "smooth" });
           break;
         case "pricing":
-          document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" });
+          document
+            .querySelector('[data-section="pricing"]')
+            ?.scrollIntoView({ behavior: "smooth" });
           break;
         default:
           // Скролл наверх для неопознанных случаев
@@ -433,8 +515,8 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
 
       // Поиск по ключевым словам
       if (item.keywords) {
-        return item.keywords.some(keyword =>
-          keyword.toLowerCase().includes(searchQuery)
+        return item.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(searchQuery),
         );
       }
 
@@ -452,8 +534,12 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       if (b.title.toLowerCase().startsWith(searchQuery)) return 1;
 
       // Совпадение в ключевых словах
-      const aKeywordMatch = a.keywords?.some(k => k.toLowerCase() === searchQuery);
-      const bKeywordMatch = b.keywords?.some(k => k.toLowerCase() === searchQuery);
+      const aKeywordMatch = a.keywords?.some(
+        (k) => k.toLowerCase() === searchQuery,
+      );
+      const bKeywordMatch = b.keywords?.some(
+        (k) => k.toLowerCase() === searchQuery,
+      );
       if (aKeywordMatch && !bKeywordMatch) return -1;
       if (!aKeywordMatch && bKeywordMatch) return 1;
 
@@ -542,7 +628,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
 
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (!target.closest('[data-search-container]')) {
+      if (!target.closest("[data-search-container]")) {
         setIsOpen(false);
         setQuery("");
       }
@@ -555,7 +641,10 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
   if (isSearchMode) {
     // Встроенный режим поиска в навбаре
     return (
-      <div className={cn("relative flex-1 mx-4", className)} data-search-container>
+      <div
+        className={cn("relative flex-1 mx-4", className)}
+        data-search-container
+      >
         {/* Поисковая строка во встроенном режиме */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cyan-400" />
@@ -650,16 +739,17 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       >
         <div className="flex items-center space-x-1 sm:space-x-2">
           <Search className="w-3 sm:w-4 h-3 sm:h-4" />
-          <span className="hidden sm:inline font-medium text-sm">
-            Поиск
-          </span>
+          <span className="hidden sm:inline font-medium text-sm">Поиск</span>
         </div>
       </Button>
 
       {/* Модальное окно поиска */}
       {isOpen && (
         <div className="fixed inset-0 z-[60] flex items-start justify-center pt-16 sm:pt-20 bg-black/50 backdrop-blur-sm p-2 sm:p-4">
-          <div className="relative w-full max-w-2xl mx-2 sm:mx-4" data-search-container>
+          <div
+            className="relative w-full max-w-2xl mx-2 sm:mx-4"
+            data-search-container
+          >
             {/* Поисковая строка */}
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-400" />
