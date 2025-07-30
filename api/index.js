@@ -46,7 +46,48 @@ export default async function handler(req, res) {
         });
       }
 
-      // Simple AI response for demo
+      const groqApiKey = process.env.GROQ_API_KEY;
+
+      // If GROQ API key is available, try to use the actual API
+      if (groqApiKey && groqApiKey !== 'your_groq_api_key_here') {
+        try {
+          const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${groqApiKey}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              model: "mixtral-8x7b-32768",
+              messages: [
+                {
+                  role: "system",
+                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
+                },
+                ...messages.slice(-5) // Last 5 messages for context
+              ],
+              max_tokens: 1000,
+              temperature: 0.7,
+            }),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            const aiMessage = data.choices?.[0]?.message?.content;
+
+            if (aiMessage) {
+              return res.json({
+                success: true,
+                message: aiMessage
+              });
+            }
+          }
+        } catch (error) {
+          console.log("GROQ API Error:", error.message);
+        }
+      }
+
+      // Fallback responses if API is not available
       const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
       let response = "Привет! Я ваш AI-помощник. Как дела?";
 
@@ -56,11 +97,13 @@ export default async function handler(req, res) {
         response = "🤖 Отлично! Готов к работе. Что вас интересует?";
       } else if (lastMessage.includes("помощь")) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
+      } else if (lastMessage.includes("сайт") || lastMessage.includes("разработка")) {
+        response = "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем проекте.";
       }
 
       return res.json({
         success: true,
-        message: response
+        message: response + " (Demo режим - добавьте GROQ_API_KEY для полной функциональности)"
       });
     }
 
