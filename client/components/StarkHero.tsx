@@ -14,7 +14,6 @@ import {
   Sparkles,
   Bot,
   Mic,
-  Search,
   FileText,
 } from "lucide-react";
 
