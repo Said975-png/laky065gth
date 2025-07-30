@@ -196,7 +196,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "3d-model",
       title: "3D модель",
-      description: "Инт��рактивная 3D модель ДЖАРВИС",
+      description: "Интерактивная 3D модель ДЖАРВИС",
       type: "component",
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
@@ -310,12 +310,12 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "arc-reactor",
       title: "Arc Reactor",
-      description: "Анимированный реактор дугового типа",
+      description: "Аним��рованный реактор дугового типа",
       type: "component",
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и показатели
+    // Статистика и по��азатели
     {
       id: "stats",
       title: "Статистика",
@@ -347,42 +347,58 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
   ];
 
   const handleSelectResult = useCallback((result: SearchResult) => {
+    // Закрываем поиск
+    setIsOpen(false);
+    setQuery("");
+
+    // Выполняем действие
     if (result.url) {
+      // Переход на страницу
       window.location.href = result.url;
     } else if (result.action) {
-      result.action();
+      // Выполнение пользовательского действия
+      try {
+        result.action();
+      } catch (error) {
+        console.warn("Не удалось выполнить действие для:", result.title, error);
+        // Fallback - скролл к началу страницы
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     } else {
-      // Скролл к соответствующей секции или выполнение специального действия
+      // Fallback действия для старых результатов
       switch (result.id) {
         case "voice-commands":
-          // Активировать голосового помощника
-          (
-            document.querySelector(
-              '[data-testid="voice-control"]',
-            ) as HTMLElement
-          )?.click();
+        case "voice-control":
+          const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
+          if (voiceButton) {
+            voiceButton.click();
+          }
           break;
         case "plans-basic":
         case "plans-pro":
         case "plans-max":
-          // Скролл к секции с планами
-          document
-            .querySelector('[data-section="plans"]')
-            ?.scrollIntoView({ behavior: "smooth" });
+        case "plan-beginner":
+        case "plan-intermediate":
+        case "plan-advanced":
+          document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" });
           break;
         case "cart":
-          // Открыть корзину
-          (
-            document.querySelector('[data-testid="cart-button"]') as HTMLElement
-          )?.click();
+          const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+          if (cartButton) {
+            cartButton.click();
+          }
+          break;
+        case "advantages":
+          document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" });
+          break;
+        case "pricing":
+          document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" });
           break;
         default:
-          // Скролл наверх для остальных случаев
+          // Скролл наверх для неопознанных случаев
           window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
-    setIsOpen(false);
-    setQuery("");
   }, []);
 
   // Поиск по данным
