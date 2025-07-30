@@ -93,7 +93,7 @@ export default async function handler(req, res) {
             content: msg.content,
           }));
 
-          console.log("���� Attempting GROQ API call...");
+          console.log("🚀 Attempting GROQ API call...");
           console.log(
             "📝 Cleaned messages:",
             JSON.stringify(cleanedMessages, null, 2),
@@ -183,7 +183,7 @@ export default async function handler(req, res) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
       } else if (
         lastMessage.includes("сайт") ||
-        lastMessage.includes("ра��работка")
+        lastMessage.includes("разработка")
       ) {
         response =
           "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем прое��те.";
@@ -277,34 +277,8 @@ export default async function handler(req, res) {
         createdAt: new Date().toISOString()
       };
 
-      // Сохраняем заказ в файл
-      try {
-        const fs = require('fs');
-        const path = require('path');
-
-        const dataDir = path.join(process.cwd(), "data");
-        const ordersFile = path.join(dataDir, "orders.json");
-
-        // Создаем директорию если её нет
-        if (!fs.existsSync(dataDir)) {
-          fs.mkdirSync(dataDir, { recursive: true });
-        }
-
-        // Загружаем существующие заказы
-        let orders = [];
-        if (fs.existsSync(ordersFile)) {
-          const data = fs.readFileSync(ordersFile, "utf-8");
-          orders = JSON.parse(data);
-        }
-
-        // Добавляем новый заказ
-        orders.push(order);
-        fs.writeFileSync(ordersFile, JSON.stringify(orders, null, 2));
-
-        console.log("🛒 Новый заказ сохранен в файл:", orderId);
-      } catch (error) {
-        console.error("Ошибка сохранения заказа:", error);
-      }
+      // Добавляем заказ
+      addOrder(order);
 
       return res.json({
         success: true,
@@ -316,15 +290,7 @@ export default async function handler(req, res) {
     // Get all orders (for admin)
     if (url === "/api/orders/all" && method === "GET") {
       try {
-        const fs = require('fs');
-        const path = require('path');
-        const ordersFile = path.join(process.cwd(), "data", "orders.json");
-
-        let orders = [];
-        if (fs.existsSync(ordersFile)) {
-          const data = fs.readFileSync(ordersFile, "utf-8");
-          orders = JSON.parse(data);
-        }
+        const orders = getOrders();
 
         // Сортируем по дате создания (новые сначала)
         orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -350,7 +316,7 @@ export default async function handler(req, res) {
       try {
         const users = getUsers();
 
-        // Сортируем по ��ате создания (новые сначала)
+        // Сортируем по дате создания (новые сначала)
         users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
         console.log(`📋 Загружено ${users.length} пользователей для админа`);
@@ -360,7 +326,7 @@ export default async function handler(req, res) {
           users: users,
         });
       } catch (error) {
-        console.error("Ошибка загрузки пользователей:", error);
+        console.error("Ошибка загр��зки пользователей:", error);
         return res.json({
           success: false,
           error: "Ошибка загрузки пользователей",
