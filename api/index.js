@@ -72,7 +72,7 @@ export default async function handler(req, res) {
               messages: [
                 {
                   role: "system",
-                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
+                  content: "Ты Пятница - AI-помощн��к от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
                 },
                 ...messages.slice(-5) // Last 5 messages for context
               ],
@@ -117,7 +117,7 @@ export default async function handler(req, res) {
 
       return res.json({
         success: true,
-        message: response + " (Demo режим - добавьте GROQ_API_KEY для ��олной функциональности)"
+        message: response + ` (Demo режим - Key status: ${groqApiKey ? 'присутствует' : 'отсутствует'})`
       });
     }
 
