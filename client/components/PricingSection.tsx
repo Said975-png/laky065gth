@@ -156,7 +156,7 @@ function PricingSection() {
           <div className="w-40 h-1 bg-white mx-auto mb-8 rounded-full" />
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-            Выберите тариф, к��торый идеально подходит для ваших целей. От
+            Выберите тариф, который идеально подходит для ваших целей. От
             стильного базового сайта до премиального решения с Джарвисом
           </p>
         </div>
