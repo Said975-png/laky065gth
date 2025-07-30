@@ -61,7 +61,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     {
       id: "order",
       title: "Форма заказа",
-      description: "Оф��рмление заказа услуг",
+      description: "Оформление заказа услуг",
       type: "page",
       url: "/order",
     },
@@ -321,7 +321,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и показатели
+    // Статистика и пока��атели
     {
       id: "stats",
       title: "Статистика",
@@ -354,7 +354,11 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
 
   const handleSelectResult = useCallback((result: SearchResult) => {
     // Закрываем поиск
-    setIsOpen(false);
+    if (isSearchMode && onExitSearch) {
+      onExitSearch();
+    } else {
+      setIsOpen(false);
+    }
     setQuery("");
 
     // Выполняем действие
