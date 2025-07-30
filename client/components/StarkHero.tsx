@@ -76,15 +76,8 @@ export default function StarkHero({
           }}
         >
           <source
-            src="https://cdn.builder.io/o/assets%2F6bf6ad6150624f18b75acb975ba1d10c%2Fdfbd14c4ed504a60bfaacb60866e9018?alt=media&token=14faf6ea-461c-4899-9bc4-0408a750a903&apiKey=6bf6ad6150624f18b75acb975ba1d10c"
+            src="https://cdn.builder.io/o/assets%2F5cb90041952f42eebb0e86de6720775b%2F7592cc3aafaa4ace91d941f8a5eea2b8?alt=media&token=e31c8c9e-9f0e-48f0-b3f9-ff44971e0507&apiKey=5cb90041952f42eebb0e86de6720775b"
             type="video/mp4"
-          />
-          {/* Fallback for browsers that don't support video */}
-          <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('https://cdn.builder.io/o/assets%2F6bf6ad6150624f18b75acb975ba1d10c%2Fdfbd14c4ed504a60bfaacb60866e9018?alt=media&token=14faf6ea-461c-4899-9bc4-0408a750a903&apiKey=6bf6ad6150624f18b75acb975ba1d10c')`,
-            }}
           />
         </video>
       </div>
