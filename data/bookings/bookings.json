@@ -43,5 +43,20 @@
     "status": "pending",
     "createdAt": "2025-07-30T08:38:38.548Z",
     "updatedAt": "2025-07-30T08:38:38.548Z"
+  },
+  {
+    "id": "BOOK-1753892766507-0R6JD2NFK",
+    "userId": "user-123",
+    "serviceType": "pro",
+    "serviceDescription": "Разработка корпоративного сайта",
+    "clientName": "Мария Сидорова",
+    "clientEmail": "maria@company.com",
+    "clientPhone": "+7 911 234 56 78",
+    "preferredDate": "2024-02-25",
+    "preferredTime": "10:00",
+    "notes": "��ребуется интеграция с CRM системой",
+    "status": "pending",
+    "createdAt": "2025-07-30T16:26:06.507Z",
+    "updatedAt": "2025-07-30T16:26:06.507Z"
   }
 ]
