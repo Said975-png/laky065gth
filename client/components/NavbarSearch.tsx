@@ -29,7 +29,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     // Основные страницы
     {
       id: "home",
-      title: "Главная страница",
+      title: "Главн��я страница",
       description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
@@ -69,6 +69,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
+      keywords: ["пятниц��", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
     },
     {
       id: "admin",
@@ -173,7 +174,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "cart",
-      title: "Корзина покупок",
+      title: "Кор��ина покупок",
       description: "Управление выбранными тарифными планами",
       type: "feature",
       action: () => {
