@@ -31,7 +31,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     // Основные страницы
     {
       id: "home",
-      title: "��лавная страница",
+      title: "Главная страница",
       description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
@@ -71,7 +71,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
-      keywords: ["п��тница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
+      keywords: ["пятница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
     },
     {
       id: "admin",
@@ -106,7 +106,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     {
       id: "pricing",
       title: "Тарифы и цены",
-      description: "Секция с тарифными планам��",
+      description: "Секция с тарифными планами",
       type: "component",
       action: () => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: "smooth" }),
     },
@@ -250,7 +250,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
     },
     {
       id: "face-recognition",
-      title: "Распознавание лиц",
+      title: "Ра��познавание лиц",
       description: "Биометрическая идентификация",
       type: "feature",
       action: () => document.querySelector('[data-section="advantages"]')?.scrollIntoView({ behavior: "smooth" }),
@@ -321,7 +321,7 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
       action: () => window.scrollTo({ top: 0, behavior: "smooth" }),
     },
 
-    // Статистика и показатели
+    // Статистика и показате��и
     {
       id: "stats",
       title: "Статистика",
@@ -485,7 +485,11 @@ export function NavbarSearch({ className, isSearchMode = false, onExitSearch }: 
           }
           break;
         case "Escape":
-          setIsOpen(false);
+          if (isSearchMode && onExitSearch) {
+            onExitSearch();
+          } else {
+            setIsOpen(false);
+          }
           setQuery("");
           break;
       }
