@@ -13,7 +13,9 @@ import {
   X,
   Sun,
   Moon,
+  Search,
 } from "lucide-react";
+import { NavbarSearch } from "@/components/NavbarSearch";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -44,6 +46,7 @@ export default function ModernNavbar({
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
   // Track scroll position for navbar styling
   useEffect(() => {
@@ -85,87 +88,115 @@ export default function ModernNavbar({
         )}
       >
         <div className="flex items-center justify-center w-full h-full">
-          {/* Even spacing for all buttons */}
-          <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
-            {/* Home Button */}
-            <Button
-              variant="ghost"
-              onClick={scrollToTop}
-              className={cn(
-                "px-1 sm:px-2 lg:px-4 py-2 h-8 sm:h-10",
-                "transition-all duration-200",
-                "text-white hover:text-white",
-              )}
-            >
-              <div className="flex items-center space-x-1 sm:space-x-2">
-                <Home className="w-3 sm:w-4 h-3 sm:h-4" />
-                <span className="hidden sm:inline font-medium text-sm">
-                  Home
-                </span>
-              </div>
-            </Button>
-
-            {/* Cart */}
-            <CartDropdown
-              items={items}
-              getTotalItems={getTotalItems}
-              getTotalPrice={getTotalPrice}
-              removeItem={removeItem}
-              clearCart={clearCart}
-              handleProceedToOrder={handleProceedToOrder}
-            />
-
-            {/* Theme Toggle Button */}
-            <Button
-              variant="ghost"
-              onClick={toggleTheme}
-              className={cn(
-                "px-2 py-2 h-8 sm:h-10",
-                "transition-all duration-200",
-                "text-white hover:text-white",
-              )}
-            >
-              <div className="flex items-center space-x-1">
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
+          {!isSearchMode ? (
+            /* Normal navbar */
+            <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
+              {/* Home Button */}
+              <Button
+                variant="ghost"
+                onClick={scrollToTop}
+                className={cn(
+                  "px-1 sm:px-2 lg:px-4 py-2 h-8 sm:h-10",
+                  "transition-all duration-300",
+                  "text-white hover:text-white",
                 )}
-                <span className="hidden lg:inline font-medium text-sm">
-                  {theme === "dark" ? "Светлая" : "Темная"}
-                </span>
-              </div>
-            </Button>
+              >
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <Home className="w-3 sm:w-4 h-3 sm:h-4" />
+                  <span className="hidden sm:inline font-medium text-sm">
+                    Home
+                  </span>
+                </div>
+              </Button>
 
-            {/* User Menu or Auth Buttons */}
-            {isAuthenticated && currentUser ? (
-              <UserMenu
-                user={currentUser}
-                onLogout={handleLogout}
-                theme={theme}
-                toggleTheme={toggleTheme}
+              {/* Search Button */}
+              <Button
+                onClick={() => setIsSearchMode(true)}
+                variant="ghost"
+                className={cn(
+                  "px-3 py-2 h-8 sm:h-10",
+                  "transition-all duration-300",
+                  "text-white hover:text-white",
+                  "hover:bg-white/10",
+                )}
+              >
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <Search className="w-3 sm:w-4 h-3 sm:h-4" />
+                  <span className="hidden sm:inline font-medium text-sm">
+                    Поиск
+                  </span>
+                </div>
+              </Button>
+
+              {/* Cart */}
+              <CartDropdown
+                items={items}
+                getTotalItems={getTotalItems}
+                getTotalPrice={getTotalPrice}
+                removeItem={removeItem}
+                clearCart={clearCart}
+                handleProceedToOrder={handleProceedToOrder}
               />
-            ) : (
-              <AuthButtons theme={theme} />
-            )}
 
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={cn(
-                "lg:hidden px-3 py-2 h-10",
-                "transition-all duration-200",
-                "text-white hover:text-white",
-              )}
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-4 h-4" />
+              {/* Theme Toggle Button */}
+              <Button
+                variant="ghost"
+                onClick={toggleTheme}
+                className={cn(
+                  "px-2 py-2 h-8 sm:h-10",
+                  "transition-all duration-300",
+                  "text-white hover:text-white",
+                )}
+              >
+                <div className="flex items-center space-x-1">
+                  {theme === "dark" ? (
+                    <Sun className="w-4 h-4" />
+                  ) : (
+                    <Moon className="w-4 h-4" />
+                  )}
+                  <span className="hidden lg:inline font-medium text-sm">
+                    {theme === "dark" ? "Светлая" : "Темная"}
+                  </span>
+                </div>
+              </Button>
+
+              {/* User Menu or Auth Buttons */}
+              {isAuthenticated && currentUser ? (
+                <UserMenu
+                  user={currentUser}
+                  onLogout={handleLogout}
+                  theme={theme}
+                  toggleTheme={toggleTheme}
+                />
               ) : (
-                <Menu className="w-4 h-4" />
+                <AuthButtons theme={theme} />
               )}
-            </Button>
-          </div>
+
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className={cn(
+                  "lg:hidden px-3 py-2 h-10",
+                  "transition-all duration-300",
+                  "text-white hover:text-white",
+                )}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-4 h-4" />
+                ) : (
+                  <Menu className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
+          ) : (
+            /* Search mode navbar */
+            <NavbarSearch
+              isSearchMode={isSearchMode}
+              onExitSearch={() => setIsSearchMode(false)}
+              className="w-full"
+            />
+          )}
         </div>
       </nav>
 
