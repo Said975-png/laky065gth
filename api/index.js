@@ -48,6 +48,14 @@ export default async function handler(req, res) {
 
       const groqApiKey = process.env.GROQ_API_KEY;
 
+      // Debug logging for production
+      console.log("Environment check:", {
+        hasGroqKey: !!groqApiKey,
+        keyLength: groqApiKey ? groqApiKey.length : 0,
+        keyStart: groqApiKey ? groqApiKey.substring(0, 8) + "..." : "none",
+        nodeEnv: process.env.NODE_ENV
+      });
+
       // If GROQ API key is available, try to use the actual API
       if (groqApiKey && groqApiKey !== 'your_groq_api_key_here') {
         try {
@@ -109,7 +117,7 @@ export default async function handler(req, res) {
 
       return res.json({
         success: true,
-        message: response + " (Demo режим - добавьте GROQ_API_KEY для полной функциональности)"
+        message: response + " (Demo режим - добавьте GROQ_API_KEY для ��олной функциональности)"
       });
     }
 
