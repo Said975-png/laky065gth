@@ -13,16 +13,19 @@
 ### Вариант 1: Через Vercel CLI (рекомендуется)
 
 1. Установите Vercel CLI:
+
 ```bash
 npm i -g vercel
 ```
 
 2. Протестируйте API локально:
+
 ```bash
 npm run test:api
 ```
 
 3. Скопируйте ваши API ключи в `.env`:
+
 ```bash
 # Отредактируйте .env фай�� и добавьте реальные значения:
 GROQ_API_KEY=gsk_your_actual_groq_api_key_here
@@ -30,6 +33,7 @@ JWT_SECRET=your_random_jwt_secret_here
 ```
 
 4. Деплой на продакшн:
+
 ```bash
 npx vercel --prod
 ```

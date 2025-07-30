@@ -5,11 +5,11 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+    "GET,OPTIONS,PATCH,DELETE,POST,PUT",
   );
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, user-id"
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, user-id",
   );
 
   if (req.method === "OPTIONS") {
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       return res.json({
         message: "Hello from Vercel serverless function!",
         timestamp: new Date().toISOString(),
-        env: process.env.NODE_ENV || "development"
+        env: process.env.NODE_ENV || "development",
       });
     }
 
@@ -35,9 +35,15 @@ export default async function handler(req, res) {
       return res.json({
         env: process.env.NODE_ENV || "development",
         hasGroqKey: !!process.env.GROQ_API_KEY,
-        groqKeyLength: process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.length : 0,
-        groqKeyStart: process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.substring(0, 8) + "..." : "none",
-        allEnvKeys: Object.keys(process.env).filter(key => !key.includes('PATH')).sort()
+        groqKeyLength: process.env.GROQ_API_KEY
+          ? process.env.GROQ_API_KEY.length
+          : 0,
+        groqKeyStart: process.env.GROQ_API_KEY
+          ? process.env.GROQ_API_KEY.substring(0, 8) + "..."
+          : "none",
+        allEnvKeys: Object.keys(process.env)
+          .filter((key) => !key.includes("PATH"))
+          .sort(),
       });
     }
 
@@ -53,7 +59,7 @@ export default async function handler(req, res) {
       if (!messages || !Array.isArray(messages)) {
         return res.status(400).json({
           success: false,
-          error: "Invalid messages format"
+          error: "Invalid messages format",
         });
       }
 
@@ -64,40 +70,51 @@ export default async function handler(req, res) {
         hasGroqKey: !!groqApiKey,
         keyLength: groqApiKey ? groqApiKey.length : 0,
         keyStart: groqApiKey ? groqApiKey.substring(0, 8) + "..." : "none",
-        nodeEnv: process.env.NODE_ENV
+        nodeEnv: process.env.NODE_ENV,
       });
 
       // If GROQ API key is available, try to use the actual API
-      if (groqApiKey && groqApiKey !== 'your_groq_api_key_here' && groqApiKey.trim() !== '') {
+      if (
+        groqApiKey &&
+        groqApiKey !== "your_groq_api_key_here" &&
+        groqApiKey.trim() !== ""
+      ) {
         try {
           // Clean messages to only include role and content
-          const cleanedMessages = messages.slice(-5).map(msg => ({
+          const cleanedMessages = messages.slice(-5).map((msg) => ({
             role: msg.role,
-            content: msg.content
+            content: msg.content,
           }));
 
           console.log("🚀 Attempting GROQ API call...");
-          console.log("📝 Cleaned messages:", JSON.stringify(cleanedMessages, null, 2));
+          console.log(
+            "📝 Cleaned messages:",
+            JSON.stringify(cleanedMessages, null, 2),
+          );
 
-          const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${groqApiKey}`,
-              "Content-Type": "application/json",
+          const response = await fetch(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${groqApiKey}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "llama3-8b-8192",
+                messages: [
+                  {
+                    role: "system",
+                    content:
+                      "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной.",
+                  },
+                  ...cleanedMessages,
+                ],
+                max_tokens: 1000,
+                temperature: 0.7,
+              }),
             },
-            body: JSON.stringify({
-              model: "llama3-8b-8192",
-              messages: [
-                {
-                  role: "system",
-                  content: "Ты Пятница - AI-помощник от Stark Industries. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Отвечай на русском языке, будь краткой но информативной."
-                },
-                ...cleanedMessages
-              ],
-              max_tokens: 1000,
-              temperature: 0.7,
-            }),
-          });
+          );
 
           console.log("📡 GROQ API response status:", response.status);
 
@@ -110,23 +127,30 @@ export default async function handler(req, res) {
               console.log("🎉 Returning GROQ AI message");
               return res.json({
                 success: true,
-                message: aiMessage
+                message: aiMessage,
               });
             } else {
-              console.log("❌ No AI message in response:", JSON.stringify(data));
+              console.log(
+                "❌ No AI message in response:",
+                JSON.stringify(data),
+              );
               return res.json({
                 success: true,
-                message: `DEBUG: GROQ ответил, но нет сообщения в choices[0]. Response: ${JSON.stringify(data)}`
+                message: `DEBUG: GROQ ответил, но нет сообщения в choices[0]. Response: ${JSON.stringify(data)}`,
               });
             }
           } else {
             const errorText = await response.text();
-            console.log("❌ GROQ API response not ok:", response.status, response.statusText);
+            console.log(
+              "❌ GROQ API response not ok:",
+              response.status,
+              response.statusText,
+            );
             console.log("❌ GROQ API error details:", errorText);
 
             return res.json({
               success: true,
-              message: `DEBUG: GROQ API Error ${response.status}: ${errorText}`
+              message: `DEBUG: GROQ API Error ${response.status}: ${errorText}`,
             });
           }
         } catch (error) {
@@ -134,13 +158,14 @@ export default async function handler(req, res) {
 
           return res.json({
             success: true,
-            message: `DEBUG: Exception при запросе к GROQ: ${error.message}`
+            message: `DEBUG: Exception при запросе к GROQ: ${error.message}`,
           });
         }
       }
 
       // Fallback responses if API is not available
-      const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || "";
+      const lastMessage =
+        messages[messages.length - 1]?.content?.toLowerCase() || "";
       let response = "Привет! Я ваш AI-помощник. Как дела?";
 
       if (lastMessage.includes("привет")) {
@@ -149,19 +174,31 @@ export default async function handler(req, res) {
         response = "🤖 Отлично! Готов к работе. Что вас интересует?";
       } else if (lastMessage.includes("помощь")) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
-      } else if (lastMessage.includes("сайт") || lastMessage.includes("разработка")) {
-        response = "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем прое��те.";
+      } else if (
+        lastMessage.includes("сайт") ||
+        lastMessage.includes("разработка")
+      ) {
+        response =
+          "🌐 Отлично! Я помогу с веб-разработкой. Расскажите подробнее о вашем прое��те.";
       }
 
       return res.json({
         success: true,
-        message: response + ` (Demo режим - Key status: ${groqApiKey ? 'присутствует' : 'отсутствует'})`
+        message:
+          response +
+          ` (Demo режим - Key status: ${groqApiKey ? "присутствует" : "отсутствует"})`,
       });
     }
 
     // Contracts endpoint
     if (url === "/api/contracts" && method === "POST") {
-      const { projectType, projectDescription, clientName, clientEmail, estimatedPrice } = req.body;
+      const {
+        projectType,
+        projectDescription,
+        clientName,
+        clientEmail,
+        estimatedPrice,
+      } = req.body;
 
       const contractId = `JAR-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
 
@@ -169,7 +206,7 @@ export default async function handler(req, res) {
         success: true,
         message: "Договор успешно создан",
         contractId,
-        contractUrl: `/api/contracts/${contractId}`
+        contractUrl: `/api/contracts/${contractId}`,
       });
     }
 
@@ -177,7 +214,7 @@ export default async function handler(req, res) {
       const userId = req.headers["user-id"];
       return res.json({
         success: true,
-        contracts: []
+        contracts: [],
       });
     }
 
@@ -218,7 +255,7 @@ export default async function handler(req, res) {
       console.log("📧 Получен заказ:", req.body);
       return res.json({
         success: true,
-        message: "Заказ успешно отправлен!"
+        message: "Заказ успешно отправлен!",
       });
     }
 
@@ -227,14 +264,14 @@ export default async function handler(req, res) {
       return res.json({
         success: true,
         message: "Бронирование создано",
-        bookingId: `BOOK-${Date.now()}`
+        bookingId: `BOOK-${Date.now()}`,
       });
     }
 
     if (url === "/api/bookings" && method === "GET") {
       return res.json({
         success: true,
-        bookings: []
+        bookings: [],
       });
     }
 
@@ -243,14 +280,13 @@ export default async function handler(req, res) {
       success: false,
       error: "Endpoint not found",
       path: url,
-      method: method
+      method: method,
     });
-
   } catch (error) {
     console.error("API Error:", error);
     return res.status(500).json({
       success: false,
-      error: "Internal server error"
+      error: "Internal server error",
     });
   }
 }

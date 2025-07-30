@@ -3,13 +3,15 @@
 ## Быстрое решение проблемы на Vercel
 
 ### 1. Деплой с улучшенной диагностикой:
+
 ```bash
 npx vercel --prod --force
 ```
 
 ### 2. Проверка после деплоя:
+
 - Откройте `/debug` на вашем сайте
-- Нажмите "Test Chat API" 
+- Нажмите "Test Chat API"
 - Посмотрите на сообщение - теперь оно покажет точную ошибку
 
 ### 3. Возможные проблемы и решения:
@@ -30,12 +32,15 @@ npx vercel --prod --force
 → Переменная не установлена, добавьте в Vercel Dashboard
 
 ### 4. Проверка логов:
+
 ```bash
 npx vercel logs your-deployment-url --follow
 ```
 
 ### 5. Быстрый фикс:
+
 После любых изменений в Environment Variables в Vercel Dashboard:
+
 ```bash
 npx vercel --prod --force
 ```
