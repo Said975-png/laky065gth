@@ -29,7 +29,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     // Основные страницы
     {
       id: "home",
-      title: "Главн��я страница",
+      title: "Главная страница",
       description: "Домашняя страница с ДЖАРВИС AI и всеми функциями",
       type: "page",
       url: "/",
@@ -52,7 +52,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     {
       id: "profile",
       title: "Профиль пользователя",
-      description: "Настройки и информация о пользователе",
+      description: "Настройки и информа��ия о пользователе",
       type: "page",
       url: "/profile",
     },
@@ -69,7 +69,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       description: "AI чат-ассистент Пятница",
       type: "page",
       url: "/chat",
-      keywords: ["пятниц��", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
+      keywords: ["пятница", "friday", "чат", "chat", "ai", "ассистент", "помощник", "бот"],
     },
     {
       id: "admin",
@@ -153,6 +153,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
       title: "Голосовое управление",
       description: "Управление сайтом с помощью голосовых команд",
       type: "feature",
+      keywords: ["голос", "voice", "микрофон", "команды", "говорить", "звук"],
       action: () => {
         const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
         if (voiceButton) {
@@ -174,7 +175,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
     },
     {
       id: "cart",
-      title: "Кор��ина покупок",
+      title: "Корзина покупок",
       description: "Управление выбранными тарифными планами",
       type: "feature",
       action: () => {
@@ -538,7 +539,7 @@ export function NavbarSearch({ className }: NavbarSearchProps) {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Поиск по сайту..."
+                placeholder="Поиск по сайт��..."
                 className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-base sm:text-lg bg-black/95 border-2 border-cyan-400/30 rounded-xl text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm min-h-[48px] transition-all duration-200"
               />
               <Button
