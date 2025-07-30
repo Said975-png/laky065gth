@@ -106,6 +106,9 @@ export default function ModernNavbar({
               </div>
             </Button>
 
+            {/* Search */}
+            <NavbarSearch />
+
             {/* Cart */}
             <CartDropdown
               items={items}
@@ -269,7 +272,7 @@ function CartDropdown({
             <div className="flex justify-between items-center mb-4">
               <span className="font-bold text-white">TOTAL:</span>
               <span className="text-xl font-bold text-white">
-                {getTotalPrice().toLocaleString()} су��
+                {getTotalPrice().toLocaleString()} сум
               </span>
             </div>
             <div className="flex space-x-3">
