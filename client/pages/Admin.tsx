@@ -282,7 +282,7 @@ export default function Admin() {
     }
   };
 
-  // Если не аутентифицирован, показываем форму входа
+  // Если не аутентифицирован, показы��аем форму входа
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -350,6 +350,14 @@ export default function Admin() {
                 <Shield className="w-3 h-3 mr-1" />
                 Администратор
               </Badge>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+              >
+                Выйти
+              </Button>
             </div>
           </div>
         </div>
