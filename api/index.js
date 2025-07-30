@@ -326,7 +326,7 @@ export default async function handler(req, res) {
           users: users,
         });
       } catch (error) {
-        console.error("Ошибка загр��зки пользователей:", error);
+        console.error("Ошибка загрузки пользователей:", error);
         return res.json({
           success: false,
           error: "Ошибка загрузки пользователей",
@@ -450,15 +450,7 @@ export default async function handler(req, res) {
       const userId = req.headers["user-id"];
 
       try {
-        const fs = require('fs');
-        const path = require('path');
-        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
-
-        let bookings = [];
-        if (fs.existsSync(bookingsFile)) {
-          const data = fs.readFileSync(bookingsFile, "utf-8");
-          bookings = JSON.parse(data);
-        }
+        const bookings = getBookings();
 
         // Фильтруем по пользователю
         const userBookings = bookings.filter(booking => booking.userId === userId);
@@ -478,15 +470,7 @@ export default async function handler(req, res) {
 
     if (url === "/api/bookings/all" && method === "GET") {
       try {
-        const fs = require('fs');
-        const path = require('path');
-        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
-
-        let bookings = [];
-        if (fs.existsSync(bookingsFile)) {
-          const data = fs.readFileSync(bookingsFile, "utf-8");
-          bookings = JSON.parse(data);
-        }
+        const bookings = getBookings();
 
         // Сортируем по дате создания (новые сначала)
         bookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -513,26 +497,9 @@ export default async function handler(req, res) {
       const { status } = req.body;
 
       try {
-        const fs = require('fs');
-        const path = require('path');
-        const bookingsFile = path.join(process.cwd(), "data", "bookings", "bookings.json");
+        const updated = updateBooking(bookingId, { status });
 
-        let bookings = [];
-        if (fs.existsSync(bookingsFile)) {
-          const data = fs.readFileSync(bookingsFile, "utf-8");
-          bookings = JSON.parse(data);
-        }
-
-        // Находим и обновляем бронь
-        const bookingIndex = bookings.findIndex(b => b.id === bookingId);
-        if (bookingIndex !== -1) {
-          bookings[bookingIndex].status = status;
-          bookings[bookingIndex].updatedAt = new Date().toISOString();
-
-          fs.writeFileSync(bookingsFile, JSON.stringify(bookings, null, 2));
-
-          console.log(`📝 Статус брони ${bookingId} обновлен на ${status}`);
-
+        if (updated) {
           return res.json({
             success: true,
             message: "Статус брони обновлен"
