@@ -106,7 +106,7 @@ export default async function handler(req, res) {
                   {
                     role: "system",
                     content:
-                      "Ты Пятница - русскоязычный AI-помощник от Stark Industries. ВАЖНО: ВСЕ твои ответы должны быть ТОЛ��КО на русском языке, без исключений. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Проверяй грамматику и орфографию перед ответом. Будь краткой, но информативной. Используй правильные падежи и согласования в русском языке.",
+                      "Ты Пятница - русскоязычный AI-помощник от Stark Industries. ВАЖНО: ВСЕ твои ответы должны быть ТОЛЬКО на русском языке, без исключений. Ты дружелюбная, профессиональная и экспертная в веб-разработке. Проверяй грамматику и орфографию перед ответом. Будь краткой, но информативной. Используй правильные падежи и согласования в русско�� языке.",
                   },
                   ...cleanedMessages,
                 ],
@@ -175,7 +175,7 @@ export default async function handler(req, res) {
       } else if (lastMessage.includes("помощь")) {
         response = "💡 Конечно помогу! Задавайте любые вопросы.";
       } else if (
-        lastMessage.includes("сайт") ||
+        lastMessage.includes("сай��") ||
         lastMessage.includes("разработка")
       ) {
         response =
@@ -336,6 +336,97 @@ export default async function handler(req, res) {
           orders: [],
         });
       }
+    }
+
+    // Users endpoints (for admin)
+    if (url === "/api/users/all" && method === "GET") {
+      try {
+        const fs = require('fs');
+        const path = require('path');
+        const usersFile = path.join(process.cwd(), "data", "users.json");
+
+        let users = [];
+        if (fs.existsSync(usersFile)) {
+          const data = fs.readFileSync(usersFile, "utf-8");
+          users = JSON.parse(data);
+        }
+
+        // Сортируем по дате создания (новые сначала)
+        users.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        console.log(`📋 Загружено ${users.length} пользователей для админа`);
+
+        return res.json({
+          success: true,
+          users: users,
+        });
+      } catch (error) {
+        console.error("Ошибка загрузки пользователей:", error);
+        return res.json({
+          success: false,
+          error: "Ошибка загрузки пользователей",
+          users: [],
+        });
+      }
+    }
+
+    // User registration endpoint
+    if (url === "/api/users/register" && method === "POST") {
+      const { name, email, password } = req.body;
+
+      const userId = Date.now().toString();
+
+      const user = {
+        id: userId,
+        name: name || "",
+        email: email || "",
+        password: password || "", // В продакшне нужно хешировать
+        createdAt: new Date().toISOString()
+      };
+
+      // Сохраняем пользователя в файл
+      try {
+        const fs = require('fs');
+        const path = require('path');
+
+        const dataDir = path.join(process.cwd(), "data");
+        const usersFile = path.join(dataDir, "users.json");
+
+        // Создаем директорию если её нет
+        if (!fs.existsSync(dataDir)) {
+          fs.mkdirSync(dataDir, { recursive: true });
+        }
+
+        // Загружаем существующих пользователей
+        let users = [];
+        if (fs.existsSync(usersFile)) {
+          const data = fs.readFileSync(usersFile, "utf-8");
+          users = JSON.parse(data);
+        }
+
+        // Проверяем, существует ли пользователь
+        const existingUser = users.find(u => u.email === email);
+        if (existingUser) {
+          return res.json({
+            success: false,
+            error: "Пользователь с таким email уже существует"
+          });
+        }
+
+        // Добавляем нового пользователя
+        users.push(user);
+        fs.writeFileSync(usersFile, JSON.stringify(users, null, 2));
+
+        console.log("👤 Новый пользователь сохранен в файл:", email);
+      } catch (error) {
+        console.error("Ошибка сохранения пользователя:", error);
+      }
+
+      return res.json({
+        success: true,
+        message: "Регистрация успешна!",
+        userId: userId
+      });
     }
 
     // Bookings endpoints
