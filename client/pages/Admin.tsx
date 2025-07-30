@@ -50,6 +50,9 @@ interface AdminStats {
 }
 
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
   const [bookings, setBookings] = useState<BookingData[]>([]);
   const [filteredBookings, setFilteredBookings] = useState<BookingData[]>([]);
   const [loading, setLoading] = useState(false);
@@ -149,7 +152,7 @@ export default function Admin() {
       }
     } catch (error) {
       console.error("Error updating booking status:", error);
-      setError("Ошибка сети при обновлении статуса");
+      setError("Ошибка с��ти при обновлении статуса");
     }
   };
 
@@ -515,7 +518,7 @@ export default function Admin() {
                       <SelectItem value="pro">PRO</SelectItem>
                       <SelectItem value="max">MAX</SelectItem>
                       <SelectItem value="consultation">Консультация</SelectItem>
-                      <SelectItem value="custom">Индивидуальный</SelectItem>
+                      <SelectItem value="custom">Индивиду��льный</SelectItem>
                     </SelectContent>
                   </Select>
 
