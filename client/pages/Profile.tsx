@@ -204,12 +204,7 @@ function Profile() {
         if (user.preferences) setPreferences(user.preferences);
       }
 
-      // Check Face ID
-      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const userFace = faces.find(
-        (face: any) => face.userId === currentUser.id,
-      );
-      setHasFaceID(!!userFace);
+
 
       // Load activity log
       loadActivityLog();
@@ -976,7 +971,7 @@ function Profile() {
               {/* Avatar Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Фото профиля</CardTitle>
+                  <CardTitle>Фото проф��ля</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-4">
                   <div className="relative inline-block">
@@ -1265,7 +1260,7 @@ function Profile() {
             {/* Danger Zone */}
             <Card className="border-red-200">
               <CardHeader className="bg-red-50">
-                <CardTitle className="text-red-700">Опасная зона</CardTitle>
+                <CardTitle className="text-red-700">��пасная зона</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
@@ -1323,7 +1318,7 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока нет договоров
+                    У вас пока н��т договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
                     Закажите первую услугу и получите договор автоматически
@@ -1530,7 +1525,7 @@ function Profile() {
                                 <XCircle className="w-3 h-3 mr-1" />
                               )}
                               {booking.status === "confirmed"
-                                ? "Подтверждена"
+                                ? "��одтверждена"
                                 : booking.status === "completed"
                                   ? "Завершена"
                                   : booking.status === "cancelled"
