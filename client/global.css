@@ -212,7 +212,7 @@
     position: relative;
   }
 
-  /* Убраны углы для StarkHUD ка��точек */
+  /* Убраны углы для StarkHUD карточек */
   .stark-card-corners {
     position: relative;
   }
@@ -254,7 +254,7 @@
     color: hsl(var(--muted-foreground)) !important;
   }
 
-  /* Адаптивн��е цвета для навигации */
+  /* Адаптивные цвета для навигации */
   .theme-nav-text {
     color: hsl(var(--foreground) / 0.8) !important;
     transition: color 0.15s ease;
@@ -273,7 +273,7 @@
     color: hsl(var(--foreground)) !important;
   }
 
-  /* Адаптив��ые цвета для лейблов форм */
+  /* Адаптивные цвета для лейблов форм */
   .theme-label {
     color: hsl(var(--foreground) / 0.8) !important;
   }
