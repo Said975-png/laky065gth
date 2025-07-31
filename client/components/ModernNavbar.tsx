@@ -44,6 +44,92 @@ export default function ModernNavbar({
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
+  // Данные для поиска
+  const searchData = [
+    {
+      id: "home",
+      title: "Главная страница",
+      description: "Домашняя страница с информацией о ДЖАРВИС AI",
+      type: "page",
+      url: "/",
+    },
+    {
+      id: "voice-commands",
+      title: "Голосовые команды",
+      description: "Управление сайтом с помощью голоса",
+      type: "feature",
+    },
+    {
+      id: "jarvis-interface",
+      title: "Интерфейс ДЖАРВИС",
+      description: "AI-помощник с голосовым управлением",
+      type: "component",
+    },
+    {
+      id: "plans-basic",
+      title: "Базовый план",
+      description: "Начальный тарифный план с основными функциями",
+      type: "plan",
+    },
+    {
+      id: "plans-pro",
+      title: "PRO план",
+      description: "Профессиональный план с расширенными возможностями",
+      type: "plan",
+    },
+    {
+      id: "plans-max",
+      title: "MAX план",
+      description: "Максимальный план с полным набором функций",
+      type: "plan",
+    },
+    {
+      id: "login",
+      title: "Вход в систему",
+      description: "Авторизация п��льзователя",
+      type: "page",
+      url: "/login",
+    },
+    {
+      id: "signup",
+      title: "Регистрация",
+      description: "Создание нового аккаунта",
+      type: "page",
+      url: "/signup",
+    },
+    {
+      id: "profile",
+      title: "Профиль пользователя",
+      description: "Настройки и информация о пользователе",
+      type: "page",
+      url: "/profile",
+    },
+    {
+      id: "cart",
+      title: "Корзина",
+      description: "Выбранные тарифные планы",
+      type: "feature",
+    },
+    {
+      id: "ai-features",
+      title: "AI возможности",
+      description: "Искусственный интеллект и автоматизация",
+      type: "feature",
+    },
+    {
+      id: "blockchain",
+      title: "Blockchain интеграция",
+      description: "Технологии блокчейн и криптографии",
+      type: "feature",
+    },
+    {
+      id: "stark-tech",
+      title: "Stark Industries Technology",
+      description: "Продвинутые технологии Stark Industries",
+      type: "feature",
+    },
+  ];
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
