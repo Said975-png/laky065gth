@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж���ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
         return;
       }
 
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой парол�� для обеспечен��я безопасности аккаунта
+                          Измените свой пароль для обеспечен��я безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1163,7 +1163,7 @@ function Profile() {
                   {true && (
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Пароль должен содержать минимум 6 символов</p>
-                      <p>✓ Используйте сложные пароли для безопасности</p>
+                      <p>✓ Используйте сложные п��роли для безопасности</p>
                       <p>✓ Не используйте один пароль на всех сайтах</p>
                     </div>
                   )}
@@ -1186,8 +1186,8 @@ function Profile() {
                           id="currentPassword"
                           name="currentPassword"
                           type="password"
-                          value={passwordForm.currentPassword}
-                          onChange={handlePasswordInputChange}
+                          value={formData.currentPassword}
+                          onChange={handleChange}
                           className="pl-10"
                           required
                         />
@@ -1251,7 +1251,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      данных. Это действие нельзя отменить.
+                      ��анных. Это действие нельзя отменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1283,7 +1283,7 @@ function Profile() {
                 className="bg-purple-600 hover:bg-purple-700"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Заказать услугу
+                Заказать ус��угу
               </Button>
             </div>
 
@@ -1389,7 +1389,7 @@ function Profile() {
                             variant="outline"
                           >
                             <Eye className="w-4 h-4 mr-1" />
-                            Пр��смотр
+                            Просмотр
                           </Button>
                           <Button
                             onClick={() => {
