@@ -58,12 +58,14 @@ export default function ModernNavbar({
       title: "Голосовые команды",
       description: "Управление сайтом с помощью голоса",
       type: "feature",
+      url: "/",
     },
     {
       id: "jarvis-interface",
       title: "Интерфейс ДЖАРВИС",
       description: "AI-помощник с голосовым управлением",
       type: "component",
+      url: "/",
     },
     {
       id: "plans-basic",
@@ -682,7 +684,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятницей 🤖
+            ��ат с Пятницей 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
