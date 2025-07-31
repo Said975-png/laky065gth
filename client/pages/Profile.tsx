@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содерж��ть ��иниму���� 6 символов");
         return;
       }
 
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечения безопасности аккаунта
+                          Измените свой пароль для обеспече��ия безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1162,7 +1162,7 @@ function Profile() {
 
                   {true && (
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
-                      <p>✓ Face ID запрашивается при входе в личный кабинет</p>
+                      <p>✓ Пароль должен содержать минимум 6 символов</p>
                       <p>✓ Биометрические данные хранятся локально</p>
                       <p>✓ Толь��о ваше лицо может получить доступ</p>
                     </div>
@@ -1421,7 +1421,7 @@ function Profile() {
                   Мои брони
                 </h3>
                 <p className="text-gray-600">
-                  Управление бронированием консультаций и встреч
+                  Управление бронированием консуль��аций и встреч
                 </p>
               </div>
               <Button
@@ -1476,7 +1476,7 @@ function Profile() {
                                 : booking.serviceType === "pro"
                                   ? "PRO пакет"
                                   : booking.serviceType === "max"
-                                    ? "MAX пакет"
+                                    ? "MAX па��ет"
                                     : booking.serviceType === "consultation"
                                       ? "Консультация"
                                       : "Индивидуальный проект"}
