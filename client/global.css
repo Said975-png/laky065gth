@@ -273,7 +273,7 @@
     color: hsl(var(--foreground)) !important;
   }
 
-  /* Адаптивные цвета для лейблов форм */
+  /* Адапт��вные цвета для лейблов форм */
   .theme-label {
     color: hsl(var(--foreground) / 0.8) !important;
   }
@@ -1784,7 +1784,7 @@
     }
   }
 
-  /* Адапти��ные стили для мобильных устройств */
+  /* Адаптивные стили для мобильных устройств */
   @media (max-width: 768px) {
     .stark-lab-hud-grid {
       background-size: 30px 30px;
@@ -2120,7 +2120,7 @@
     }
   }
 
-  /* УБ��АНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
+  /* УБРАНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
   .neon-center-glow {
     display: none !important;
   }
