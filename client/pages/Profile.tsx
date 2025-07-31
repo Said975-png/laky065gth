@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать минимум 6 символов");
+        setError("Новый пароль должен содержать ��инимум 6 символов");
         return;
       }
 
@@ -1181,8 +1181,6 @@ function Profile() {
                   )}
                 </CardContent>
               </Card>
-
-              {/* Password Change */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
