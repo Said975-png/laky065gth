@@ -458,7 +458,7 @@ function Profile() {
       const userIndex = users.findIndex((u) => u.id === currentUser.id);
 
       if (userIndex === -1) {
-        setError("Пользователь не найден");
+        setError("��ользователь не найден");
         return;
       }
 
@@ -499,7 +499,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы ув��рены, что хотите удалить аккаунт? Это д����ствие нельзя отменить.",
+        "Вы ув����ены, что хотите удалить аккаунт? Это д����ствие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -746,7 +746,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Активные проекты
+                        А��тивные проекты
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -966,7 +966,7 @@ function Profile() {
               {/* Avatar Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Фото проф��ля</CardTitle>
+                  <CardTitle>Фото профиля</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-4">
                   <div className="relative inline-block">
@@ -998,7 +998,7 @@ function Profile() {
                     />
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Рекомендуемый разм��р: 400x400px</p>
+                    <p>Рекомендуемый размер: 400x400px</p>
                     <p>Максимальный размер: 5MB</p>
                   </div>
                 </CardContent>
@@ -1114,7 +1114,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Сохраняем..." : "Сохран��ть изменения"}
+                      {loading ? "Сохраняем..." : "Сохранить изменения"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1354,7 +1354,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Завершен"
+                                  ? "За��ершен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
