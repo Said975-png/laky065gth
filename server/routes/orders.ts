@@ -184,7 +184,7 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
     console.log("=== НОВЫЙ ЗАКАЗ ===");
     console.log("ID заказа:", order.id);
     console.log("Клиент:", { fullName, phone });
-    console.log("Общая стоимость:", orderData.total.toLocaleString(), "с��м");
+    console.log("Общая стоимость:", orderData.total.toLocaleString(), "с����");
     console.log(
       "Услуги:",
       orderData.items.map((item) => item.name),
@@ -245,6 +245,24 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
     res.status(500).json({
       success: false,
       message: "Ошибка сервера при обработке заказа",
+    });
+  }
+};
+
+// Get all orders (for admin)
+export const getAllOrders: RequestHandler = async (req, res) => {
+  try {
+    const orders = loadOrders();
+
+    res.json({
+      success: true,
+      orders: orders,
+    });
+  } catch (error) {
+    console.error("❌ Error getting orders:", error);
+    res.status(500).json({
+      success: false,
+      error: "Ошибка получения заказов",
     });
   }
 };
