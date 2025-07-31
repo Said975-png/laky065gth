@@ -1164,7 +1164,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Пароль должен содержать минимум 6 символов</p>
                       <p>✓ Используйте сложные пароли для безопасности</p>
-                      <p>✓ Не используйте один пароль на всех сайтах</p>
+                      <p>✓ Не используйте один пароль на всех сайта��</p>
                     </div>
                   )}
                 </CardContent>
@@ -1506,12 +1506,12 @@ function Profile() {
                                 <XCircle className="w-3 h-3 mr-1" />
                               )}
                               {booking.status === "confirmed"
-                                ? "��одтверждена"
+                                ? "Подтверждена"
                                 : booking.status === "completed"
                                   ? "Завершена"
                                   : booking.status === "cancelled"
                                     ? "Отменена"
-                                    : "Ожидает подтверждени��"}
+                                    : "Ожидает подтверждения"}
                             </Badge>
                           </div>
                           <p className="text-gray-600 mb-3">
