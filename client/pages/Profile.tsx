@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "������рофиль обновлен");
+      addActivityLog("profile_update", "����рофиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать ��иниму�� 6 символов");
+        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
         return;
       }
 
@@ -1142,7 +1142,7 @@ function Profile() {
                         </h5>
                         <p className="text-sm text-gray-600">
                           {hasFaceID
-                            ? "Face ID настро��н и активен"
+                            ? "Face ID настроен и активен"
                             : "Настройте Face ID для дополнительной безопасности"}
                         </p>
                       </div>
@@ -1233,8 +1233,8 @@ function Profile() {
                           id="confirmPassword"
                           name="confirmPassword"
                           type="password"
-                          value={formData.confirmPassword}
-                          onChange={handleChange}
+                          value={passwordForm.confirmPassword}
+                          onChange={handlePasswordInputChange}
                           className="pl-10"
                           required
                         />
@@ -1366,7 +1366,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Заверше��"
+                                  ? "Завер��ен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
@@ -1577,7 +1577,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Email уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Получать уведомления на email
+                        Получать уведомления н�� email
                       </p>
                     </div>
                     <Switch
