@@ -490,7 +490,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла ошибка при смене пароля");
+      setError("Произошла ошиб��а при смене пароля");
     } finally {
       setLoading(false);
     }
@@ -897,7 +897,7 @@ function Profile() {
                       <Badge
                         variant={notifications.push ? "default" : "secondary"}
                       >
-                        {notifications.push ? "Включены" : "Отключе��ы"}
+                        {notifications.push ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                   </div>
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечен��я безопасности аккаунта
+                          Измените свой пароль для обеспечения безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1164,7 +1164,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Пароль должен содержать минимум 6 символов</p>
                       <p>✓ Используйте сложные пароли для безопасности</p>
-                      <p>✓ Не используйте один пароль на всех сайта��</p>
+                      <p>✓ Не используйте один пароль на всех сайтах</p>
                     </div>
                   )}
                 </CardContent>
@@ -1213,7 +1213,7 @@ function Profile() {
 
                     <div className="space-y-2">
                       <Label htmlFor="confirmPassword">
-                        Подтвердит�� пароль
+                        Подтвердите пароль
                       </Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
