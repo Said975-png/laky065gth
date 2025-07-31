@@ -504,7 +504,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -590,23 +590,7 @@ function Profile() {
     setShowFaceIDModal(false);
   };
 
-  const handleRemoveFaceID = () => {
-    if (
-      currentUser &&
-      window.confirm(
-        "Вы уверены, что хотите отключи��ь Face ID? Это снизит безопасность вашего аккаунта.",
-      )
-    ) {
-      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const filteredFaces = faces.filter(
-        (face: any) => face.userId !== currentUser.id,
-      );
-      localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
-      setHasFaceID(false);
-      addActivityLog("security_change", "Face ID отключен");
-      setSuccess("Face ID отключен");
-    }
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -1271,7 +1255,7 @@ function Profile() {
 
                     <div className="space-y-2">
                       <Label htmlFor="confirmPassword">
-                        Подтвердите пароль
+                        Подтвердит�� пароль
                       </Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -1658,7 +1642,7 @@ function Profile() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">SMS уведомления</p>
+                      <p className="font-medium">SMS у��едомления</p>
                       <p className="text-sm text-gray-600">
                         Получать SMS на телефон
                       </p>
