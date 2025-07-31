@@ -75,7 +75,7 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
           ${
             formData.referenceUrl
               ? `
-          <h2>🌐 Ссы��ка на образец сайта</h2>
+          <h2>🌐 Ссылка на образец сайта</h2>
           <div class="customer-info">
             <p><a href="${formData.referenceUrl}" target="_blank" style="color: #667eea; text-decoration: none;">${formData.referenceUrl}</a></p>
           </div>
@@ -143,7 +143,7 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
     console.log("=== НОВЫЙ ЗАКАЗ ===");
     console.log("ID заказа:", order.id);
     console.log("Клиент:", { fullName, phone });
-    console.log("Общая стоимость:", orderData.total.toLocaleString(), "сум");
+    console.log("Общая стоимость:", orderData.total.toLocaleString(), "с��м");
     console.log(
       "Услуги:",
       orderData.items.map((item) => item.name),
@@ -196,6 +196,7 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
     res.json({
       success: true,
       message: "Заказ успешно получен и обрабатывается",
+      order: order, // Возвращаем данные заказа для сохранения в localStorage
     });
   } catch (error) {
     console.error("❌ Общая ошибка при обработке заказа:", error);
