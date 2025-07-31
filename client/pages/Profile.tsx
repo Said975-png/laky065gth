@@ -499,7 +499,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы ув����ены, что хотите удалить аккаунт? Это д����ствие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -746,7 +746,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        А��тивные проекты
+                        Активные проекты
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -863,7 +863,7 @@ function Profile() {
                       className="bg-purple-600 hover:bg-purple-700"
                     >
                       <Plus className="w-4 h-4 mr-2" />
-                      Нов��й заказ
+                      Новый заказ
                     </Button>
                   </div>
                 </CardContent>
@@ -882,12 +882,12 @@ function Profile() {
 
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
-                        Email увед��мления
+                        Email уведомления
                       </span>
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Откл��чены"}
+                        {notifications.email ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
