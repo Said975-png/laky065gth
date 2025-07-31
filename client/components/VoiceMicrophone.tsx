@@ -67,7 +67,7 @@ export default function VoiceMicrophone({
     }, delay);
   };
 
-  // Функция для обработки нажатия на кнопку микрофона с улучшениями для мобильных
+  // ��ункция для обработки нажатия на кнопку микрофона с улучшениями для мобильных
   const handleMicrophoneClick = async () => {
     if (!isSupported) {
       console.warn("Распознавание речи не поддерживается");
@@ -121,7 +121,7 @@ export default function VoiceMicrophone({
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
     console.log("↩️ Возвраща��мся к предыдущей модели:", previousModelUrl);
-    console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
+    console.log("���� История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl: previousModelUrl },
@@ -159,7 +159,7 @@ export default function VoiceMicrophone({
     audio.onended = () => {
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.log("✅ Воспроизведе��ие завершено, выполняем колбэк");
+      console.log("✅ Воспроизведение завершено, выполняем колбэк");
 
       // Выполняем колбэк если есть
       if (callback) {
@@ -253,7 +253,7 @@ export default function VoiceMicrophone({
         error.message.includes("user didn't interact")
       ) {
         console.log(
-          "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+          "⚠️ Автовоспроизведение заблокировано - требуется взаимодей��твие пользователя",
         );
       }
 
@@ -304,7 +304,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
-          // После окончания ��удио меняем модель
+          // После окончан��я ��удио меняем модель
           console.log("🔄 Смена модели после аудио ответа");
           changeModel(
             "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
@@ -343,7 +343,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
-          console.log("✅ Аудио ответ 'спаси��о' завершен");
+          console.log("✅ Аудио ответ 'спасибо' завершен");
         },
       );
       return;
