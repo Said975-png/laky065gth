@@ -72,18 +72,21 @@ export default function ModernNavbar({
       title: "Базовый план",
       description: "Начальный тарифный план с основными функциями",
       type: "plan",
+      url: "/",
     },
     {
       id: "plans-pro",
       title: "PRO план",
       description: "Профессиональный план с расширенными возможностями",
       type: "plan",
+      url: "/",
     },
     {
       id: "plans-max",
       title: "MAX план",
       description: "Максимальный план с полным набором функций",
       type: "plan",
+      url: "/",
     },
     {
       id: "login",
@@ -266,7 +269,7 @@ export default function ModernNavbar({
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "page":
-        return "Страница";
+        return "Страни��а";
       case "feature":
         return "Функция";
       case "plan":
@@ -684,7 +687,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            ��ат с Пятницей 🤖
+            Чат с Пятницей 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
