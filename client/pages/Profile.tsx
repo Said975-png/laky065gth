@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "����рофиль обновлен");
+      addActivityLog("profile_update", "������рофиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -1142,7 +1142,7 @@ function Profile() {
                         </h5>
                         <p className="text-sm text-gray-600">
                           {hasFaceID
-                            ? "Face ID настроен и активен"
+                            ? "Face ID настро��н и активен"
                             : "Настройте Face ID для дополнительной безопасности"}
                         </p>
                       </div>
@@ -1214,8 +1214,8 @@ function Profile() {
                           id="newPassword"
                           name="newPassword"
                           type="password"
-                          value={formData.newPassword}
-                          onChange={handleChange}
+                          value={passwordForm.newPassword}
+                          onChange={handlePasswordInputChange}
                           className="pl-10"
                           required
                           minLength={6}
@@ -1366,7 +1366,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Завершен"
+                                  ? "Заверше��"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
