@@ -175,6 +175,11 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
       createdAt: new Date().toISOString(),
     };
 
+    // Сохраняем заказ в файл
+    const orders = loadOrders();
+    orders.push(order);
+    saveOrders(orders);
+
     // Логируем заказ в консоль для отладки
     console.log("=== НОВЫЙ ЗАКАЗ ===");
     console.log("ID заказа:", order.id);
