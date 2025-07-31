@@ -86,7 +86,7 @@ export default function ModernNavbar({
     {
       id: "login",
       title: "Вход в систему",
-      description: "Авторизация п��льзователя",
+      description: "Авторизация пользователя",
       type: "page",
       url: "/login",
     },
@@ -162,6 +162,119 @@ export default function ModernNavbar({
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMobileMenuOpen(false);
   }, []);
+
+  // Поиск по данным
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchResults([]);
+      return;
+    }
+
+    const filtered = searchData.filter(
+      (item) =>
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
+
+    setSearchResults(filtered.slice(0, 6));
+    setSelectedIndex(0);
+  }, [searchQuery]);
+
+  // Обработка результата поиска
+  const handleSelectResult = useCallback((result: any) => {
+    if (result.url) {
+      navigate(result.url);
+    } else {
+      // Скролл к соответствующей секции или выполнение специального действия
+      switch (result.id) {
+        case "voice-commands":
+          document.querySelector('[data-testid="voice-control"]')?.click();
+          break;
+        case "plans-basic":
+        case "plans-pro":
+        case "plans-max":
+          document
+            .querySelector('[data-section="plans"]')
+            ?.scrollIntoView({ behavior: "smooth" });
+          break;
+        case "cart":
+          document.querySelector('[data-testid="cart-button"]')?.click();
+          break;
+        default:
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  }, [navigate]);
+
+  // Обработка клавиш для поиска
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isSearchOpen) return;
+
+      switch (e.key) {
+        case "ArrowDown":
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.min(prev + 1, searchResults.length - 1));
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.max(prev - 1, 0));
+          break;
+        case "Enter":
+          e.preventDefault();
+          if (searchResults[selectedIndex]) {
+            handleSelectResult(searchResults[selectedIndex]);
+          }
+          break;
+        case "Escape":
+          setIsSearchOpen(false);
+          setSearchQuery("");
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isSearchOpen, searchResults, selectedIndex, handleSelectResult]);
+
+  // Фокус на input при открытии поиска
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "page":
+        return "text-cyan-400";
+      case "feature":
+        return "text-blue-400";
+      case "plan":
+        return "text-orange-400";
+      case "component":
+        return "text-purple-400";
+      default:
+        return "text-gray-400";
+    }
+  };
+
+  const getTypeLabel = (type: string) => {
+    switch (type) {
+      case "page":
+        return "Страница";
+      case "feature":
+        return "Функция";
+      case "plan":
+        return "Тариф";
+      case "component":
+        return "Компонент";
+      default:
+        return type;
+    }
+  };
 
   return (
     <Fragment>
