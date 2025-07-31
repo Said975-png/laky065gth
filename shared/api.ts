@@ -63,6 +63,14 @@ export interface OrderRequest {
 export interface OrderResponse {
   success: boolean;
   message: string;
+  order?: {
+    id: string;
+    items: OrderItem[];
+    formData: OrderFormData;
+    total: number;
+    status: string;
+    createdAt: string;
+  };
 }
 
 /**
