@@ -1129,8 +1129,8 @@ function Profile() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <Scan className="w-5 h-5" />
-                    <span>Face ID</span>
+                    <Lock className="w-5 h-5" />
+                    <span>Смена пароля</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
