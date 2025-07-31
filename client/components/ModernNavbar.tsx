@@ -74,7 +74,7 @@ export default function ModernNavbar({
     {
       id: "plans-pro",
       title: "PRO план",
-      description: "Профессиональный план с расширенными возможностя��и",
+      description: "Профессиональный план с расширенными возможностями",
       type: "plan",
     },
     {
@@ -118,7 +118,7 @@ export default function ModernNavbar({
     },
     {
       id: "blockchain",
-      title: "Blockchain интеграц��я",
+      title: "Blockchain интеграция",
       description: "Технологии блокчейн и криптографии",
       type: "feature",
     },
@@ -281,7 +281,7 @@ export default function ModernNavbar({
       {/* Main Navigation */}
       <nav
         className={cn(
-          "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out",
+          "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-in-out",
           "top-2 sm:top-4 rounded-full px-2 sm:px-3 lg:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-0.5rem)] sm:max-w-[calc(100vw-2rem)] lg:max-w-4xl h-12 sm:h-14",
           // Transform navbar when search is open
           isSearchOpen
