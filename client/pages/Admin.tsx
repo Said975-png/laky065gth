@@ -224,20 +224,50 @@ export default function Admin() {
     if (!isAuthenticated) return;
 
     try {
-      // Загружаем заказы из localStorage (поскольку API нет)
-      const savedOrders = localStorage.getItem("orders");
-      if (savedOrders) {
-        setOrders(JSON.parse(savedOrders));
-      } else {
-        setOrders([]);
+      // Загружаем заказы с сервера
+      try {
+        const ordersResponse = await fetch("/api/orders/all");
+        if (ordersResponse.ok) {
+          const ordersData = await ordersResponse.json();
+          if (ordersData.success) {
+            setOrders(ordersData.orders || []);
+          } else {
+            // Fallback to localStorage
+            const savedOrders = localStorage.getItem("orders");
+            setOrders(savedOrders ? JSON.parse(savedOrders) : []);
+          }
+        } else {
+          // Fallback to localStorage
+          const savedOrders = localStorage.getItem("orders");
+          setOrders(savedOrders ? JSON.parse(savedOrders) : []);
+        }
+      } catch (err) {
+        console.error("Error loading orders from API, using localStorage:", err);
+        const savedOrders = localStorage.getItem("orders");
+        setOrders(savedOrders ? JSON.parse(savedOrders) : []);
       }
 
-      // Загружаем регистрации из localStorage (поскольку API нет)
-      const savedUsers = localStorage.getItem("users");
-      if (savedUsers) {
-        setRegistrations(JSON.parse(savedUsers));
-      } else {
-        setRegistrations([]);
+      // Загружаем регистрации с сервера
+      try {
+        const usersResponse = await fetch("/api/users/all");
+        if (usersResponse.ok) {
+          const usersData = await usersResponse.json();
+          if (usersData.success) {
+            setRegistrations(usersData.users || []);
+          } else {
+            // Fallback to localStorage
+            const savedUsers = localStorage.getItem("users");
+            setRegistrations(savedUsers ? JSON.parse(savedUsers) : []);
+          }
+        } else {
+          // Fallback to localStorage
+          const savedUsers = localStorage.getItem("users");
+          setRegistrations(savedUsers ? JSON.parse(savedUsers) : []);
+        }
+      } catch (err) {
+        console.error("Error loading users from API, using localStorage:", err);
+        const savedUsers = localStorage.getItem("users");
+        setRegistrations(savedUsers ? JSON.parse(savedUsers) : []);
       }
 
       // Загружаем брони
@@ -248,7 +278,7 @@ export default function Admin() {
     }
   };
 
-  // Загрузка данных при монтировании
+  // Загрузка данных при м��нтировании
   useEffect(() => {
     if (isAuthenticated) {
       loadAllData();
@@ -289,7 +319,7 @@ export default function Admin() {
       case "confirmed":
         return "Подтверждена";
       case "completed":
-        return "Завершена";
+        return "��авершена";
       case "cancelled":
         return "Отменена";
       default:
@@ -670,7 +700,7 @@ export default function Admin() {
                     {searchTerm ||
                     statusFilter !== "all" ||
                     serviceFilter !== "all"
-                      ? "Попробуйте изменить фильтры поиска"
+                      ? "Попробуйте и��менить фильтры поиска"
                       : "Пока не было создано ни одной брони"}
                   </p>
                 </CardContent>
@@ -773,7 +803,7 @@ export default function Admin() {
                           </div>
 
                           <div className="text-xs text-gray-500">
-                            Создано:{" "}
+                            Созд��но:{" "}
                             {new Date(booking.createdAt).toLocaleString(
                               "ru-RU",
                             )}{" "}
