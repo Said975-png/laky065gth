@@ -283,7 +283,6 @@ export default function StarkHero({
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
-              { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
               <div
