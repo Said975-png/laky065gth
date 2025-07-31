@@ -58,14 +58,9 @@ export default function SignUp() {
         return;
       }
 
-      // Также сохраняем в localStorage для совместимости
-      const existingUsers = JSON.parse(
-        localStorage.getItem("users") || "[]",
-      ) as User[];
-
       // Создаём нового пользователя
       const newUser: User = {
-        id: result.userId || Date.now().toString(),
+        id: Date.now().toString(),
         name: formData.name,
         email: formData.email,
         password: formData.password,
@@ -235,7 +230,7 @@ export default function SignUp() {
 
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword" className="text-white/80">
-                  Подтвердите пароль
+                  Подтвердите парол��
                 </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
