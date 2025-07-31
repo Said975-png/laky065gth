@@ -53,7 +53,7 @@ export class JarvisSpeechEngine {
   ): SpeechSynthesisVoice | null {
     if (!this.isInitialized) return null;
 
-    // Приорит��т голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
+    // Приоритет голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
     const russianPriority = [
       "Microsoft Pavel - Russian (Russia)", // Лучший мужской русский
       "Pavel", // Краткое имя Pavel
