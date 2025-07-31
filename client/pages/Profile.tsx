@@ -504,7 +504,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
+        "Вы ув��рены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -570,25 +570,7 @@ function Profile() {
     }
   };
 
-  // Face ID functions
-  const handleFaceIDSetup = () => {
-    setFaceIDMode("register");
-    setShowFaceIDModal(true);
-  };
 
-  const handleFaceIDSuccess = () => {
-    if (faceIDMode === "register") {
-      setHasFaceID(true);
-      addActivityLog("security_change", "Face ID настроен");
-      setSuccess("Face ID успешно настроен!");
-    }
-    setShowFaceIDModal(false);
-  };
-
-  const handleFaceIDError = (errorMessage: string) => {
-    setError(errorMessage);
-    setShowFaceIDModal(false);
-  };
 
 
 
