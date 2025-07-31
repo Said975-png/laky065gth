@@ -499,7 +499,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы ув��рены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
+        "Вы ув��рены, что хотите удалить аккаунт? Это д����ствие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -863,7 +863,7 @@ function Profile() {
                       className="bg-purple-600 hover:bg-purple-700"
                     >
                       <Plus className="w-4 h-4 mr-2" />
-                      Новый заказ
+                      Нов��й заказ
                     </Button>
                   </div>
                 </CardContent>
@@ -897,7 +897,7 @@ function Profile() {
                       <Badge
                         variant={notifications.push ? "default" : "secondary"}
                       >
-                        {notifications.push ? "Включены" : "Отключены"}
+                        {notifications.push ? "Включены" : "Отключе��ы"}
                       </Badge>
                     </div>
                   </div>
@@ -1535,7 +1535,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Соз����ано:{" "}
+                            Создано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1565,7 +1565,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Email уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Получать уведомления н�� email
+                        Получать уведомления на email
                       </p>
                     </div>
                     <Switch
@@ -1600,7 +1600,7 @@ function Profile() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">SMS у��едомления</p>
+                      <p className="font-medium">SMS уведомления</p>
                       <p className="text-sm text-gray-600">
                         Получать SMS на телефон
                       </p>
