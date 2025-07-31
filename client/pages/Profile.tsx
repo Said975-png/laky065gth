@@ -1198,8 +1198,8 @@ function Profile() {
                           id="currentPassword"
                           name="currentPassword"
                           type="password"
-                          value={formData.currentPassword}
-                          onChange={handleChange}
+                          value={passwordForm.currentPassword}
+                          onChange={handlePasswordInputChange}
                           className="pl-10"
                           required
                         />
