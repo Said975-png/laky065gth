@@ -74,7 +74,7 @@ export default function ModernNavbar({
     {
       id: "plans-pro",
       title: "PRO план",
-      description: "Профессиональный план с расширенными возможностями",
+      description: "Профессиональный план с расширенными возможностя��и",
       type: "plan",
     },
     {
@@ -118,7 +118,7 @@ export default function ModernNavbar({
     },
     {
       id: "blockchain",
-      title: "Blockchain интеграция",
+      title: "Blockchain интеграц��я",
       description: "Технологии блокчейн и криптографии",
       type: "feature",
     },
@@ -281,18 +281,46 @@ export default function ModernNavbar({
       {/* Main Navigation */}
       <nav
         className={cn(
-          "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out",
+          "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-out",
           "top-2 sm:top-4 rounded-full px-2 sm:px-3 lg:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-0.5rem)] sm:max-w-[calc(100vw-2rem)] lg:max-w-4xl h-12 sm:h-14",
-          // Simple transparent background
-          isScrolled
+          // Transform navbar when search is open
+          isSearchOpen
+            ? "rounded-xl max-w-2xl bg-black/95 backdrop-blur-xl border-2 border-cyan-400/50 shadow-2xl shadow-cyan-400/20"
+            : isScrolled
             ? "bg-white/10 backdrop-blur-md border border-white/20"
             : "bg-transparent border border-white/10",
           "shadow-lg",
         )}
       >
-        <div className="flex items-center justify-center w-full h-full">
-          {/* Even spacing for all buttons */}
-          <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
+        {isSearchOpen ? (
+          /* Search Mode */
+          <div className="flex items-center w-full h-full space-x-2 px-4">
+            <Search className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Поиск по сайту..."
+              className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none text-sm"
+            />
+            <Button
+              onClick={() => {
+                setIsSearchOpen(false);
+                setSearchQuery("");
+              }}
+              variant="ghost"
+              size="sm"
+              className="p-1 h-auto text-gray-400 hover:text-white"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+        ) : (
+          /* Normal Mode */
+          <div className="flex items-center justify-center w-full h-full">
+            {/* Even spacing for all buttons */}
+            <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
             {/* Home Button */}
             <Button
               variant="ghost"
@@ -320,6 +348,24 @@ export default function ModernNavbar({
               clearCart={clearCart}
               handleProceedToOrder={handleProceedToOrder}
             />
+
+            {/* Search Button */}
+            <Button
+              variant="ghost"
+              onClick={() => setIsSearchOpen(true)}
+              className={cn(
+                "px-2 py-2 h-8 sm:h-10",
+                "transition-all duration-200",
+                "text-white hover:text-white hover:bg-cyan-400/20",
+              )}
+            >
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Search className="w-3 sm:w-4 h-3 sm:h-4" />
+                <span className="hidden sm:inline font-medium text-sm">
+                  Search
+                </span>
+              </div>
+            </Button>
 
             {/* Theme Toggle Button */}
             <Button
@@ -371,9 +417,54 @@ export default function ModernNavbar({
                 <Menu className="w-4 h-4" />
               )}
             </Button>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Search Results Dropdown */}
+      {isSearchOpen && searchResults.length > 0 && (
+        <div className="fixed left-1/2 transform -translate-x-1/2 z-40 top-16 sm:top-20 w-full max-w-2xl mx-2 sm:mx-4">
+          <div className="mt-2 bg-black/95 border border-cyan-400/30 rounded-lg backdrop-blur-sm overflow-hidden">
+            {searchResults.map((result, index) => (
+              <button
+                key={result.id}
+                onClick={() => handleSelectResult(result)}
+                className={cn(
+                  "w-full text-left px-4 py-3 border-b border-cyan-400/10 last:border-b-0 transition-colors duration-200",
+                  index === selectedIndex
+                    ? "bg-cyan-400/20"
+                    : "hover:bg-cyan-400/10",
+                )}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="font-medium text-white mb-1">
+                      {result.title}
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      {result.description}
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2 ml-4">
+                    <span
+                      className={cn(
+                        "text-xs font-mono px-2 py-1 rounded",
+                        getTypeColor(result.type),
+                      )}
+                    >
+                      {getTypeLabel(result.type)}
+                    </span>
+                    {result.url && (
+                      <ExternalLink className="w-4 h-4 text-gray-400" />
+                    )}
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
         </div>
-      </nav>
+      )}
 
       {/* Mobile Menu Overlay */}
       <MobileMenu
