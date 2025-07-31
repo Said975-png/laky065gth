@@ -224,28 +224,27 @@ export default function Admin() {
     if (!isAuthenticated) return;
 
     try {
-      // Загружаем заказы
-      const ordersResponse = await fetch("/api/orders/all");
-      if (ordersResponse.ok) {
-        const ordersData = await ordersResponse.json();
-        if (ordersData.success) {
-          setOrders(ordersData.orders || []);
-        }
+      // Загружаем заказы из localStorage (поскольку API нет)
+      const savedOrders = localStorage.getItem("orders");
+      if (savedOrders) {
+        setOrders(JSON.parse(savedOrders));
+      } else {
+        setOrders([]);
       }
 
-      // Загружаем регистрации
-      const usersResponse = await fetch("/api/users/all");
-      if (usersResponse.ok) {
-        const usersData = await usersResponse.json();
-        if (usersData.success) {
-          setRegistrations(usersData.users || []);
-        }
+      // Загружаем регистрации из localStorage (поскольку API нет)
+      const savedUsers = localStorage.getItem("users");
+      if (savedUsers) {
+        setRegistrations(JSON.parse(savedUsers));
+      } else {
+        setRegistrations([]);
       }
 
       // Загружаем брони
       await loadAllBookings();
     } catch (error) {
       console.error("Error loading admin data:", error);
+      setError("Ошибка загрузки данных админки");
     }
   };
 
@@ -764,7 +763,7 @@ export default function Admin() {
                             {booking.notes && (
                               <>
                                 <h6 className="font-medium text-gray-900 mb-1 mt-3">
-                                  Дополнительные заметки
+                                  До��олнительные заметки
                                 </h6>
                                 <p className="text-sm text-gray-700">
                                   {booking.notes}
