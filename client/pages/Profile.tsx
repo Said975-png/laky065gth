@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "Профиль обновлен");
+      addActivityLog("profile_update", "Профил�� обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -458,7 +458,7 @@ function Profile() {
       const userIndex = users.findIndex((u) => u.id === currentUser.id);
 
       if (userIndex === -1) {
-        setError("��ользователь не найден");
+        setError("Пользователь не найден");
         return;
       }
 
@@ -728,7 +728,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Всего договоров
+                        Вс��го договоров
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.totalContracts}
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечен��я б��зопасности аккаунта
+                          Измените свой пароль для обеспечен��я безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1421,7 +1421,7 @@ function Profile() {
                   Мои брони
                 </h3>
                 <p className="text-gray-600">
-                  Управление бронированием консультаций и встреч
+                  Управление бронированием консультаций и встре��
                 </p>
               </div>
               <Button
@@ -1636,7 +1636,7 @@ function Profile() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="light">Св��тлая</SelectItem>
+                        <SelectItem value="light">Светлая</SelectItem>
                         <SelectItem value="dark">Темная</SelectItem>
                         <SelectItem value="auto">Автоматически</SelectItem>
                       </SelectContent>
