@@ -405,7 +405,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже су��ествует");
+          setError("Пользователь с таким email уже существует");
           return;
         }
       }
@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содерж���ть ��иниму�� 6 символов");
         return;
       }
 
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечен��я безопасности аккаунта
+                          Измените св��й пароль для обеспечен��я безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1585,7 +1585,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Push уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Уведомления в браузере
+                        Уведом��ения в браузере
                       </p>
                     </div>
                     <Switch
