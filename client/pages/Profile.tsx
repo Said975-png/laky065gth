@@ -1141,9 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          {hasFaceID
-                            ? "Face ID настроен и активен"
-                            : "Настройте Face ID для дополнительной безопасности"}
+                          Измените свой пароль для обеспечения безопасности аккаунта
                         </p>
                       </div>
                       <Badge variant={hasFaceID ? "default" : "secondary"}>
