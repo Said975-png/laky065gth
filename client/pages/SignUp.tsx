@@ -119,7 +119,7 @@ export default function SignUp() {
               Перенаправляем в личный кабинет...
             </p>
             <p className="text-white/60 text-xs">
-              Рекомендуем настроить Face ID для безопасности
+              Добро пожаловать в личный кабинет!
             </p>
           </CardContent>
         </Card>
