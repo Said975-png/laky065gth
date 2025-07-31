@@ -490,7 +490,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла ошиб��а при смене пароля");
+      setError("Произошла ошибка при смене пароля");
     } finally {
       setLoading(false);
     }
@@ -728,7 +728,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Всего договоров
+                        Всего договоро��
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.totalContracts}
@@ -1259,7 +1259,7 @@ function Profile() {
                       className="bg-red-600 hover:bg-red-700"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Удалить аккаунт
+                      Удалить аккау��т
                     </Button>
                   </div>
                 </div>
@@ -1625,7 +1625,7 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Тема оформлени��</Label>
+                    <Label>Тема оформления</Label>
                     <Select
                       value={preferences.theme}
                       onValueChange={(value: "light" | "dark" | "auto") =>
