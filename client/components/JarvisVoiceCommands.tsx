@@ -157,7 +157,7 @@ export function useJarvisVoiceCommands() {
     await speakResponse("Корзина очищена, сэр");
   }, [speakResponse]);
 
-  // ��оманды навигации
+  // Команды навигации
   const speakNavigating = useCallback(
     async (destination: string) => {
       await speakCommand(`Перехожу к разделу "${destination}", сэр`);
@@ -215,7 +215,7 @@ export function useJarvisVoiceCommands() {
     speakCorrect,
     speakNavigating,
 
-    // Коман��ы лаборатории
+    // Команды лаборатории
     speakLabActivation,
     speakLabDeactivation,
 
