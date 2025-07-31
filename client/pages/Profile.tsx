@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "��рофиль обновлен");
+      addActivityLog("profile_update", "����рофиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -1795,10 +1795,4 @@ function Profile() {
   );
 }
 
-export default function ProtectedProfile() {
-  return (
-    <FaceIDProtected requireFaceID={true}>
-      <Profile />
-    </FaceIDProtected>
-  );
-}
+export default Profile;
