@@ -1125,7 +1125,7 @@ function Profile() {
           {/* Security Tab */}
           <TabsContent value="security" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Face ID Settings */}
+              {/* Password Change */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -1525,7 +1525,7 @@ function Profile() {
                                   ? "Завершена"
                                   : booking.status === "cancelled"
                                     ? "Отменена"
-                                    : "Ожидает подтверждения"}
+                                    : "Ожидает подтверждени��"}
                             </Badge>
                           </div>
                           <p className="text-gray-600 mb-3">
@@ -1549,7 +1549,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Создано:{" "}
+                            Соз��ано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
