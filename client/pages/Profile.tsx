@@ -879,12 +879,7 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Face ID</span>
-                      <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Активен" : "Не настроен"}
-                      </Badge>
-                    </div>
+
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
                         Email уведомления
