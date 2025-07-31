@@ -60,8 +60,7 @@ import {
   WifiOff,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import FaceIDProtected from "@/components/FaceIDProtected";
-import FaceIDModal from "@/components/FaceIDModal";
+
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import BookingForm from "@/components/BookingForm";
 import { ContractData, BookingData } from "@shared/api";
@@ -731,7 +730,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <Shield className="w-4 h-4" />
-              <span className="hidden sm:inline">Безопасность</span>
+              <span className="hidden sm:inline">Безопасн��сть</span>
             </TabsTrigger>
             <TabsTrigger
               value="contracts"
@@ -1779,7 +1778,7 @@ function Profile() {
                   {activityLog.length === 0 ? (
                     <div className="text-center py-8">
                       <Activity className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">Активность не найдена</p>
+                      <p className="text-gray-500">Активно��ть не найдена</p>
                     </div>
                   ) : (
                     activityLog.map((log) => (
