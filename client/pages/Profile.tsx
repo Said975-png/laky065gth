@@ -590,7 +590,7 @@ function Profile() {
                 </div>
                 <div className="hidden sm:block">
                   <h1 className="font-semibold text-gray-900">
-                    ��ичный кабинет
+                    Личный кабинет
                   </h1>
                   <p className="text-xs text-gray-500">
                     Добро пожаловать, {currentUser.name}
@@ -874,7 +874,7 @@ function Profile() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Shield className="w-5 h-5" />
-                    <span>Бе��опасность</span>
+                    <span>Безопасность</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1221,8 +1221,8 @@ function Profile() {
                           id="confirmPassword"
                           name="confirmPassword"
                           type="password"
-                          value={passwordForm.confirmPassword}
-                          onChange={handlePasswordInputChange}
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
                           className="pl-10"
                           required
                         />
@@ -1251,7 +1251,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      данных. Это действие нельзя отменить.
+                      данных. Это действие нельзя ��тменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1421,7 +1421,7 @@ function Profile() {
                   Мои брони
                 </h3>
                 <p className="text-gray-600">
-                  Управл��ние бронированием консультаций и встреч
+                  Управление бронированием консультаций и встреч
                 </p>
               </div>
               <Button
@@ -1448,7 +1448,7 @@ function Profile() {
                     У вас пока нет броней
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Забронируйте консультацию, чтобы обсуд��ть ваш проект
+                    Забронируйте консультацию, чтобы обсудить ваш проект
                   </p>
                   <Button
                     onClick={() => setShowBookingForm(true)}
@@ -1677,7 +1677,7 @@ function Profile() {
                           Москва (UTC+3)
                         </SelectItem>
                         <SelectItem value="Europe/Kiev">
-                          К��ев (UTC+2)
+                          Киев (UTC+2)
                         </SelectItem>
                         <SelectItem value="Asia/Almaty">
                           Алматы (UTC+6)
