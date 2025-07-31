@@ -728,7 +728,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Всего договоро��
+                        Всего договоров
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.totalContracts}
@@ -998,7 +998,7 @@ function Profile() {
                     />
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Рекомендуемый разм��р: 400x400px</p>
+                    <p>Рекомендуемый размер: 400x400px</p>
                     <p>Максимальный размер: 5MB</p>
                   </div>
                 </CardContent>
@@ -1259,7 +1259,7 @@ function Profile() {
                       className="bg-red-600 hover:bg-red-700"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      Удалить аккау��т
+                      Удалить аккаунт
                     </Button>
                   </div>
                 </div>
