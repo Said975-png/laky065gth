@@ -882,12 +882,12 @@ function Profile() {
 
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
-                        Email уведомления
+                        Email увед��мления
                       </span>
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Отключены"}
+                        {notifications.email ? "Включены" : "Откл��чены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -1149,25 +1149,15 @@ function Profile() {
                       </Badge>
                     </div>
 
-                    {hasFaceID ? (
-                      <Button
-                        onClick={handleRemoveFaceID}
-                        variant="outline"
-                        size="sm"
-                        className="w-full"
-                      >
-                        Отключить Face ID
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={handleFaceIDSetup}
-                        size="sm"
-                        className="w-full bg-purple-600 hover:bg-purple-700"
-                      >
-                        <Scan className="w-4 h-4 mr-2" />
-                        Настроить Face ID
-                      </Button>
-                    )}
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="w-full bg-purple-600 hover:bg-purple-700"
+                      onClick={() => document.getElementById('currentPassword')?.focus()}
+                    >
+                      <Lock className="w-4 h-4 mr-2" />
+                      Изменить пароль
+                    </Button>
                   </div>
 
                   {hasFaceID && (
@@ -1545,7 +1535,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Соз�����ано:{" "}
+                            Соз����ано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1647,7 +1637,7 @@ function Profile() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="light">Светлая</SelectItem>
-                        <SelectItem value="dark">Те��ная</SelectItem>
+                        <SelectItem value="dark">Темная</SelectItem>
                         <SelectItem value="auto">Автоматически</SelectItem>
                       </SelectContent>
                     </Select>
