@@ -38,8 +38,13 @@ export function createServer() {
   app.post("/api/upload", handleImageUpload);
   app.get("/api/generated/:imageId", handleGenerateWebsite);
 
-  // Orders route
+  // Orders routes
   app.post("/api/orders", handleSendOrder);
+  app.get("/api/orders/all", getAllOrders);
+
+  // Users routes
+  app.post("/api/users/register", registerUser);
+  app.get("/api/users/all", getAllUsers);
 
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
