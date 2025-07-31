@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "Профиль обновлен");
+      addActivityLog("profile_update", "��рофиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать ��инимум 6 символов");
+        setError("Новый пароль должен содержать ��иниму�� 6 символов");
         return;
       }
 
@@ -1547,7 +1547,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Соз��ано:{" "}
+                            Соз����ано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1764,13 +1764,7 @@ function Profile() {
       </div>
 
       {/* Modals */}
-      <FaceIDModal
-        isOpen={showFaceIDModal}
-        onClose={() => setShowFaceIDModal(false)}
-        mode={faceIDMode}
-        onSuccess={handleFaceIDSuccess}
-        onError={handleFaceIDError}
-      />
+
 
       <ServiceOrderForm
         isOpen={showOrderForm}
