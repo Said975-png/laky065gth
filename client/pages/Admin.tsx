@@ -242,7 +242,10 @@ export default function Admin() {
           setOrders(savedOrders ? JSON.parse(savedOrders) : []);
         }
       } catch (err) {
-        console.error("Error loading orders from API, using localStorage:", err);
+        console.error(
+          "Error loading orders from API, using localStorage:",
+          err,
+        );
         const savedOrders = localStorage.getItem("orders");
         setOrders(savedOrders ? JSON.parse(savedOrders) : []);
       }

@@ -121,7 +121,10 @@ export default function VoiceMicrophone({
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
     console.log("↩️ Возвраща��мся к предыдущей модели:", previousModelUrl);
-    console.log("���� История моделей после возврат��:", modelHistoryRef.current);
+    console.log(
+      "���� История моделей после возврат��:",
+      modelHistoryRef.current,
+    );
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl: previousModelUrl },

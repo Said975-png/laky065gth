@@ -204,8 +204,6 @@ function Profile() {
         if (user.preferences) setPreferences(user.preferences);
       }
 
-
-
       // Load activity log
       loadActivityLog();
       loadDashboardStats();
@@ -565,10 +563,6 @@ function Profile() {
     }
   };
 
-
-
-
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Modern Header */}
@@ -879,7 +873,6 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
                         Email уведомления
@@ -1141,19 +1134,20 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечения безопасности аккаунта
+                          Измените свой пароль для обеспечения безопасности
+                          аккаунта
                         </p>
                       </div>
-                      <Badge variant="secondary">
-                        Пароль
-                      </Badge>
+                      <Badge variant="secondary">Пароль</Badge>
                     </div>
 
                     <Button
                       type="button"
                       size="sm"
                       className="w-full bg-purple-600 hover:bg-purple-700"
-                      onClick={() => document.getElementById('currentPassword')?.focus()}
+                      onClick={() =>
+                        document.getElementById("currentPassword")?.focus()
+                      }
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       Изменить пароль
@@ -1752,7 +1746,6 @@ function Profile() {
       </div>
 
       {/* Modals */}
-
 
       <ServiceOrderForm
         isOpen={showOrderForm}
