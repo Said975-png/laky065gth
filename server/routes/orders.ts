@@ -22,6 +22,40 @@ interface OrderData {
   total: number;
 }
 
+const ORDERS_FILE = path.join(process.cwd(), "data", "orders", "orders.json");
+
+// Ensure orders directory exists
+const ensureOrdersDirectory = () => {
+  const ordersDir = path.dirname(ORDERS_FILE);
+  if (!fs.existsSync(ordersDir)) {
+    fs.mkdirSync(ordersDir, { recursive: true });
+  }
+};
+
+// Load orders from file
+const loadOrders = () => {
+  ensureOrdersDirectory();
+  try {
+    if (fs.existsSync(ORDERS_FILE)) {
+      const data = fs.readFileSync(ORDERS_FILE, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error("Error loading orders:", error);
+  }
+  return [];
+};
+
+// Save orders to file
+const saveOrders = (orders: any[]) => {
+  ensureOrdersDirectory();
+  try {
+    fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2));
+  } catch (error) {
+    console.error("Error saving orders:", error);
+  }
+};
+
 // Создаем транспортер для отправки email
 const createTransporter = () => {
   // Используем Gmail SMTP для отправки
@@ -183,7 +217,7 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
           `,
         };
 
-        // Отправляем email
+        // Отправля��м email
         await transporter.sendMail(mailOptions);
         console.log("✅ Email успешно отправлен на saidaurum@gmail.com");
       } catch (emailError) {
