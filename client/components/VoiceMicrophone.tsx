@@ -136,13 +136,13 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Останавливаем предыдущее аудио если ест��
+    // Останавливаем предыдущее аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослуш��вание на время воспроизведения аудио
+    // Останавливаем прослушивание на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
       toggleListening(); // Останавливаем микрофон
@@ -206,13 +206,13 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Останавлив��ем предыдущее аудио если есть
+    // Останавливаем предыдущее аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослушив��ние на время во��произведения аудио
+    // Останавливаем прослушивание на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
       toggleListening(); // Останавливаем микро����он
@@ -238,7 +238,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновляем прослушивание если ��ыла ошибка
+      // Возобновляем прослушивание если была ошибка
       resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
