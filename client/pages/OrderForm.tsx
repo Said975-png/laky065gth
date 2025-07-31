@@ -73,6 +73,7 @@ export default function OrderForm() {
           const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
           existingOrders.push(result.order);
           localStorage.setItem("orders", JSON.stringify(existingOrders));
+          console.log("Заказ сохранен в localStorage:", result.order);
         }
 
         setIsSubmitted(true);
