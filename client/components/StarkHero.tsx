@@ -202,8 +202,6 @@ export default function StarkHero({
                 <span className="lg:whitespace-nowrap">Заказать услугу</span>
                 <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
               </Button>
-
-
             </div>
 
             {/* Feature Highlights */}
@@ -307,7 +305,7 @@ export default function StarkHero({
         onClose={() => setShowCommandsPanel(false)}
       />
 
-      {/* Модальное окно ав��оризации */}
+      {/* Модальное окно авторизации */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}

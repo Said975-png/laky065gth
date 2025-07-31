@@ -242,7 +242,10 @@ export default function Admin() {
           setOrders(savedOrders ? JSON.parse(savedOrders) : []);
         }
       } catch (err) {
-        console.error("Error loading orders from API, using localStorage:", err);
+        console.error(
+          "Error loading orders from API, using localStorage:",
+          err,
+        );
         const savedOrders = localStorage.getItem("orders");
         setOrders(savedOrders ? JSON.parse(savedOrders) : []);
       }
@@ -466,7 +469,7 @@ export default function Admin() {
             </TabsTrigger>
             <TabsTrigger value="users" className="flex items-center space-x-2">
               <Users className="w-4 h-4" />
-              <span>Регистрации</span>
+              <span>Регис��рации</span>
             </TabsTrigger>
           </TabsList>
 
@@ -700,7 +703,7 @@ export default function Admin() {
                     {searchTerm ||
                     statusFilter !== "all" ||
                     serviceFilter !== "all"
-                      ? "Попробуйте и��менить фильтры поиска"
+                      ? "Попробуйте изменить фильтры поиска"
                       : "Пока не было создано ни одной брони"}
                   </p>
                 </CardContent>

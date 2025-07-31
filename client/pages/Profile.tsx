@@ -204,8 +204,6 @@ function Profile() {
         if (user.preferences) setPreferences(user.preferences);
       }
 
-
-
       // Load activity log
       loadActivityLog();
       loadDashboardStats();
@@ -405,7 +403,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже су��ествует");
+          setError("Пользователь с таким email уже существует");
           return;
         }
       }
@@ -433,7 +431,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "����рофиль обновлен");
+      addActivityLog("profile_update", "Профиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -473,7 +471,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содержать минимум 6 символов");
         return;
       }
 
@@ -499,7 +497,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы ув��рены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -564,10 +562,6 @@ function Profile() {
         return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
-
-
-
-
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -879,15 +873,14 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
-                        Email увед��мления
+                        Email уведомления
                       </span>
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Откл��чены"}
+                        {notifications.email ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -966,7 +959,7 @@ function Profile() {
               {/* Avatar Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Фото проф��ля</CardTitle>
+                  <CardTitle>Фото профиля</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-4">
                   <div className="relative inline-block">
@@ -1114,7 +1107,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Сохраняем..." : "Сохран��ть изменения"}
+                      {loading ? "Сохраняем..." : "Сохранить изменения"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1141,19 +1134,20 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените свой пароль для обеспечен��я безопасности аккаунта
+                          Измените свой пароль для обеспечения безопасности
+                          аккаунта
                         </p>
                       </div>
-                      <Badge variant="secondary">
-                        Пароль
-                      </Badge>
+                      <Badge variant="secondary">Пароль</Badge>
                     </div>
 
                     <Button
                       type="button"
                       size="sm"
                       className="w-full bg-purple-600 hover:bg-purple-700"
-                      onClick={() => document.getElementById('currentPassword')?.focus()}
+                      onClick={() =>
+                        document.getElementById("currentPassword")?.focus()
+                      }
                     >
                       <Lock className="w-4 h-4 mr-2" />
                       Изменить пароль
@@ -1213,7 +1207,7 @@ function Profile() {
 
                     <div className="space-y-2">
                       <Label htmlFor="confirmPassword">
-                        Подтвердит�� пароль
+                        Подтвердите пароль
                       </Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -1241,7 +1235,7 @@ function Profile() {
             {/* Danger Zone */}
             <Card className="border-red-200">
               <CardHeader className="bg-red-50">
-                <CardTitle className="text-red-700">��пасная зона</CardTitle>
+                <CardTitle className="text-red-700">Опасная зона</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
@@ -1251,7 +1245,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      данных. Это действие нельзя ��тменить.
+                      данных. Это действие нельзя отменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1299,10 +1293,10 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока н��т договоров
+                    У вас пока нет договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Закажите первую услу��у и получите договор автоматически
+                    Закажите первую услугу и получите договор автоматически
                   </p>
                   <Button
                     onClick={() => setShowOrderForm(true)}
@@ -1354,7 +1348,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Завер��ен"
+                                  ? "Завершен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
@@ -1506,12 +1500,12 @@ function Profile() {
                                 <XCircle className="w-3 h-3 mr-1" />
                               )}
                               {booking.status === "confirmed"
-                                ? "��одтверждена"
+                                ? "Подтверждена"
                                 : booking.status === "completed"
                                   ? "Завершена"
                                   : booking.status === "cancelled"
                                     ? "Отменена"
-                                    : "Ожидает подтверждени��"}
+                                    : "Ожидает подтверждения"}
                             </Badge>
                           </div>
                           <p className="text-gray-600 mb-3">
@@ -1535,7 +1529,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Соз����ано:{" "}
+                            Создано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1565,7 +1559,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Email уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Получать уведомления н�� email
+                        Получать уведомления на email
                       </p>
                     </div>
                     <Switch
@@ -1600,7 +1594,7 @@ function Profile() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">SMS у��едомления</p>
+                      <p className="font-medium">SMS уведомления</p>
                       <p className="text-sm text-gray-600">
                         Получать SMS на телефон
                       </p>
@@ -1752,7 +1746,6 @@ function Profile() {
       </div>
 
       {/* Modals */}
-
 
       <ServiceOrderForm
         isOpen={showOrderForm}

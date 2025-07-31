@@ -82,7 +82,7 @@ export function useJarvisVoiceCommands() {
         speakCommand(
           "Завершаю работу голосового интерфейса. Всего доброго, сэр",
         ),
-      "До с��идания",
+      "До свидания",
     );
   }, [speakCommand, safeSpeak]);
 
@@ -154,10 +154,10 @@ export function useJarvisVoiceCommands() {
   );
 
   const speakCartCleared = useCallback(async () => {
-    await speakResponse("Корзина очищена, сэр");
+    await speakResponse("Корзин�� очищена, сэр");
   }, [speakResponse]);
 
-  // ��оманды навигации
+  // Команды навигации
   const speakNavigating = useCallback(
     async (destination: string) => {
       await speakCommand(`Перехожу к разделу "${destination}", сэр`);
@@ -215,7 +215,7 @@ export function useJarvisVoiceCommands() {
     speakCorrect,
     speakNavigating,
 
-    // Коман��ы лаборатории
+    // Команды лаборатории
     speakLabActivation,
     speakLabDeactivation,
 

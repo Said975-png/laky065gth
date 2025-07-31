@@ -49,7 +49,7 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 260 100% 60%;
 
-    /* Кастомные переменные дл�� градиент����в */
+    /* Кастомные переменные для градиентов */
     --gradient-from: 267 100% 97%;
     --gradient-via: 0 0% 98%;
     --gradient-to: 0 0% 100%;
@@ -137,7 +137,7 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 260 100% 60%;
 
-    /* ��астомные ��еременные для светлых гр��д��ентов */
+    /* Кастомные переменные для светлых градиентов */
     --gradient-from: 267 100% 92%;
     --gradient-via: 220 20% 95%;
     --gradient-to: 0 0% 98%;
@@ -212,7 +212,7 @@
     position: relative;
   }
 
-  /* Убраны углы для StarkHUD ка��точек */
+  /* Убраны углы для StarkHUD карточек */
   .stark-card-corners {
     position: relative;
   }
@@ -254,7 +254,7 @@
     color: hsl(var(--muted-foreground)) !important;
   }
 
-  /* Адаптивн��е цвета для навигации */
+  /* Адаптивные цвета для навигации */
   .theme-nav-text {
     color: hsl(var(--foreground) / 0.8) !important;
     transition: color 0.15s ease;
@@ -273,7 +273,7 @@
     color: hsl(var(--foreground)) !important;
   }
 
-  /* Адаптив��ые цвета для лейблов форм */
+  /* Адапт��вные цвета для лейблов форм */
   .theme-label {
     color: hsl(var(--foreground) / 0.8) !important;
   }
@@ -424,7 +424,7 @@
       inset 0 0 10px rgba(139, 69, 255, 0.1);
   }
 
-  /* Упрощённые час��ицы */
+  /* Упрощённые частицы */
   .portal-particles {
     position: absolute;
     top: 50%;
@@ -479,7 +479,7 @@
     }
   }
 
-  /* Пульсирующее неоновое свечение логотип�� */
+  /* Пульсирующее неоновое свечение логотипа */
   .logo-pulse {
     animation: logoPulse 4s ease-in-out infinite;
   }
@@ -494,7 +494,7 @@
     }
   }
 
-  /* Ме��цание текста */
+  /* Мерцание текста */
   .text-flicker {
     animation: textFlicker 6s linear infinite;
   }
@@ -516,7 +516,7 @@
     }
   }
 
-  /* Упрощённое энергетическо�� поле */
+  /* Упрощённое энергетическое поле */
   .energy-field {
     position: absolute;
     top: -1px;
@@ -620,7 +620,7 @@
     border: 1px solid hsl(var(--border));
   }
 
-  /* Адапт��вные кнопки */
+  /* Адаптивные кнопки */
   .theme-button-ghost {
     color: hsl(var(--foreground) / 0.8);
   }
@@ -687,7 +687,7 @@
     }
   }
 
-  /* Светящиеся эффекты для ���нопок */
+  /* Светящиеся эффекты для кнопок */
   .glow-button {
     position: relative;
     overflow: hidden;
@@ -1073,7 +1073,7 @@
     }
   }
 
-  /* Stark/JARVIS специ��льные анимации */
+  /* Stark/JARVIS специальные анимации */
   @keyframes gradient-shift {
     0% {
       background-position: 0% 50%;
@@ -1327,7 +1327,7 @@
     }
   }
 
-  /* Stark UI у��илиты */
+  /* Stark UI утилиты */
   .stark-glow {
     box-shadow:
       0 0 20px rgba(6, 182, 212, 0.3),
@@ -1383,7 +1383,7 @@
     animation: stark-typing 2s steps(40) forwards;
   }
 
-  /* Улучшенны�� градиенты для Stark стиля */
+  /* Улучшенные градиенты для Stark стиля */
   .stark-gradient {
     background: linear-gradient(
       135deg,
@@ -1548,7 +1548,7 @@
 
   /* STARK LABORATORY THEME - Лабораторная тема Старка */
 
-  /* Основные переменные для лабор��торн��й темы */
+  /* Основные переменные для лабораторной темы */
   .stark-lab-theme {
     --background: 195 100% 6%; /* #0f2027 конвертированный в HSL */
     --foreground: 195 100% 93%; /* #e6f7ff */
@@ -1784,7 +1784,7 @@
     }
   }
 
-  /* Адапти��ные стили для мобильных устройств */
+  /* Адаптивные стили для мобильных устройств */
   @media (max-width: 768px) {
     .stark-lab-hud-grid {
       background-size: 30px 30px;
@@ -2120,7 +2120,7 @@
     }
   }
 
-  /* УБ��АНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
+  /* УБРАНО ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
   .neon-center-glow {
     display: none !important;
   }

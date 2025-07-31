@@ -40,7 +40,7 @@ export default function SignUp() {
     }
 
     if (formData.password.length < 6) {
-      setError("Пароль должен содержать минимум 6 символов");
+      setError("Пароль должен содержать мин��мум 6 символов");
       setLoading(false);
       return;
     }
@@ -95,7 +95,7 @@ export default function SignUp() {
 
       setSuccess(true);
 
-      // Перенаправляем на профиль для нас��ройки Face ID через 2 секунды
+      // Перенаправляем на профиль для настройки Face ID через 2 секунды
       setTimeout(() => {
         navigate("/profile");
       }, 2000);
@@ -242,7 +242,7 @@ export default function SignUp() {
 
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword" className="text-white/80">
-                  Подтвердите парол��
+                  Подтвердите пароль
                 </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
