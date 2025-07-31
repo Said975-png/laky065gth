@@ -46,23 +46,14 @@ export default function SignUp() {
     }
 
     try {
-      // Отправляем данные в API
-      const response = await fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+      // Check if user already exists in localStorage
+      const existingUsers = JSON.parse(
+        localStorage.getItem("users") || "[]",
+      ) as User[];
 
-      const result = await response.json();
-
-      if (!result.success) {
-        setError(result.error || "Ошибка регистрации");
+      const userExists = existingUsers.find(user => user.email === formData.email);
+      if (userExists) {
+        setError("Пользователь с таким email уже существует");
         setLoading(false);
         return;
       }
