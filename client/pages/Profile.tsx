@@ -60,8 +60,7 @@ import {
   WifiOff,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import FaceIDProtected from "@/components/FaceIDProtected";
-import FaceIDModal from "@/components/FaceIDModal";
+
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import BookingForm from "@/components/BookingForm";
 import { ContractData, BookingData } from "@shared/api";
@@ -135,11 +134,7 @@ function Profile() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [showFaceIDModal, setShowFaceIDModal] = useState(false);
-  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
-    "register",
-  );
-  const [hasFaceID, setHasFaceID] = useState(false);
+
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [loadingContracts, setLoadingContracts] = useState(false);
   const [bookings, setBookings] = useState<BookingData[]>([]);
@@ -209,12 +204,7 @@ function Profile() {
         if (user.preferences) setPreferences(user.preferences);
       }
 
-      // Check Face ID
-      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const userFace = faces.find(
-        (face: any) => face.userId === currentUser.id,
-      );
-      setHasFaceID(!!userFace);
+
 
       // Load activity log
       loadActivityLog();
@@ -443,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "Профиль обновлен");
+      addActivityLog("profile_update", "����рофиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -483,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать минимум 6 символов");
+        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
         return;
       }
 
@@ -509,7 +499,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы ув��рены, что хотите удалить аккаунт? Это де��ствие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -575,43 +565,9 @@ function Profile() {
     }
   };
 
-  // Face ID functions
-  const handleFaceIDSetup = () => {
-    setFaceIDMode("register");
-    setShowFaceIDModal(true);
-  };
 
-  const handleFaceIDSuccess = () => {
-    if (faceIDMode === "register") {
-      setHasFaceID(true);
-      addActivityLog("security_change", "Face ID настроен");
-      setSuccess("Face ID успешно настроен!");
-    }
-    setShowFaceIDModal(false);
-  };
 
-  const handleFaceIDError = (errorMessage: string) => {
-    setError(errorMessage);
-    setShowFaceIDModal(false);
-  };
 
-  const handleRemoveFaceID = () => {
-    if (
-      currentUser &&
-      window.confirm(
-        "Вы уверены, что хотите отключи��ь Face ID? Это снизит безопасность вашего аккаунта.",
-      )
-    ) {
-      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const filteredFaces = faces.filter(
-        (face: any) => face.userId !== currentUser.id,
-      );
-      localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
-      setHasFaceID(false);
-      addActivityLog("security_change", "Face ID отключен");
-      setSuccess("Face ID отключен");
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -923,20 +879,15 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Face ID</span>
-                      <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Активен" : "Не настроен"}
-                      </Badge>
-                    </div>
+
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-600">
-                        Email уведомления
+                        Email увед��мления
                       </span>
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Отключены"}
+                        {notifications.email ? "Включены" : "Откл��чены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -1015,7 +966,7 @@ function Profile() {
               {/* Avatar Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Фото профиля</CardTitle>
+                  <CardTitle>Фото проф��ля</CardTitle>
                 </CardHeader>
                 <CardContent className="text-center space-y-4">
                   <div className="relative inline-block">
@@ -1163,7 +1114,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Сохраняем..." : "Сохранить изменения"}
+                      {loading ? "Сохраняем..." : "Сохран��ть изменения"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1174,12 +1125,12 @@ function Profile() {
           {/* Security Tab */}
           <TabsContent value="security" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Face ID Settings */}
+              {/* Password Change */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
-                    <Scan className="w-5 h-5" />
-                    <span>Face ID</span>
+                    <Lock className="w-5 h-5" />
+                    <span>Смена пароля</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1187,51 +1138,37 @@ function Profile() {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h5 className="font-medium text-gray-900">
-                          Распознавание лица
+                          Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          {hasFaceID
-                            ? "Face ID настроен и активен"
-                            : "Настройте Face ID для дополнительной безопасности"}
+                          Измените свой пароль для обеспечен��я безопасности аккаунта
                         </p>
                       </div>
-                      <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Активен" : "Не настроен"}
+                      <Badge variant="secondary">
+                        Пароль
                       </Badge>
                     </div>
 
-                    {hasFaceID ? (
-                      <Button
-                        onClick={handleRemoveFaceID}
-                        variant="outline"
-                        size="sm"
-                        className="w-full"
-                      >
-                        Отключить Face ID
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={handleFaceIDSetup}
-                        size="sm"
-                        className="w-full bg-purple-600 hover:bg-purple-700"
-                      >
-                        <Scan className="w-4 h-4 mr-2" />
-                        Настроить Face ID
-                      </Button>
-                    )}
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="w-full bg-purple-600 hover:bg-purple-700"
+                      onClick={() => document.getElementById('currentPassword')?.focus()}
+                    >
+                      <Lock className="w-4 h-4 mr-2" />
+                      Изменить пароль
+                    </Button>
                   </div>
 
-                  {hasFaceID && (
+                  {true && (
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
-                      <p>✓ Face ID запрашивается при входе в личный кабинет</p>
-                      <p>✓ Биометрические данные хранятся локально</p>
-                      <p>✓ Толь��о ваше лицо может получить доступ</p>
+                      <p>✓ Пароль должен содержать минимум 6 символов</p>
+                      <p>✓ Используйте сложные пароли для безопасности</p>
+                      <p>✓ Не используйте один пароль на всех сайтах</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
-
-              {/* Password Change */}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -1276,7 +1213,7 @@ function Profile() {
 
                     <div className="space-y-2">
                       <Label htmlFor="confirmPassword">
-                        Подтвердите пароль
+                        Подтвердит�� пароль
                       </Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -1304,7 +1241,7 @@ function Profile() {
             {/* Danger Zone */}
             <Card className="border-red-200">
               <CardHeader className="bg-red-50">
-                <CardTitle className="text-red-700">Опасная зона</CardTitle>
+                <CardTitle className="text-red-700">��пасная зона</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
@@ -1314,7 +1251,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      данных. Это действие нельзя отменить.
+                      данных. Это действие нельзя ��тменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1362,10 +1299,10 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока нет договоров
+                    У вас пока н��т договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Закажите первую услугу и получите договор автоматически
+                    Закажите первую услу��у и получите договор автоматически
                   </p>
                   <Button
                     onClick={() => setShowOrderForm(true)}
@@ -1417,7 +1354,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Завершен"
+                                  ? "Завер��ен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
@@ -1569,12 +1506,12 @@ function Profile() {
                                 <XCircle className="w-3 h-3 mr-1" />
                               )}
                               {booking.status === "confirmed"
-                                ? "Подтверждена"
+                                ? "��одтверждена"
                                 : booking.status === "completed"
                                   ? "Завершена"
                                   : booking.status === "cancelled"
                                     ? "Отменена"
-                                    : "Ожидает подтверждения"}
+                                    : "Ожидает подтверждени��"}
                             </Badge>
                           </div>
                           <p className="text-gray-600 mb-3">
@@ -1598,7 +1535,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Создано:{" "}
+                            Соз����ано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1628,7 +1565,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Email уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Получать уведомления на email
+                        Получать уведомления н�� email
                       </p>
                     </div>
                     <Switch
@@ -1663,7 +1600,7 @@ function Profile() {
 
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium">SMS уведомления</p>
+                      <p className="font-medium">SMS у��едомления</p>
                       <p className="text-sm text-gray-600">
                         Получать SMS на телефон
                       </p>
@@ -1815,13 +1752,7 @@ function Profile() {
       </div>
 
       {/* Modals */}
-      <FaceIDModal
-        isOpen={showFaceIDModal}
-        onClose={() => setShowFaceIDModal(false)}
-        mode={faceIDMode}
-        onSuccess={handleFaceIDSuccess}
-        onError={handleFaceIDError}
-      />
+
 
       <ServiceOrderForm
         isOpen={showOrderForm}
@@ -1852,10 +1783,4 @@ function Profile() {
   );
 }
 
-export default function ProtectedProfile() {
-  return (
-    <FaceIDProtected requireFaceID={true}>
-      <Profile />
-    </FaceIDProtected>
-  );
-}
+export default Profile;

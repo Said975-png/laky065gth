@@ -1,5 +1,7 @@
 import { RequestHandler } from "express";
 import nodemailer from "nodemailer";
+import fs from "fs";
+import path from "path";
 
 interface OrderItem {
   id: string;
@@ -19,6 +21,40 @@ interface OrderData {
   };
   total: number;
 }
+
+const ORDERS_FILE = path.join(process.cwd(), "data", "orders", "orders.json");
+
+// Ensure orders directory exists
+const ensureOrdersDirectory = () => {
+  const ordersDir = path.dirname(ORDERS_FILE);
+  if (!fs.existsSync(ordersDir)) {
+    fs.mkdirSync(ordersDir, { recursive: true });
+  }
+};
+
+// Load orders from file
+const loadOrders = () => {
+  ensureOrdersDirectory();
+  try {
+    if (fs.existsSync(ORDERS_FILE)) {
+      const data = fs.readFileSync(ORDERS_FILE, "utf-8");
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error("Error loading orders:", error);
+  }
+  return [];
+};
+
+// Save orders to file
+const saveOrders = (orders: any[]) => {
+  ensureOrdersDirectory();
+  try {
+    fs.writeFileSync(ORDERS_FILE, JSON.stringify(orders, null, 2));
+  } catch (error) {
+    console.error("Error saving orders:", error);
+  }
+};
 
 // Создаем транспортер для отправки email
 const createTransporter = () => {
@@ -131,10 +167,24 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
       });
     }
 
+    // Создаем объект заказа для сохранения
+    const order = {
+      id: Date.now().toString(),
+      ...orderData,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
+    // Сохраняем заказ в файл
+    const orders = loadOrders();
+    orders.push(order);
+    saveOrders(orders);
+
     // Логируем заказ в консоль для отладки
     console.log("=== НОВЫЙ ЗАКАЗ ===");
+    console.log("ID заказа:", order.id);
     console.log("Клиент:", { fullName, phone });
-    console.log("Общая стоимость:", orderData.total.toLocaleString(), "сум");
+    console.log("Общая стоимость:", orderData.total.toLocaleString(), "с����");
     console.log(
       "Услуги:",
       orderData.items.map((item) => item.name),
@@ -172,7 +222,7 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
           `,
         };
 
-        // Отправляем email
+        // Отправля��м email
         await transporter.sendMail(mailOptions);
         console.log("✅ Email успешно отправлен на saidaurum@gmail.com");
       } catch (emailError) {
@@ -187,6 +237,7 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
     res.json({
       success: true,
       message: "Заказ успешно получен и обрабатывается",
+      order: order, // Возвращаем данные заказа для сохранения в localStorage
     });
   } catch (error) {
     console.error("❌ Общая ошибка при обработке заказа:", error);
@@ -194,6 +245,24 @@ ${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} 
     res.status(500).json({
       success: false,
       message: "Ошибка сервера при обработке заказа",
+    });
+  }
+};
+
+// Get all orders (for admin)
+export const getAllOrders: RequestHandler = async (req, res) => {
+  try {
+    const orders = loadOrders();
+
+    res.json({
+      success: true,
+      orders: orders,
+    });
+  } catch (error) {
+    console.error("❌ Error getting orders:", error);
+    res.status(500).json({
+      success: false,
+      error: "Ошибка получения заказов",
     });
   }
 };

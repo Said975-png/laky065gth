@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
-import { SiteSearch } from "@/components/SiteSearch";
+
 import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import AuthModal from "@/components/AuthModal";
@@ -203,8 +203,7 @@ export default function StarkHero({
                 <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
               </Button>
 
-              {/* Secondary CTA */}
-              <SiteSearch />
+
             </div>
 
             {/* Feature Highlights */}
@@ -284,7 +283,6 @@ export default function StarkHero({
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
-              { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
               <div
