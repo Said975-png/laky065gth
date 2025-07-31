@@ -1144,8 +1144,8 @@ function Profile() {
                           Измените свой пароль для обеспечения безопасности аккаунта
                         </p>
                       </div>
-                      <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Активен" : "Не настроен"}
+                      <Badge variant="secondary">
+                        Пароль
                       </Badge>
                     </div>
 
@@ -1545,7 +1545,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Соз����ано:{" "}
+                            Соз�����ано:{" "}
                             {new Date(booking.createdAt).toLocaleDateString(
                               "ru-RU",
                             )}
@@ -1647,7 +1647,7 @@ function Profile() {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="light">Светлая</SelectItem>
-                        <SelectItem value="dark">Темная</SelectItem>
+                        <SelectItem value="dark">Те��ная</SelectItem>
                         <SelectItem value="auto">Автоматически</SelectItem>
                       </SelectContent>
                     </Select>
