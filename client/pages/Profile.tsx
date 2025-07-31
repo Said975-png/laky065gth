@@ -998,7 +998,7 @@ function Profile() {
                     />
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Рекомендуемый размер: 400x400px</p>
+                    <p>Рекомендуемый разм��р: 400x400px</p>
                     <p>Максимальный размер: 5MB</p>
                   </div>
                 </CardContent>
@@ -1354,7 +1354,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "Завер��ен"
+                                  ? "Завершен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
