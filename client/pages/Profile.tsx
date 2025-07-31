@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "����рофиль обновлен");
+      addActivityLog("profile_update", "Профиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж���ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
         return;
       }
 
@@ -1141,7 +1141,7 @@ function Profile() {
                           Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
-                          Измените св��й пароль для обеспечен��я безопасности аккаунта
+                          Измените свой пароль для обеспечен��я б��зопасности аккаунта
                         </p>
                       </div>
                       <Badge variant="secondary">
@@ -1585,7 +1585,7 @@ function Profile() {
                     <div>
                       <p className="font-medium">Push уведомления</p>
                       <p className="text-sm text-gray-600">
-                        Уведом��ения в браузере
+                        Уведомления в браузере
                       </p>
                     </div>
                     <Switch
@@ -1636,7 +1636,7 @@ function Profile() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="light">Светлая</SelectItem>
+                        <SelectItem value="light">Св��тлая</SelectItem>
                         <SelectItem value="dark">Темная</SelectItem>
                         <SelectItem value="auto">Автоматически</SelectItem>
                       </SelectContent>
