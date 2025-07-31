@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
-import { handleSendOrder } from "./routes/orders";
+import { handleSendOrder, getAllOrders } from "./routes/orders";
+import { registerUser, getAllUsers } from "./routes/users";
 
 import { handleGroqChat } from "./routes/groq-chat";
 import {
