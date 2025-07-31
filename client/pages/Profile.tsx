@@ -1241,7 +1241,7 @@ function Profile() {
             {/* Danger Zone */}
             <Card className="border-red-200">
               <CardHeader className="bg-red-50">
-                <CardTitle className="text-red-700">��пасная зона</CardTitle>
+                <CardTitle className="text-red-700">Опасная зона</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-4">
@@ -1251,7 +1251,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      данных. Это действие нельзя ��тменить.
+                      данных. Это действие нельзя отменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1299,10 +1299,10 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока н��т договоров
+                    У вас пока нет договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Закажите первую услу��у и получите договор автоматически
+                    Закажите первую услугу и получите договор автоматически
                   </p>
                   <Button
                     onClick={() => setShowOrderForm(true)}
@@ -1354,7 +1354,7 @@ function Profile() {
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
-                                  ? "За��ершен"
+                                  ? "Завершен"
                                   : contract.status === "cancelled"
                                     ? "Отменен"
                                     : "Черновик"}
@@ -1625,7 +1625,7 @@ function Profile() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Тема оформления</Label>
+                    <Label>Тема оформлени��</Label>
                     <Select
                       value={preferences.theme}
                       onValueChange={(value: "light" | "dark" | "auto") =>
