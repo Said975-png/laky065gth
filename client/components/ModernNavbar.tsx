@@ -191,8 +191,32 @@ export default function ModernNavbar({
 
   // Обработка результата поиска
   const handleSelectResult = useCallback((result: any) => {
+    // Сначала закрываем поиск
+    setIsSearchOpen(false);
+    setSearchQuery("");
+
     if (result.url) {
+      // Навигация на страницу
       navigate(result.url);
+
+      // Дополнительные действия после навигации для специфических страниц
+      setTimeout(() => {
+        switch (result.id) {
+          case "plans-basic":
+          case "plans-pro":
+          case "plans-max":
+            document
+              .querySelector('[data-section="plans"]')
+              ?.scrollIntoView({ behavior: "smooth" });
+            break;
+          case "voice-commands":
+            document.querySelector('[data-testid="voice-control"]')?.click();
+            break;
+          case "cart":
+            document.querySelector('[data-testid="cart-button"]')?.click();
+            break;
+        }
+      }, 100);
     } else {
       // Скролл к соответствующей секции или выполнение специального действия
       switch (result.id) {
@@ -213,8 +237,6 @@ export default function ModernNavbar({
           window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
-    setIsSearchOpen(false);
-    setSearchQuery("");
   }, [navigate]);
 
   // Обработка клавиш для поиска
