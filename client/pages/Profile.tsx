@@ -433,7 +433,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog("profile_update", "Профил�� обновлен");
+      addActivityLog("profile_update", "Профиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -473,7 +473,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содерж��ть ��иниму�� 6 символов");
+        setError("Новый пароль должен содержать минимум 6 символов");
         return;
       }
 
@@ -728,7 +728,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Вс��го договоров
+                        Всего договоров
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.totalContracts}
@@ -998,7 +998,7 @@ function Profile() {
                     />
                   </div>
                   <div className="text-sm text-gray-500">
-                    <p>Рекомендуемый размер: 400x400px</p>
+                    <p>Рекомендуемый разм��р: 400x400px</p>
                     <p>Максимальный размер: 5MB</p>
                   </div>
                 </CardContent>
@@ -1421,7 +1421,7 @@ function Profile() {
                   Мои брони
                 </h3>
                 <p className="text-gray-600">
-                  Управление бронированием консультаций и встре��
+                  Управление бронированием консультаций и встреч
                 </p>
               </div>
               <Button
