@@ -590,7 +590,7 @@ function Profile() {
                 </div>
                 <div className="hidden sm:block">
                   <h1 className="font-semibold text-gray-900">
-                    Личный кабинет
+                    ��ичный кабинет
                   </h1>
                   <p className="text-xs text-gray-500">
                     Добро пожаловать, {currentUser.name}
@@ -874,7 +874,7 @@ function Profile() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Shield className="w-5 h-5" />
-                    <span>Безопасность</span>
+                    <span>Бе��опасность</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1163,7 +1163,7 @@ function Profile() {
                   {true && (
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Пароль должен содержать минимум 6 символов</p>
-                      <p>✓ Используйте сложные п��роли для безопасности</p>
+                      <p>✓ Используйте сложные пароли для безопасности</p>
                       <p>✓ Не используйте один пароль на всех сайтах</p>
                     </div>
                   )}
@@ -1202,8 +1202,8 @@ function Profile() {
                           id="newPassword"
                           name="newPassword"
                           type="password"
-                          value={passwordForm.newPassword}
-                          onChange={handlePasswordInputChange}
+                          value={formData.newPassword}
+                          onChange={handleChange}
                           className="pl-10"
                           required
                           minLength={6}
@@ -1251,7 +1251,7 @@ function Profile() {
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
                       Удаление аккаунта приведёт к полному удалению всех ваших
-                      ��анных. Это действие нельзя отменить.
+                      данных. Это действие нельзя отменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1283,7 +1283,7 @@ function Profile() {
                 className="bg-purple-600 hover:bg-purple-700"
               >
                 <Plus className="w-4 h-4 mr-2" />
-                Заказать ус��угу
+                Заказать услугу
               </Button>
             </div>
 
@@ -1421,7 +1421,7 @@ function Profile() {
                   Мои брони
                 </h3>
                 <p className="text-gray-600">
-                  Управление бронированием консультаций и встреч
+                  Управл��ние бронированием консультаций и встреч
                 </p>
               </div>
               <Button
@@ -1448,7 +1448,7 @@ function Profile() {
                     У вас пока нет броней
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Забронируйте консультацию, чтобы обсудить ваш проект
+                    Забронируйте консультацию, чтобы обсуд��ть ваш проект
                   </p>
                   <Button
                     onClick={() => setShowBookingForm(true)}
@@ -1677,7 +1677,7 @@ function Profile() {
                           Москва (UTC+3)
                         </SelectItem>
                         <SelectItem value="Europe/Kiev">
-                          Киев (UTC+2)
+                          К��ев (UTC+2)
                         </SelectItem>
                         <SelectItem value="Asia/Almaty">
                           Алматы (UTC+6)
