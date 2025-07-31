@@ -46,28 +46,40 @@ export default function SignUp() {
     }
 
     try {
-      // Check if user already exists in localStorage
-      const existingUsers = JSON.parse(
-        localStorage.getItem("users") || "[]",
-      ) as User[];
+      // Отправляем данные в API
+      const response = await fetch("/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-      const userExists = existingUsers.find(user => user.email === formData.email);
-      if (userExists) {
-        setError("Пользователь с таким email уже существует");
+      const result = await response.json();
+
+      if (!result.success) {
+        setError(result.error || "Ошибка регистрации");
         setLoading(false);
         return;
       }
 
-      // Создаём нового пользователя
+      // Создаём нового пользователя для localStorage (совместимость)
       const newUser: User = {
-        id: Date.now().toString(),
+        id: result.userId || Date.now().toString(),
         name: formData.name,
         email: formData.email,
         password: formData.password,
         createdAt: new Date().toISOString(),
       };
 
-      // Добавляем пользователя в localStorage
+      // Также сохраняем в localStorage для совместимости
+      const existingUsers = JSON.parse(
+        localStorage.getItem("users") || "[]",
+      ) as User[];
       existingUsers.push(newUser);
       localStorage.setItem("users", JSON.stringify(existingUsers));
 
