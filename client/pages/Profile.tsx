@@ -134,11 +134,7 @@ function Profile() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [activeTab, setActiveTab] = useState("dashboard");
-  const [showFaceIDModal, setShowFaceIDModal] = useState(false);
-  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
-    "register",
-  );
-  const [hasFaceID, setHasFaceID] = useState(false);
+
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [loadingContracts, setLoadingContracts] = useState(false);
   const [bookings, setBookings] = useState<BookingData[]>([]);
@@ -730,7 +726,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <Shield className="w-4 h-4" />
-              <span className="hidden sm:inline">Безопасн��сть</span>
+              <span className="hidden sm:inline">Безопасность</span>
             </TabsTrigger>
             <TabsTrigger
               value="contracts"
@@ -1778,7 +1774,7 @@ function Profile() {
                   {activityLog.length === 0 ? (
                     <div className="text-center py-8">
                       <Activity className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">Активно��ть не найдена</p>
+                      <p className="text-gray-500">Активность не найдена</p>
                     </div>
                   ) : (
                     activityLog.map((log) => (
