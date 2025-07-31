@@ -687,7 +687,7 @@
     }
   }
 
-  /* Светящиеся эффекты для ���нопок */
+  /* Светящиеся эффекты для кнопок */
   .glow-button {
     position: relative;
     overflow: hidden;
@@ -1073,7 +1073,7 @@
     }
   }
 
-  /* Stark/JARVIS специ��льные анимации */
+  /* Stark/JARVIS специальные анимации */
   @keyframes gradient-shift {
     0% {
       background-position: 0% 50%;
@@ -1327,7 +1327,7 @@
     }
   }
 
-  /* Stark UI у��илиты */
+  /* Stark UI утилиты */
   .stark-glow {
     box-shadow:
       0 0 20px rgba(6, 182, 212, 0.3),
@@ -1383,7 +1383,7 @@
     animation: stark-typing 2s steps(40) forwards;
   }
 
-  /* Улучшенны�� градиенты для Stark стиля */
+  /* Улучшенные градиенты для Stark стиля */
   .stark-gradient {
     background: linear-gradient(
       135deg,
@@ -1548,7 +1548,7 @@
 
   /* STARK LABORATORY THEME - Лабораторная тема Старка */
 
-  /* Основные переменные для лабор��торн��й темы */
+  /* Основные переменные для лабораторной темы */
   .stark-lab-theme {
     --background: 195 100% 6%; /* #0f2027 конвертированный в HSL */
     --foreground: 195 100% 93%; /* #e6f7ff */
