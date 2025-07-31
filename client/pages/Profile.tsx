@@ -1138,7 +1138,7 @@ function Profile() {
                     <div className="flex items-center justify-between mb-3">
                       <div>
                         <h5 className="font-medium text-gray-900">
-                          Распознавание лица
+                          Смена пароля
                         </h5>
                         <p className="text-sm text-gray-600">
                           {hasFaceID
@@ -1314,7 +1314,7 @@ function Profile() {
                     У вас пока н��т договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Закажите первую услугу и получите договор автоматически
+                    Закажите первую услу��у и получите договор автоматически
                   </p>
                   <Button
                     onClick={() => setShowOrderForm(true)}
