@@ -1114,7 +1114,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Сохраняем..." : "Сохранить изменения"}
+                      {loading ? "Сохраняем..." : "Сохран��ть изменения"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1160,7 +1160,7 @@ function Profile() {
                     </Button>
                   </div>
 
-                  {hasFaceID && (
+                  {true && (
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Face ID запрашивается при входе в личный кабинет</p>
                       <p>✓ Биометрические данные хранятся локально</p>
