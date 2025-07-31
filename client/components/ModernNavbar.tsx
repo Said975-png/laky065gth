@@ -114,24 +114,28 @@ export default function ModernNavbar({
       title: "Корзина",
       description: "Выбранные тарифные планы",
       type: "feature",
+      url: "/",
     },
     {
       id: "ai-features",
       title: "AI возможности",
       description: "Искусственный интеллект и автоматизация",
       type: "feature",
+      url: "/",
     },
     {
       id: "blockchain",
       title: "Blockchain интеграция",
       description: "Технологии блокчейн и криптографии",
       type: "feature",
+      url: "/",
     },
     {
       id: "stark-tech",
       title: "Stark Industries Technology",
       description: "Продвинутые технологии Stark Industries",
       type: "feature",
+      url: "/",
     },
   ];
 
@@ -269,7 +273,7 @@ export default function ModernNavbar({
   const getTypeLabel = (type: string) => {
     switch (type) {
       case "page":
-        return "Страни��а";
+        return "Страница";
       case "feature":
         return "Функция";
       case "plan":
