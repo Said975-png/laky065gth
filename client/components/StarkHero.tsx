@@ -307,7 +307,7 @@ export default function StarkHero({
         onClose={() => setShowCommandsPanel(false)}
       />
 
-      {/* Модальное окно ав��оризации */}
+      {/* Модальное окно авторизации */}
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
