@@ -75,7 +75,7 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
           ${
             formData.referenceUrl
               ? `
-          <h2>🌐 Ссылка на образец сайта</h2>
+          <h2>🌐 Ссы��ка на образец сайта</h2>
           <div class="customer-info">
             <p><a href="${formData.referenceUrl}" target="_blank" style="color: #667eea; text-decoration: none;">${formData.referenceUrl}</a></p>
           </div>
@@ -131,8 +131,17 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
       });
     }
 
+    // Создаем объект заказа для сохранения
+    const order = {
+      id: Date.now().toString(),
+      ...orderData,
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
+
     // Логируем заказ в консоль для отладки
     console.log("=== НОВЫЙ ЗАКАЗ ===");
+    console.log("ID заказа:", order.id);
     console.log("Клиент:", { fullName, phone });
     console.log("Общая стоимость:", orderData.total.toLocaleString(), "сум");
     console.log(
