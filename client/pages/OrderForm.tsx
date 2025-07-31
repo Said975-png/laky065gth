@@ -68,6 +68,13 @@ export default function OrderForm() {
       const result: OrderResponse = await response.json();
 
       if (result.success) {
+        // Сохраняем заказ в localStorage для админки
+        if (result.order) {
+          const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+          existingOrders.push(result.order);
+          localStorage.setItem("orders", JSON.stringify(existingOrders));
+        }
+
         setIsSubmitted(true);
         setTimeout(() => {
           clearCart();
